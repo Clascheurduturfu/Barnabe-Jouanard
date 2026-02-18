@@ -107,7 +107,7 @@
 [ Route 101 ]
       ^
       | (North)
-[ Littleroot Town ] ---->  [ Home ]
+[ Littleroot Town ] ---->  [ ici ]
     </div>
 
     <ul>
