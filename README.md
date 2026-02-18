@@ -1,132 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Zuul Project - Pokémon Delta Emerald</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Delta Emerald - Projet Zuul</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #2c3e50;
+            color: #333;
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #e8f5e9; /* Light Emerald Green */
+            background-color: #f4f7f6;
         }
         header {
-            background-color: #1b5e20; /* Dark Green */
-            color: #ffffff;
-            padding: 30px;
+            background-color: #2e7d32;
+            color: white;
+            padding: 2rem;
             text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
+        h1 { margin: 0; }
         .container {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         h2 {
             color: #2e7d32;
-            border-bottom: 3px solid #81c784;
+            border-bottom: 2px solid #a5d6a7;
             padding-bottom: 10px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
-        h3 { color: #388e3c; }
-        ul { list-style-type: disc; margin-left: 20px; }
-        .map-section {
-            background-color: #f1f8e9;
-            border: 2px solid #a5d6a7;
-            padding: 20px;
-            margin-top: 20px;
-            font-family: monospace;
-            white-space: pre;
-            overflow-x: auto;
+        .info-section {
+            margin-bottom: 20px;
+        }
+        .plan-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         footer {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 40px;
             font-size: 0.9em;
             color: #666;
-            border-top: 1px solid #ccc;
-            padding-top: 20px;
         }
-        strong { color: #1b5e20; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Zuul Adventure: Pokémon Delta Emerald</h1>
-    <p>Provisional Title: A3P 2025/2026 g&alpha;</p>
-</header>
+    <header>
+        <h1>Pokémon Delta Emerald</h1>
+        <p>Projet Zuul - ESIEE Paris</p>
+    </header>
 
-<div class="container">
-    
-    <h2>I.A) Author</h2>
-    <p><strong>Name:</strong> [Your Name Here]</p>
+    <div class="container">
+        
+        <section class="info-section">
+            <h2>I.A) Auteur</h2>
+            <p><strong>Barnabé Jouanard</strong></p>
+        </section>
 
-    <h2>I.B) Theme (Exercise 7.1.1)</h2>
-    <p>
-        The game is based on the <strong>Hoenn Region</strong> from Pokémon Emerald. 
-        Unlike the original turn-based RPG, this is a text-based adventure where the player 
-        must navigate through routes and cities, solve environmental puzzles, and stop 
-        the climate crisis caused by legendary Pokémon.
-    </p>
+        <section class="info-section">
+            <h2>I.B) Thème</h2>
+            <p>Ce projet est un jeu d'aventure textuel se déroulant dans la région de <strong>Hoenn</strong> (univers Pokémon). Le jeu se concentre sur l'exploration et la résolution d'énigmes environnementales pour mettre fin à un conflit légendaire entre les forces de la terre et de la mer.</p>
+        </section>
 
-    <h2>I.C) Complete Scenario Summary (Exercise 7.3.1)</h2>
-    <p>
-        The player starts in <strong>Littleroot Town</strong>. After obtaining a starter Pokémon 
-        from Professor Birch, they realize that the weather in Hoenn is becoming dangerously 
-        unstable. Heavy rains and extreme droughts are clashing.
-    </p>
-    <p>
-        To save the region, the player must travel to <strong>Rustboro City</strong> to find 
-        the Devon Parts, navigate the <strong>Petalburg Woods</strong>, and ultimately reach 
-        the <strong>Sky Pillar</strong>. The goal is to find the "Emerald Orb" and use it to 
-        summon Rayquaza to stop the fighting between Groudon and Kyogre. 
-        <strong>Win Condition:</strong> Reach the Sky Pillar with the Emerald Orb.
-    </p>
+        <section class="info-section">
+            <h2>I.C) Résumé du scénario complet</h2>
+            <p>Le joueur incarne un jeune dresseur débutant son voyage à <strong>Bourg-en-Vol</strong> (Littleroot Town). La région est en proie à des dérèglements climatiques extrêmes sans précédent. </p>
+            <p>L'objectif principal est de traverser la partie ouest de Hoenn pour retrouver l'<strong>Orbe Émeraude</strong>. Cet objet sacré est la clé pour accéder au sommet du <strong>Pilier Céleste</strong> et réveiller le légendaire <strong>Rayquaza</strong>, le seul Pokémon capable de calmer les titans Groudon et Kyogre et de restaurer l'équilibre climatique de la région.</p>
+        </section>
 
-    <h2>I.D) Full Plan (Exercise 7.3.2)</h2>
-    <p>The Hoenn map structure for the Zuul engine:</p>
-    
-    <div class="map-section">
-[ Sky Pillar ]
-      ^
-      | (North)
-[ Rustboro City ] <--- [ Petalburg Woods ]
-                              ^
-                              | (North)
-[ Oldale Town ] ----> [ Route 102 ] ----> [ Petalburg City ]
-      ^
-      | (North)
-[ Route 101 ]
-      ^
-      | (North)
-[ Littleroot Town ] ---->  [ ici ]
+        <section class="info-section">
+            <h2>I.D) Plan complet</h2>
+            <p>Voici l'organisation géographique des lieux et des donjons de l'aventure :</p>
+            <img src="https://github.com/Clascheurduturfu/Barnabe-Jouanard/blob/main/Dessin%20sans%20titre.png?raw=true" alt="Plan de la région Hoenn - Delta Emerald" class="plan-img">
+        </section>
+
     </div>
 
-    <ul>
-	<li><strong>The House:</strong> The starting point. A safe place to rest before your journey.</li>
-        <li><strong>Littleroot Town:</strong> Starting room (Home).</li>
-        <li><strong>Route 101:</strong> Connection between Littleroot and Oldale.</li>
-        <li><strong>Oldale Town:</strong> Junction point.</li>
-        <li><strong>Route 102:</strong> Path to the west.</li>
-        <li><strong>Petalburg City:</strong> Major city (Gym location).</li>
-        <li><strong>Petalburg Woods:</strong> A maze-like forest room.</li>
-        <li><strong>Rustboro City:</strong> The industrial center.</li>
-        <li><strong>Sky Pillar:</strong> The final destination (Victory Room).</li>
-    </ul>
-
-</div>
-
-<footer>
-    <p>Project realized for E1/A3P Unit - ESIEE Paris</p>
-</footer>
+    <footer>
+        <p>&copy; 2026 Barnabé Jouanard - Projet Programmation Orientée Objet</p>
+    </footer>
 
 </body>
 </html>
