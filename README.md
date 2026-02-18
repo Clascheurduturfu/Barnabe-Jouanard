@@ -101,7 +101,7 @@
             </section>
 
             <section>
-                <h2>I.D) Plan complet</h2>
+                <h2>I.D) Plan complet v1</h2>
                 <p>Organisation géographique de l'aventure :</p>
                 <img src="https://github.com/Clascheurduturfu/Barnabe-Jouanard/blob/main/Dessin%20sans%20titre.png?raw=true" alt="Plan Hoenn" class="plan-img">
             </section>
