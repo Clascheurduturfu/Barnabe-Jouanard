@@ -5,48 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon Delta Emerald - Projet Zuul</title>
     <style>
+        /* Base reset and layout */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
             background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        /* The wrapper ensures the green box and white box are the same width */
+        .main-wrapper {
+            width: 100%;
+            max-width: 900px;
+        }
+
         header {
             background-color: #2e7d32;
             color: white;
-            padding: 2rem;
+            padding: 40px 20px;
             text-align: center;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            border-radius: 8px 8px 0 0; /* Rounded only at the top */
+            box-sizing: border-box; /* Crucial for alignment */
         }
-        h1 { margin: 0; }
+
+        header h1 { 
+            margin: 0; 
+            font-size: 2.5rem;
+        }
+
+        header p { 
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+
         .container {
             background: white;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 0 0 8px 8px; /* Rounded only at the bottom */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-sizing: border-box; /* Crucial for alignment */
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
+
         h2 {
             color: #2e7d32;
             border-bottom: 2px solid #a5d6a7;
             padding-bottom: 10px;
             margin-top: 30px;
         }
-        .info-section {
-            margin-bottom: 20px;
-        }
+
         .plan-img {
             max-width: 100%;
             height: auto;
             display: block;
             margin: 20px auto;
-            border: 1px solid #ddd;
             border-radius: 4px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+
         footer {
             text-align: center;
             margin-top: 40px;
@@ -57,39 +78,38 @@
 </head>
 <body>
 
-    <header>
-        <h1>Pokémon Delta Emerald</h1>
-        <p>Projet Zuul - ESIEE Paris</p>
-    </header>
+    <div class="main-wrapper">
+        <header>
+            <h1>Pokémon Delta Emerald</h1>
+            <p>Projet Zuul - ESIEE Paris</p>
+        </header>
 
-    <div class="container">
-        
-        <section class="info-section">
-            <h2>I.A) Auteur</h2>
-            <p><strong>Barnabé Jouanard</strong></p>
-        </section>
+        <div class="container">
+            <section>
+                <h2>I.A) Auteur</h2>
+                <p><strong>Barnabé Jouanard</strong></p>
+            </section>
 
-        <section class="info-section">
-            <h2>I.B) Thème</h2>
-            <p>Ce projet est un jeu d'aventure textuel se déroulant dans la région de <strong>Hoenn</strong> (univers Pokémon). Le jeu se concentre sur l'exploration et la résolution d'énigmes environnementales pour mettre fin à un conflit légendaire entre les forces de la terre et de la mer.</p>
-        </section>
+            <section>
+                <h2>I.B) Thème</h2>
+                <p>Ce projet est un jeu d'aventure textuel se déroulant dans la région de <strong>Hoenn</strong>. Il se concentre sur l'exploration environnementale pour stopper un conflit légendaire entre la terre et la mer.</p>
+            </section>
 
-        <section class="info-section">
-            <h2>I.C) Résumé du scénario complet</h2>
-            <p>Le joueur incarne un jeune dresseur débutant son voyage à <strong>Bourg-en-Vol</strong> (Littleroot Town). La région est en proie à des dérèglements climatiques extrêmes sans précédent. </p>
-            <p>L'objectif principal est de traverser la partie ouest de Hoenn pour retrouver l'<strong>Orbe Émeraude</strong>. Cet objet sacré est la clé pour accéder au sommet du <strong>Pilier Céleste</strong> et réveiller le légendaire <strong>Rayquaza</strong>, le seul Pokémon capable de calmer les titans Groudon et Kyogre et de restaurer l'équilibre climatique de la région.</p>
-        </section>
+            <section>
+                <h2>I.C) Résumé du scénario</h2>
+                <p>Le joueur incarne un dresseur débutant son voyage à <strong>Bourg-en-Vol</strong>. L'objectif est de retrouver l'<strong>Orbe Émeraude</strong> pour réveiller <strong>Rayquaza</strong> au sommet du <strong>Pilier Céleste</strong> et restaurer l'équilibre climatique de la région.</p>
+            </section>
 
-        <section class="info-section">
-            <h2>I.D) Plan complet</h2>
-            <p>Voici l'organisation géographique des lieux et des donjons de l'aventure :</p>
-            <img src="https://github.com/Clascheurduturfu/Barnabe-Jouanard/blob/main/Dessin%20sans%20titre.png?raw=true" alt="Plan de la région Hoenn - Delta Emerald" class="plan-img">
-        </section>
-
+            <section>
+                <h2>I.D) Plan complet</h2>
+                <p>Organisation géographique de l'aventure :</p>
+                <img src="https://github.com/Clascheurduturfu/Barnabe-Jouanard/blob/main/Dessin%20sans%20titre.png?raw=true" alt="Plan Hoenn" class="plan-img">
+            </section>
+        </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Barnabé Jouanard - Projet Programmation Orientée Objet</p>
+        <p>&copy; 2026 Barnabé Jouanard - POO</p>
     </footer>
 
 </body>
