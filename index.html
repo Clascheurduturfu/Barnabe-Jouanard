@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon Delta Emerald - Projet Zuul</title>
+    
+    <link rel="icon" type="image/png" href="https://github.com/Clascheurduturfu/Barnabe-Jouanard/blob/main/Dessin%20sans%20titre.png?raw=true">
+
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,15 +43,19 @@
         .info-section {
             margin-bottom: 20px;
         }
-        .plan-img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 20px auto;
+        
+        /* 3D MODEL STYLING */
+        model-viewer {
+            width: 100%;
+            height: 600px; /* Augmenté un peu pour le plan final */
+            background-color: transparent; 
+            border-radius: 8px;
+            margin: 20px 0;
+            --poster-color: transparent;
             border: 1px solid #ddd;
-            border-radius: 4px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+
         footer {
             text-align: center;
             margin-top: 40px;
@@ -63,15 +72,10 @@
     </header>
 
     <div class="container">
-        
+
         <section class="info-section">
             <h2>I.A) Auteur</h2>
             <p><strong>Barnabé Jouanard</strong></p>
-        </section>
-
-        <section class="info-section">
-            <h2>I.B) Thème</h2>
-            <p>Ce projet est un jeu d'aventure textuel se déroulant dans la région de <strong>Hoenn</strong> (univers Pokémon). Le jeu se concentre sur l'exploration et la résolution d'énigmes environnementales pour mettre fin à un conflit légendaire entre les forces de la terre et de la mer.</p>
         </section>
 
         <section class="info-section">
@@ -81,9 +85,22 @@
         </section>
 
         <section class="info-section">
-            <h2>I.D) Plan complet</h2>
-            <p>Voici l'organisation géographique des lieux et des donjons de l'aventure :</p>
-            <img src="https://github.com/Clascheurduturfu/Barnabe-Jouanard/blob/main/Dessin%20sans%20titre.png?raw=true" alt="Plan de la région Hoenn - Delta Emerald" class="plan-img">
+            <h2>I.D) Plan complet (Interactif)</h2>
+            <p>Voici l'organisation géographique des lieux et des donjons de l'aventure en 3D :</p>
+            
+            <model-viewer 
+                src="https://raw.githubusercontent.com/Clascheurduturfu/Barnabe-Jouanard/main/Hoeen_map.glb" 
+                environment-image="neutral"
+                alt="3D map of the Hoenn region"
+                exposure="1"
+                ar 
+                auto-rotate 
+                camera-controls 
+                shadow-intensity="1" 
+                touch-action="pan-y">
+            </model-viewer>
+            
+            <p><em>Utilisez votre souris ou votre doigt pour faire pivoter la carte et explorer les connexions entre les zones.</em></p>
         </section>
 
     </div>
