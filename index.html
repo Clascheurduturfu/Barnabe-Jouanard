@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon Delta Emerald - Projet Zuul</title>
     
-    <link rel="icon" type="image/png" href="https://github.com/Clascheurduturfu/Barnabe-Jouanard/blob/main/Dessin%20sans%20titre.png?raw=true">
+    <link rel="icon" type="image/png" href="https://github.com/Clascheurduturfu/Barnabe-Jouanard/blob/main/Delta_Emerald_icon.jpg?raw=true">
 
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     
@@ -47,13 +47,11 @@
         /* 3D MODEL STYLING */
         model-viewer {
             width: 100%;
-            height: 600px; /* Augmenté un peu pour le plan final */
-            background-color: transparent; 
+            height: 500px;
+            background-color: #bbdefb;
             border-radius: 8px;
             margin: 20px 0;
             --poster-color: transparent;
-            border: 1px solid #ddd;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         footer {
@@ -89,10 +87,10 @@
             <p>Voici l'organisation géographique des lieux et des donjons de l'aventure en 3D :</p>
             
             <model-viewer 
-                src="https://raw.githubusercontent.com/Clascheurduturfu/Barnabe-Jouanard/main/Hoeen_map.glb" 
-                environment-image="neutral"
+                src="https://raw.githubusercontent.com/Clascheurduturfu/Barnabe-Jouanard/main/Hoenn_map.glb" 
+		environment-image="neutral" 
                 alt="3D map of the Hoenn region"
-                exposure="1"
+		exposure="1"
                 ar 
                 auto-rotate 
                 camera-controls 
