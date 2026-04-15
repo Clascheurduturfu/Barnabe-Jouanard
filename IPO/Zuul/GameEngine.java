@@ -54,15 +54,15 @@ public class GameEngine
     {
         Room house, littleroot, route101, oldale, route102, petalburg, petalburgWoods, rustboro, skyPillar;
 
-        house      = new Room( "in your house in Littleroot Town", "images/home.gif" );
-        littleroot = new Room( "in Littleroot Town, your home town", "images/littleroot town.gif" );
-        route101   = new Room( "on Route 101; wild Pokémon might appear in the tall grass", "images/route 101.gif" );
-        oldale     = new Room( "in Oldale Town, a small junction with a Pokémon Center", "images/oldale town.gif" );
-        route102   = new Room( "on Route 102; wild Pokémon might appear in the tall grass", "images/route 102.gif" );
-        petalburg  = new Room( "in Petalburg City, where your father is the Gym Leader", "images/petalburg city.gif" );
-        petalburgWoods  = new Room( "in Petalburg Woods", "images/petalburg woods.gif" );
-        rustboro   = new Room( "in Rustboro City, where the Devon Corporation is located", "images/rustboro city.gif" );
-        skyPillar  = new Room( "at the Sky Pillar, Rayquaza's home", "images/sky pillar.gif" );
+        house      = new Room( "in your house in Littleroot Town", "images/home.gif", "images/home_map.jpeg" );
+        littleroot = new Room( "in Littleroot Town, your home town", "images/littleroot town.gif", "images/littleroot_map.jpeg" );
+        route101   = new Room( "on Route 101; wild Pokémon might appear in the tall grass", "images/route 101.gif", "images/route101_map.jpeg" );
+        oldale     = new Room( "in Oldale Town, a small junction with a Pokémon Center", "images/oldale town.gif", "images/oldale town_map.jpeg" );
+        route102   = new Room( "on Route 102; wild Pokémon might appear in the tall grass", "images/route 102.gif", "images/route102_map.jpeg" );
+        petalburg  = new Room( "in Petalburg City, where your father is the Gym Leader", "images/petalburg city.gif", "images/petalburg city_map.jpeg" );
+        petalburgWoods  = new Room( "in Petalburg Woods", "images/petalburg woods.gif", "images/petalburg woods_map.jpeg" );
+        rustboro   = new Room( "in Rustboro City, where the Devon Corporation is located", "images/rustboro city.gif", "images/rustboro city_map.jpeg" );
+        skyPillar  = new Room( "on the Sky Pillar, Rayquaza's home", "images/sky pillar.gif", "images/sky pilar_map.jpeg" );
 
         house.setExit( "west", littleroot );
 
@@ -90,13 +90,15 @@ public class GameEngine
         rustboro.setExit( "south", oldale );
 
         skyPillar.setExit( "down", rustboro );
+        
+        skyPillar.setAsWinningRoom();
 
         house.addItem( "map", new Item( "map: a map that helps you navigate.", 0 ) );
         house.addItem( "shoes", new Item( "shoes: your shoes.", 0 ) );
-        skyPillar.addItem( "delta-orb", new Item( "delta-orb : The Delta Orb, which lets you summon Rayquaza", 100 ) );
+        petalburg.addItem( "delta-orb", new Item( "delta-orb : The Delta Orb, which lets you summon Rayquaza", 100 ) );
 
         this.aPlayer = new Player( "Luke", house );
-    } // createRooms()
+    } // createRooms()  
 
     /**
      * Moves the player in the direction given as the command's second word.
@@ -128,6 +130,15 @@ public class GameEngine
             this.aGui.println( this.aPlayer.getCurrentRoom().getLongDescription() );
             if ( this.aPlayer.getCurrentRoom().getImageName() != null ) {
                 this.aGui.showImage( this.aPlayer.getCurrentRoom().getImageName() );
+                if ( this.aPlayer.getItem( "map" ) != null ) {
+                    this.aGui.showMap( this.aPlayer.getCurrentRoom().getMapImageName() );
+                }
+            }
+
+            if ( this.aPlayer.getItem( "delta-orb" ) != null ) {
+                if ( this.aPlayer.getCurrentRoom().isWinningRoom() ) {
+                    this.aGui.println( "\n" + "Congratulations! You just won! Thank you for playing the whole game!" );
+                }
             }
         }
     } // goRoom()
@@ -157,6 +168,15 @@ public class GameEngine
             this.aGui.println( this.aPlayer.getCurrentRoom().getLongDescription() );
             if ( this.aPlayer.getCurrentRoom().getImageName() != null ) {
                 this.aGui.showImage( this.aPlayer.getCurrentRoom().getImageName() );
+                if ( this.aPlayer.getItem( "map" ) != null ) {
+                    this.aGui.showMap( this.aPlayer.getCurrentRoom().getMapImageName() );
+                }
+            }
+            
+            if ( this.aPlayer.getItem( "delta-orb" ) != null ) {
+                if ( this.aPlayer.getCurrentRoom().isWinningRoom() ) {
+                    this.aGui.println( "\n" + "You want to keep winning, don't you?" );
+                }
             }
         }
     } // goBack()
@@ -246,7 +266,7 @@ public class GameEngine
      */
     private void eat()
     {
-        this.aGui.println( "You have eaten now and you are not hungry any more." );
+        this.aGui.println( "You have eaten and you are not hungry anymore." );
     } // eat()
     
     /**
@@ -283,6 +303,9 @@ public class GameEngine
         this.aPlayer.getCurrentRoom().removeItem( vItemName );
         this.aPlayer.addItem( vItemName, vItem );
         this.aGui.println( "\nTook " + vItemName + "!" );
+        if ( this.aPlayer.getItem( "map" ) != null ) {
+            this.aGui.showMap( this.aPlayer.getCurrentRoom().getMapImageName() );
+        }
     }
 
     /**
@@ -305,6 +328,9 @@ public class GameEngine
         this.aPlayer.getCurrentRoom().addItem( vItemName, vItem );
         this.aPlayer.removeItem( vItemName );
         this.aGui.println( "\nDropped " + vItemName + "!" );
+        if ( this.aPlayer.getItem( "map" ) == null ) {
+            this.aGui.showMap( "images/no map.jpeg" );
+        }
     }
 
     /**
@@ -314,6 +340,7 @@ public class GameEngine
     {
         this.aGui.println( "Thank you for playing! Goodbye." );
         this.aGui.enable( false );
+        System.exit( 0 );
     }
 
     /**
@@ -353,14 +380,17 @@ public class GameEngine
     private void printWelcome()
     {
         this.aGui.print( "\n" );
-        this.aGui.println( "Hello " + this.aPlayer.getName() + " !" );
-        this.aGui.println( "You can change your name with the command -name <new name>." );
+        this.aGui.println( "Hello " + this.aPlayer.getName() + "!" );
+        this.aGui.println( "You can change your name with the command: name <new name>." );
         this.aGui.println( "Welcome to the world of Pokémon!" );
         this.aGui.println( "A wonderful world where you can live an adventure!" );
         this.aGui.println( "Type 'help' if you need help." );
         this.printLocationInfo();
         if ( this.aPlayer.getCurrentRoom().getImageName() != null ) {
             this.aGui.showImage( this.aPlayer.getCurrentRoom().getImageName() );
+        }
+        if ( this.aPlayer.getItem( "map" ) == null ) {
+            this.aGui.showMap( "images/no map.jpeg" );
         }
     } // printWelcome()
 
@@ -369,7 +399,7 @@ public class GameEngine
      */
     private void printHelp()
     {
-        this.aGui.println( "Hello " + this.aPlayer.getName() + " !" );
+        this.aGui.println( "Hello " + this.aPlayer.getName() + "!" );
         this.aGui.println( "You are in the wonderful world of Pokémon." );
         this.aGui.println( "You are trying to stop Rayquaza from destroying Hoenn." );
         this.aGui.println( "Your command words are:" );

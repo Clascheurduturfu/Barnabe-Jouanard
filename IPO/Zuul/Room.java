@@ -13,22 +13,28 @@ public class Room
     private String aDescription;
     /** Maps direction names to neighboring {@link Room} instances. */
     private HashMap<String, Room> aExits;
-    /** Classpath resource path for the optional room illustration. */
+    /** Classpath resource path for the room illustration. */
     private String aImageName;
+    /** Classpath resource path for the room's map illustration. */
+    private String aMapImageName;
     /** Items present in this room, keyed by a short lookup name. */
     private ItemList aItems;
+    /** Marks this room as a win condition when the player holds the required item. */
+    private boolean isWinningRoom;
     
     /**
      * Creates a room with a description, image path, and empty exit/item maps.
      *
      * @param pDescription human-readable location phrase shown to the player
      * @param pImage       resource path for the picture, or {@code null} if none
+     * @param pMapImage    resource path for the map image, or {@code null} if none
      */
-    public Room( final String pDescription, final String pImage )
+    public Room( final String pDescription, final String pImage, final String pMapImage )
     {
         this.aDescription = pDescription;
         this.aExits = new HashMap<String, Room>();
         this.aImageName = pImage;
+        this.aMapImageName = pMapImage;
         this.aItems = new ItemList();
     } // Room()
 
@@ -97,6 +103,16 @@ public class Room
     {
         return this.aImageName;
     } // getImageName()
+    
+    /**
+     * Returns the map image resource path associated with this room.
+     *
+     * @return classpath-relative image filename, or {@code null}
+     */
+    public String getMapImageName()
+    {
+        return this.aMapImageName;
+    } // getMapImageName()
 
     /**
      * Retrieves an item currently stored in the room.
@@ -129,5 +145,26 @@ public class Room
     {
         this.aItems.removeItem( pName );
     }
-
+    
+    /**
+     * Marks this room as a winning room.
+     * <p>
+     * The win condition is evaluated by the engine (for example: being in a winning
+     * room while holding a specific item).
+     * </p>
+     */
+    public void setAsWinningRoom()
+    {
+        this.isWinningRoom = true;
+    }
+    
+    /**
+     * Indicates whether this room is flagged as a winning room.
+     *
+     * @return {@code true} if the room is configured as a winning room
+     */
+    public boolean isWinningRoom()
+    {
+        return this.isWinningRoom;
+    }
 } // Room

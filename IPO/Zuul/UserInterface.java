@@ -38,6 +38,8 @@ public class UserInterface implements ActionListener
     private JTextArea  aLog;
     /** Displays the current room image when available. */
     private JLabel     aImage;
+    /** Displays a map image (if provided by the engine). */
+    private JLabel     aMap;
     /** Sends {@code go north} when clicked. */
     private JButton    aButtonGoNorth;
     /** Sends {@code go south} when clicked. */
@@ -52,6 +54,8 @@ public class UserInterface implements ActionListener
     private JButton    aButtonGoDown;
     /** Sends {@code help} when clicked. */
     private JButton    aButtonHelp;
+    /** Sends {@code back} when clicked. */
+    private JButton    aButtonBack;
     /** Sends {@code quit} when clicked. */
     private JButton    aButtonQuit;
 
@@ -102,10 +106,27 @@ public class UserInterface implements ActionListener
         else {
             ImageIcon vIcon = new ImageIcon( vImageURL );
             this.aImage.setIcon( vIcon );
-            this.aMyFrame.pack();
         }
     } // showImage(.)
 
+    /**
+     * Loads an image from the classpath (typically under {@code images/}) and sets
+     * it on the map label.
+     *
+     * @param pImageName resource path relative to the class loader root
+     */
+    public void showMap( final String pImageName )
+    {
+        String vImagePath = "" + pImageName;
+        URL vImageURL = this.getClass().getClassLoader().getResource( vImagePath );
+        if ( vImageURL == null )
+            System.out.println( "Image not found: " + vImagePath );
+        else {
+            ImageIcon vIcon = new ImageIcon( vImageURL );
+            this.aMap.setIcon( vIcon );
+        }
+    } // showMap(.)
+    
     /**
      * Enables or disables keyboard entry in the command field and toggles caret blink.
      *
@@ -139,33 +160,47 @@ public class UserInterface implements ActionListener
         vListScroller.setMinimumSize( new Dimension( 100, 100 ) );
 
         this.aImage = new JLabel();
+        this.aImage.setHorizontalAlignment( JLabel.CENTER );
+        this.aImage.setVerticalAlignment( JLabel.CENTER );
+        
+        this.aMap = new JLabel();
 
-        this.aButtonGoNorth = new JButton( "go north" );
-        this.aButtonGoEast = new JButton( "go east" );
-        this.aButtonGoSouth = new JButton( "go south" );
-        this.aButtonGoWest = new JButton( "go west" );
         this.aButtonGoUp = new JButton( "go up" );
+        this.aButtonGoNorth = new JButton( "go north" );
         this.aButtonGoDown = new JButton( "go down" );
-        this.aButtonQuit = new JButton( "quit" );
+        this.aButtonGoWest = new JButton( "go west" );
+        this.aButtonGoEast = new JButton( "go east" );
+        this.aButtonBack = new JButton( "go back" );
         this.aButtonHelp = new JButton( "help" );
+        this.aButtonGoSouth = new JButton( "go south" );
+        this.aButtonQuit = new JButton( "quit" );
 
         JPanel vButtonPanel = new JPanel();
-        vButtonPanel.setLayout( new GridLayout( 4, 1 ) );
-        vButtonPanel.add( this.aButtonGoNorth );
-        vButtonPanel.add( this.aButtonGoSouth );
-        vButtonPanel.add( this.aButtonGoEast );
-        vButtonPanel.add( this.aButtonGoWest );
+        vButtonPanel.setLayout( new GridLayout( 3, 3 ) );
         vButtonPanel.add( this.aButtonGoUp );
+        vButtonPanel.add( this.aButtonGoNorth );
         vButtonPanel.add( this.aButtonGoDown );
-        vButtonPanel.add( this.aButtonQuit );
+        vButtonPanel.add( this.aButtonGoWest );
+        vButtonPanel.add( this.aButtonBack );
+        vButtonPanel.add( this.aButtonGoEast );
         vButtonPanel.add( this.aButtonHelp );
+        vButtonPanel.add( this.aButtonGoSouth );
+        vButtonPanel.add( this.aButtonQuit );
 
         JPanel vPanel = new JPanel();
         vPanel.setLayout( new BorderLayout() );
-        vPanel.add( this.aImage, BorderLayout.NORTH );
-        vPanel.add( vListScroller, BorderLayout.CENTER );
-        vPanel.add( this.aEntryField, BorderLayout.SOUTH );
-        vPanel.add( vButtonPanel, BorderLayout.WEST );
+        vPanel.add( this.aImage, BorderLayout.CENTER );
+
+        JPanel vSouthPanel = new JPanel();
+        vSouthPanel.setLayout( new BorderLayout() );
+        vSouthPanel.setPreferredSize( new Dimension( 0, 400 ) );
+        
+        vSouthPanel.add( vListScroller, BorderLayout.CENTER );
+        vSouthPanel.add( this.aEntryField, BorderLayout.SOUTH );
+        vSouthPanel.add( vButtonPanel, BorderLayout.WEST );
+        vSouthPanel.add( this.aMap, BorderLayout.EAST );
+        
+        vPanel.add( vSouthPanel, BorderLayout.SOUTH );
 
         this.aMyFrame.getContentPane().add( vPanel, BorderLayout.CENTER );
 
@@ -176,6 +211,7 @@ public class UserInterface implements ActionListener
         this.aButtonGoWest.addActionListener( this );
         this.aButtonGoUp.addActionListener( this );
         this.aButtonGoDown.addActionListener( this );
+        this.aButtonBack.addActionListener( this );
         this.aButtonQuit.addActionListener( this );
         this.aButtonHelp.addActionListener( this );
 
@@ -186,10 +222,10 @@ public class UserInterface implements ActionListener
                     System.exit( 0 );
                 }
             } );
-
-        this.aMyFrame.pack();
+            
         this.aMyFrame.setVisible( true );
         this.aEntryField.requestFocus();
+        this.aMyFrame.setExtendedState( JFrame.MAXIMIZED_BOTH );
     } // createGUI()
 
     /**
@@ -211,6 +247,8 @@ public class UserInterface implements ActionListener
             this.aEngine.interpretCommand( "go up" );
         else if ( this.aButtonGoDown.equals( pE.getSource() ) )
             this.aEngine.interpretCommand( "go down" );
+        else if ( this.aButtonBack.equals( pE.getSource() ) )
+            this.aEngine.interpretCommand( "back" );
         else if ( this.aButtonQuit.equals( pE.getSource() ) )
             this.aEngine.interpretCommand( "quit" );
         else if ( this.aButtonHelp.equals( pE.getSource() ) )

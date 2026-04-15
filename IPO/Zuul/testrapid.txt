@@ -2,7 +2,8 @@ go west
 go north
 go north
 go east
+go east
+take delta-orb
 go north
 go west
 go up
-take delta-orb
