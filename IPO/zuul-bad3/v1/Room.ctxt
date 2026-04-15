@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Room
+comment0.text=\r\n\ Classe\ Room\ -\ un\ lieu\ du\ jeu\ d'aventure\ Zuul.\r\n\ Cette\ classe\ fait\ partie\ du\ syst\u00E8me\ Zuul.\r\n\r\n\ @author\ Barnabe\ Jouanarrd\r\n\ @version\ 2026.02.17\r\n
+comment1.params=pDescription
+comment1.target=Room(java.lang.String)
+comment1.text=\r\n\ Cr\u00E9e\ une\ pi\u00E8ce\ d\u00E9crite\ par\ "pDescription".\ \r\n\ Au\ d\u00E9part,\ il\ n'y\ a\ aucune\ sortie.\r\n\ @param\ pDescription\ La\ description\ de\ la\ pi\u00E8ce.\r\n
+comment2.params=
+comment2.target=java.lang.String\ getDescription()
+comment2.text=\r\n\ Renvoie\ la\ description\ de\ la\ pi\u00E8ce.\r\n\ @return\ La\ description\ de\ la\ pi\u00E8ce.\r\n
+comment3.params=pNorthExit\ pEastExit\ pSouthExit\ pWestExit
+comment3.target=void\ setExits(Room,\ Room,\ Room,\ Room)
+comment3.text=\r\n\ D\u00E9finit\ les\ sorties\ de\ cette\ pi\u00E8ce.\r\n\ Chaque\ direction\ m\u00E8ne\ soit\ \u00E0\ une\ autre\ pi\u00E8ce,\ soit\ est\ null.\r\n\ @param\ pNorthExit\ La\ sortie\ Nord.\r\n\ @param\ pEastExit\ La\ sortie\ Est.\r\n\ @param\ pSouthExit\ La\ sortie\ Sud.\r\n\ @param\ pWestExit\ La\ sortie\ Ouest.\r\n
+numComments=4

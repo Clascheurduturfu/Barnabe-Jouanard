@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=CompteMensuel
+comment0.text=\n\ D\u00EF\u00BF\u00BDcrivez\ votre\ classe\ CompteAnnuel\ ici.\n\n\ @author\ (votre\ nom)\n\ @version\ (un\ num\u00EF\u00BF\u00BDro\ de\ version\ ou\ une\ date)\n
+comment1.params=pSolde\ pTaux
+comment1.target=CompteMensuel(double,\ double)
+comment2.params=pMois
+comment2.target=void\ capitaleUnMois(double)
+comment3.params=
+comment3.target=void\ capitaliseUnAn()
+numComments=4

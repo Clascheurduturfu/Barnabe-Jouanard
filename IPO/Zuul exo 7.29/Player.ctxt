@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Player
+comment0.text=\r\n\ Player\ -\ stores\ the\ state\ that\ belongs\ to\ the\ player.\r\n\r\n\ @author\ Barnabe\ Jouanard\r\n\ @version\ 2026.04.13\r\n
+comment1.params=pName\ pStartRoom
+comment1.target=Player(java.lang.String,\ Room)
+comment1.text=\r\n\ Create\ a\ player\ with\ a\ name\ and\ a\ starting\ room.\r\n\ @param\ pName\ the\ player\ name\ (can\ be\ empty\ or\ null)\r\n\ @param\ pStartRoom\ the\ initial\ room\r\n
+comment2.params=
+comment2.target=Room\ getCurrentRoom()
+comment2.text=\r\n\ Return\ the\ player's\ current\ room.\r\n
+comment3.params=pNextRoom
+comment3.target=void\ moveTo(Room)
+comment3.text=\r\n\ Change\ the\ current\ room,\ saving\ the\ previous\ one.\r\n\ This\ is\ called\ by\ the\ GameEngine\ after\ it\ validates\ the\ direction.\r\n\ @param\ pNextRoom\ the\ room\ to\ move\ to\r\n
+comment4.params=
+comment4.target=boolean\ canGoBack()
+comment4.text=\r\n\ Return\ true\ if\ the\ player\ can\ go\ back\ to\ a\ previous\ room.\r\n
+comment5.params=
+comment5.target=Room\ goBack()
+comment5.text=\r\n\ Move\ back\ to\ the\ previous\ room\ if\ possible.\r\n\ @return\ the\ new\ current\ room\ (or\ current\ room\ if\ no\ previous\ room)\r\n
+comment6.params=
+comment6.target=java.lang.String\ getName()
+comment6.text=\r\n\ Return\ the\ player\ name.\r\n
+comment7.params=pName
+comment7.target=void\ setName(java.lang.String)
+comment7.text=\r\n\ Set\ the\ player\ name.\r\n
+numComments=8

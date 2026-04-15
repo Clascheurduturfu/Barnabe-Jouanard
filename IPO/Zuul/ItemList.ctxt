@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=ItemList
+comment0.text=\r\n\ Stores\ a\ private\ collection\ of\ items\ keyed\ by\ name.\r\n\r\n\ The\ internal\ collection\ is\ fully\ encapsulated\ and\ cannot\ be\ manipulated\ directly\r\n\ from\ outside\ this\ class.\r\n\r\n\ @author\ Barnabe\ Jouanard\r\n\ @version\ 2026.04.13\r\n
+comment1.params=
+comment1.target=ItemList()
+comment1.text=\r\n\ Creates\ an\ empty\ item\ list.\r\n
+comment2.params=pName
+comment2.target=Item\ getItem(java.lang.String)
+comment2.text=\r\n\ Returns\ the\ item\ associated\ with\ the\ given\ name,\ or\ {@code\ null}.\r\n\r\n\ @param\ pName\ the\ lookup\ key\r\n\ @return\ the\ matching\ {@link\ Item},\ or\ {@code\ null}\r\n
+comment3.params=pName\ pItem
+comment3.target=void\ addItem(java.lang.String,\ Item)
+comment3.text=\r\n\ Adds\ or\ replaces\ an\ item\ under\ the\ given\ key.\r\n\r\n\ @param\ pName\ short\ identifier\ used\ for\ later\ retrieval\r\n\ @param\ pItem\ the\ {@link\ Item}\ to\ store\r\n
+comment4.params=pName
+comment4.target=void\ removeItem(java.lang.String)
+comment4.text=\r\n\ Removes\ the\ item\ associated\ with\ the\ given\ key.\r\n\r\n\ @param\ pName\ the\ lookup\ key\r\n
+comment5.params=
+comment5.target=boolean\ isEmpty()
+comment5.text=\r\n\ Checks\ whether\ this\ item\ list\ contains\ no\ elements.\r\n\r\n\ @return\ {@code\ true}\ when\ no\ items\ are\ stored\r\n
+comment6.params=
+comment6.target=java.lang.String\ getItemsDescription()
+comment6.text=\r\n\ Builds\ a\ multi-line\ string\ with\ each\ item's\ description,\r\n\ or\ a\ default\ notice\ when\ the\ list\ is\ empty.\r\n\r\n\ @return\ formatted\ item\ descriptions\r\n
+numComments=7

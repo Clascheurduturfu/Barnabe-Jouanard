@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Command
+comment0.text=\r\n\ Immutable\ pair\ of\ tokens\ representing\ one\ player\ command.\r\n\ <p>\r\n\ The\ first\ token\ is\ the\ command\ verb;\ the\ second\ is\ an\ optional\ argument\r\n\ (for\ example\ the\ direction\ in\ {@code\ go\ north}).\r\n\ </p>\r\n\r\n\ @author\ Barnabe\ Jouanard\r\n\ @version\ 2026.02.17\r\n
+comment1.params=pCommandWord\ pSecondWord
+comment1.target=Command(java.lang.String,\ java.lang.String)
+comment1.text=\r\n\ Creates\ a\ command.\ Either\ argument\ may\ be\ {@code\ null}\ depending\ on\ user\ input.\r\n\r\n\ @param\ pCommandWord\ the\ recognized\ verb,\ or\ {@code\ null}\ if\ unknown\r\n\ @param\ pSecondWord\ \ the\ argument\ word,\ or\ {@code\ null}\ if\ absent\r\n
+comment2.params=
+comment2.target=java.lang.String\ getCommandWord()
+comment2.text=\r\n\ Returns\ the\ command\ word\ (first\ token).\r\n\r\n\ @return\ the\ verb,\ or\ {@code\ null}\ if\ the\ command\ was\ not\ understood\r\n
+comment3.params=
+comment3.target=java.lang.String\ getSecondWord()
+comment3.text=\r\n\ Returns\ the\ second\ word\ of\ this\ command,\ if\ any.\r\n\r\n\ @return\ the\ second\ token,\ or\ {@code\ null}\r\n
+comment4.params=
+comment4.target=boolean\ hasSecondWord()
+comment4.text=\r\n\ Indicates\ whether\ a\ second\ token\ was\ present.\r\n\r\n\ @return\ {@code\ true}\ if\ {@link\ \#getSecondWord()}\ is\ not\ {@code\ null}\r\n
+comment5.params=
+comment5.target=boolean\ isUnknown()
+comment5.text=\r\n\ Indicates\ whether\ the\ parser\ recognized\ the\ command\ word.\r\n\r\n\ @return\ {@code\ true}\ if\ {@link\ \#getCommandWord()}\ is\ {@code\ null}\r\n
+numComments=6

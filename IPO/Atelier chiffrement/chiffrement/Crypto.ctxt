@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Crypto
+comment1.params=pMsg
+comment1.target=byte[]\ strToByte(java.lang.String)
+comment1.text=\n\ Convertir\ une\ chaine\ de\ caracteres\ en\ tableau\ de\ bytes\n
+comment2.params=pByteArray
+comment2.target=java.lang.String\ byteToStr(byte[])
+comment2.text=\n\ Convertir\ un\ tableau\ de\ bytes\ en\ une\ chaine\ de\ caracteres\n
+comment3.params=pContent\ pFile\ pAjout
+comment3.target=void\ writeFile(java.lang.String,\ java.lang.String,\ boolean)
+comment3.text=\n\ Ecrire\ un\ texte\ dans\ un\ fichier\ en\ conservant\ son\ contenu\n\ si\ "pAjout\=true",\ ou\ en\ l'ecrasant\ si\ "pAjout\=false"\n
+comment4.params=pFile
+comment4.target=java.lang.String\ readFile(java.lang.String)
+comment4.text=\n\ Lire\ le\ contenu\ d'un\ fichier\ de\ nom\ (pFile)\n\ et\ le\ retourner\ dans\ une\ String\n
+comment5.params=pFile
+comment5.target=int[]\ frequences(java.lang.String)
+comment5.text=\n\ Calculer\ le\ nombre\ d'occurence\ de\ chaque\ lettre\ dans\ un\ fichier\n\ texte\n
+comment6.params=pFile\ pKey
+comment6.target=java.lang.String\ subDecrypt(java.lang.String,\ char[])
+comment6.text=\n\ D\u00E9chiffrer\ le\ contenu\ d'un\ fichier\ en\ appliquant\ une\ substitution\n\ mono-alphab\u00E9tique\ bas\u00E9e\ sur\ une\ table\ de\ correspondance\ de\ lettres\ \n
+comment7.params=pInfile\ pOutfile\ pKey
+comment7.target=void\ cryptXor(java.lang.String,\ java.lang.String,\ java.lang.String)
+comment7.text=\n\ Chiffrer/D\u00E9chiffrer\ le\ contenu\ d'un\ fichier\ en\ op\u00E9rant\ un\ XOR\n\ \ entre\ le\ clair\ et\ la\ clef\ \n
+comment8.params=pArgs
+comment8.target=void\ main(java.lang.String[])
+comment8.text=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\ Tests\ et\ invocations\ de\ m\u00E9thodes\ \=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=
+numComments=9

@@ -1,0 +1,8 @@
+go west
+go north
+go north
+go east
+go north
+go west
+go up
+take delta-orb

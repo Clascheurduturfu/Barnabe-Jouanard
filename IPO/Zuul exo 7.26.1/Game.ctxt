@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Game
+comment0.text=\r\n\ Class\ Game\ -\ the\ main\ engine\ of\ the\ Zuul\ adventure\ game.\r\n\r\n\ @author\ Barnabe\ Jouanard\r\n\ @version\ 2026.02.17\r\n
+comment1.params=
+comment1.target=Game()
+comment1.text=\r\n\ Default\ constructor\:\ initializes\ the\ engine\ and\ the\ gui.\r\n
+numComments=2

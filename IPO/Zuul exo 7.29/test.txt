@@ -1,0 +1,5 @@
+go west
+go north
+help
+look
+quit

@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Enigma
+comment1.params=pMsg
+comment1.target=int[]\ strToPos(java.lang.String)
+comment1.text=\r\n\ Convertir\ chaque\ lettre\ dans\ une\ String\ en\ un\ entier\ \r\n\ compris\ entre\ 0\ et\ 25\ qui\ correspond\ \u00E0\ la\ position\ de\ la\ lettre\r\n\ selon\ l'ordre\ alphab\u00E9tique\ A\=0,\ B\=1,....,Z\=25\r\n
+comment2.params=pPos
+comment2.target=java.lang.String\ posToStr(int[])
+comment2.text=\r\n\ Convertir\ un\ tableau\ d'entiers\ (positions\ de\ lettres)\ \ \r\n\ en\ une\ String\ avec\ les\ lettres\ correspondantes\ A\=0,\ B\=1,....,Z\=25\ \ \ \ \ \ \ \r\n
+comment3.params=pArgs
+comment3.target=void\ main(java.lang.String[])
+numComments=4

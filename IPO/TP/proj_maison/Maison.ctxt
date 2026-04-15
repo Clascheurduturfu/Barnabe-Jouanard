@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=Maison
+comment0.text=\r\n\ Cette\ classe\ represente\ un\ simple\ dessin.\ Vous\ pouvez\ l'afficher\ en\ appelant\r\n\ la\ methode\ dessine().\ Mais\ il\ y\ a\ mieux\ \:\ comme\ c'est\ un\ dessin\ electronique,\r\n\ vous\ pouvez\ facilement\ le\ modifier.\ Par\ exemple,\ le\ passer\ en\ noir\ et\ blanc,\r\n\ puis\ le\ remettre\ en\ couleurs\ (seulement\ apres\ l'avoir\ dessine,\ bien\ sur).\r\n\r\n\ (ecrite\ pour\ servir\ d'exemple\ au\ debut\ de\ l'apprentissage\ de\ Java\ avec\ BlueJ)\r\n\ \r\n\ @author\ \ Michael\ Kolling\ and\ David\ J.\ Barnes\r\n\ @author\ \ mod.by\ Denis\ BUREAU\r\n\ @version\ 2006.03.30/2012.02.06\r\n
+comment1.params=
+comment1.target=Maison()
+comment1.text=\r\n\ Constructeur\ par\ defaut\r\n
+comment2.params=pSoleil
+comment2.target=java.lang.String\ getPositionSoleil(Cercle)
+comment3.params=
+comment3.target=java.lang.String\ getPositionDeuxSoleils()
+comment4.params=
+comment4.target=void\ dessine()
+comment4.text=\r\n\ Dessine\ la\ maison.\r\n
+comment5.params=
+comment5.target=void\ place()
+comment5.text=\r\n\ Deplace\ lentement\ les\ elements\ a\ leur\ place.\r\n
+comment6.params=
+comment6.target=void\ effaceMaison()
+comment6.text=\r\n\ Efface\ la\ maison.\r\n
+comment7.params=
+comment7.target=void\ metNoirEtBlanc()
+comment7.text=\r\n\ Passe\ le\ dessin\ en\ Noir\ et\ Blanc\r\n
+comment8.params=
+comment8.target=void\ metCouleurs()
+comment8.text=\r\n\ Remet\ le\ dessin\ en\ couleurs\r\n
+numComments=9

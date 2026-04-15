@@ -1,0 +1,23 @@
+back
+name Jean
+take map
+take shoes
+go west
+look
+help
+drop shoes
+go north
+drop map
+take map
+back
+take shoes
+go north
+go north
+go north
+go east
+go east
+go north
+go west
+go up
+go down
+go up

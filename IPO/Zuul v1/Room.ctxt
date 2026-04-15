@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Room
+comment0.text=\r\n\ Classe\ Room\ -\ un\ lieu\ du\ jeu\ d'aventure\ Zuul.\r\n\ Cette\ classe\ fait\ partie\ du\ syst\u00E8me\ Zuul.\r\n\r\n\ @author\ Barnabe\ Jouanarrd\r\n\ @version\ 2026.02.17\r\n
+comment1.params=pDescription
+comment1.target=Room(java.lang.String)
+comment1.text=\r\n\ Cr\u00E9e\ une\ pi\u00E8ce\ d\u00E9crite\ par\ "pDescription".\ \r\n\ Au\ d\u00E9part,\ il\ n'y\ a\ aucune\ sortie.\r\n\ @param\ pDescription\ La\ description\ de\ la\ pi\u00E8ce.\r\n
+comment2.params=
+comment2.target=java.lang.String\ getDescription()
+comment2.text=\r\n\ Renvoie\ la\ description\ de\ la\ pi\u00E8ce.\r\n\ @return\ La\ description\ de\ la\ pi\u00E8ce.\r\n
+comment3.params=pDirection
+comment3.target=Room\ getExit(java.lang.String)
+comment3.text=\r\n\ Renvoie\ la\ pi\u00E8ce\ atteinte\ si\ nous\ allons\ dans\ la\ direction\ "pDirection".\r\n\ Si\ aucune\ pi\u00E8ce\ n'existe\ dans\ cette\ direction,\ renvoie\ null.\r\n\ @param\ pDirection\ La\ direction\ de\ la\ sortie\ demand\u00E9e.\r\n\ @return\ La\ pi\u00E8ce\ voisine\ ou\ null.\r\n
+comment4.params=pDirection\ pExit
+comment4.target=void\ setExit(java.lang.String,\ Room)
+comment4.text=\r\n\ Define\ the\ exits\ of\ this\ room.\ Every\ direction\ either\r\n\ leads\ to\ another\ room\ or\ is\ null\ (no\ exit\ there).\r\n
+comment5.params=
+comment5.target=void\ printLocationInfo()
+comment5.text=\r\n\ Affiche\ les\ informations\ sur\ la\ pi\u00E8ce\ actuelle\ (description\ et\ sorties).\r\n
+comment6.params=
+comment6.target=java.lang.String\ getExitString()
+comment6.text=\r\n\ Return\ the\ room\ that\ is\ reached\ if\ we\ go\ from\ this\r\n\ room\ in\ direction\ "direction".\ If\ there\ is\ no\ room\ in\r\n\ that\ direction,\ return\ null.\r\n
+numComments=7
