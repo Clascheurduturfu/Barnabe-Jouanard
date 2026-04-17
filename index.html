@@ -60,7 +60,28 @@
             font-size: 0.9em;
             color: #666;
         }
-    </style>
+    .download-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #4a90e2, #0077b6);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+</style>
 </head>
 <body>
 
@@ -111,6 +132,9 @@
     <footer>
         <p>&copy; 2026 Barnabé Jouanard - Projet Programmation Orientée Objet</p>
     </footer>
-
+    <div class="download-buttons">
+      <a href="IPO_barnabe_jouanard.jar" download class="btn">Download IPO.jar</a>
+      <a href="IPO_barnabe_jouanard_offline.jar" download class="btn">Download IPO Offline.jar</a>
+    </div>
 </body>
 </html>

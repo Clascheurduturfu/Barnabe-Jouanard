@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -99,13 +100,12 @@ public class UserInterface implements ActionListener
      */
     public void showImage( final String pImageName )
     {
-        String vImagePath = "" + pImageName;
-        URL vImageURL = this.getClass().getClassLoader().getResource( vImagePath );
-        if ( vImageURL == null ) {
-            System.out.println( "Image not found: " + vImagePath );
+        File vFile = AssetManager.resolveAsset( pImageName );
+        if ( vFile == null || !vFile.exists() ) {
+            System.out.println( "Image not found: " + pImageName );
         }
         else {
-            ImageIcon vIcon = new ImageIcon( vImageURL );
+            ImageIcon vIcon = new ImageIcon( vFile.getAbsolutePath() );
             this.aImage.setIcon( vIcon );
         }
     } // showImage(.)
@@ -118,13 +118,12 @@ public class UserInterface implements ActionListener
      */
     public void showMap( final String pImageName )
     {
-        String vImagePath = "" + pImageName;
-        URL vImageURL = this.getClass().getClassLoader().getResource( vImagePath );
-        if ( vImageURL == null ) {
-            System.out.println( "Image not found: " + vImagePath );
+        File vFile = AssetManager.resolveAsset( pImageName );
+        if ( vFile == null || !vFile.exists() ) {
+            System.out.println( "Image not found: " + pImageName );
         }
         else {
-            ImageIcon vIcon = new ImageIcon( vImageURL );
+            ImageIcon vIcon = new ImageIcon( vFile.getAbsolutePath() );
             this.aMap.setIcon( vIcon );
         }
     } // showMap(.)

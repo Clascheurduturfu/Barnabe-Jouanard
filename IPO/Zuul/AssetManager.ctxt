@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=AssetManager
+comment0.text=\n\ Downloads\ game\ assets\ from\ the\ ESIEE\ web\ server\ and\ caches\ them\ locally.\n\ <p>\n\ On\ each\ launch,\ checks\ which\ assets\ are\ missing\ from\ the\ local\ {@code\ assets/}\n\ folder\ and\ downloads\ them\ from\ the\ remote\ server.\ Files\ already\ present\ are\n\ skipped.\ Each\ download\ is\ attempted\ up\ to\ {@value\ \#MAX_RETRIES}\ times\ before\n\ being\ marked\ as\ failed.\ If\ any\ downloads\ fail,\ the\ game\ continues\ in\ offline\n\ mode\ with\ whatever\ assets\ are\ available.\n\ </p>\n\n\ @author\ Barnabe\ Jouanard\n\ @version\ 2026.04.17\n
+comment1.params=
+comment1.target=AssetManager()
+comment1.text=\n\ Creates\ a\ new\ asset\ manager.\n
+comment2.params=pListener
+comment2.target=void\ setProgressListener(AssetManager.ProgressListener)
+comment2.text=\n\ Attaches\ a\ progress\ listener\ for\ download\ feedback.\n\n\ @param\ pListener\ the\ listener\ to\ notify\ (may\ be\ {@code\ null})\n
+comment3.params=
+comment3.target=boolean\ allAssetsCached()
+comment3.text=\n\ Checks\ whether\ all\ assets\ are\ already\ present\ in\ the\ local\ cache.\n\n\ @return\ {@code\ true}\ if\ every\ file\ in\ {@link\ \#ASSETS}\ exists\ locally\n
+comment4.params=
+comment4.target=int\ countMissingAssets()
+comment4.text=\n\ Returns\ the\ total\ number\ of\ assets\ that\ need\ to\ be\ downloaded.\n\n\ @return\ count\ of\ files\ not\ yet\ present\ in\ the\ local\ cache\n
+comment5.params=
+comment5.target=void\ downloadAssets()
+comment5.text=\n\ Downloads\ all\ missing\ assets\ from\ the\ remote\ server.\n\ <p>\n\ Each\ file\ is\ attempted\ up\ to\ {@value\ \#MAX_RETRIES}\ times.\ If\ a\ file\n\ still\ fails\ after\ all\ retries,\ it\ is\ skipped\ and\ the\ game\ will\ run\n\ in\ offline\ mode\ (missing\ images\ appear\ as\ blank\ panels).\n\ </p>\n
+comment6.params=pFileName\ pLocalFile
+comment6.target=boolean\ downloadFile(java.lang.String,\ java.io.File)
+comment6.text=\n\ Downloads\ a\ single\ file\ from\ the\ remote\ server\ to\ the\ local\ path.\n\n\ @param\ pFileName\ \ the\ filename\ on\ the\ server\ (e.g.\ {@code\ "home.gif"})\n\ @param\ pLocalFile\ the\ local\ destination\ file\n\ @return\ {@code\ true}\ if\ the\ download\ succeeded;\ {@code\ false}\ otherwise\n
+comment7.params=pRelativePath
+comment7.target=java.io.File\ resolveAsset(java.lang.String)
+comment7.text=\n\ Resolves\ a\ relative\ asset\ path\ to\ an\ absolute\ {@link\ File}\ on\ disk.\n\ <p>\n\ This\ is\ the\ single\ point\ of\ access\ for\ all\ image\ loading\ in\ the\ game.\n\ Both\ {@code\ UserInterface.showImage()}\ and\ {@code\ UserInterface.showMap()}\n\ call\ this\ method\ to\ locate\ asset\ files.\n\ </p>\n\n\ @param\ pRelativePath\ the\ path\ as\ stored\ in\ {@link\ Room},\ e.g.\ {@code\ "assets/home.gif"}\n\ @return\ a\ {@link\ File}\ pointing\ to\ the\ local\ cached\ asset\n
+numComments=8

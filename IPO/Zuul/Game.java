@@ -15,6 +15,7 @@ public class Game
     private UserInterface aGui;
     /** Core game logic: rooms, parser, and command interpretation. */
     private GameEngine aEngine;
+    private AssetManager aAssetManager;
 
     /**
      * Constructs the game by creating the engine and GUI, then linking them.
@@ -25,6 +26,12 @@ public class Game
      */
     public Game()
     {
+        this.aAssetManager = new AssetManager();
+        if ( !aAssetManager.allAssetsCached() ) {
+            LoadingScreen vLoading = new LoadingScreen( aAssetManager );
+            vLoading.startAndWait();
+        }
+
         this.aEngine = new GameEngine();
         this.aGui = new UserInterface( this.aEngine );
         this.aEngine.setGUI( this.aGui );
