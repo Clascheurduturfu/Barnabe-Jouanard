@@ -23,6 +23,14 @@ go east
 take delta-orb
 go north
 go west
+take wallet
+cashin wallet
+go east
+go south
+go east
+take delta-orb
+go north
+go west
 go up
 go down
 go up

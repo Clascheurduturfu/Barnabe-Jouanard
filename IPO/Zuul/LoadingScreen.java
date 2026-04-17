@@ -22,7 +22,7 @@ import javax.swing.SwingUtilities;
  * @author Gemini
  * @version 2026.04.17
  */
-public class LoadingScreen implements AssetManager.ProgressListener
+public class LoadingScreen
 {
     /** The loading window frame. */
     private JFrame aFrame;
@@ -45,7 +45,6 @@ public class LoadingScreen implements AssetManager.ProgressListener
     public LoadingScreen( final AssetManager pAssetManager )
     {
         this.aAssetManager = pAssetManager;
-        this.aAssetManager.setProgressListener( this );
         this.aFinished = false;
         this.createGUI();
     } // LoadingScreen()
@@ -102,13 +101,38 @@ public class LoadingScreen implements AssetManager.ProgressListener
         this.aFrame.setLocationRelativeTo( null );
     } // createGUI()
 
+
+
     /**
-     * Allows external code (e.g., Game) to provide a custom progress callback.
-     * The callback will receive the same parameters as the original onProgress.
+     * Updates the UI components safely on the EDT using the current state from AssetManager.
      */
-    public void setProgressListener( AssetManager.ProgressListener pl )
+    private void updateUI()
     {
-        this.aAssetManager.setProgressListener( pl );
+        SwingUtilities.invokeLater( () -> {
+            int pTotal = aAssetManager.getTotalAssets();
+            int pCurrent = aAssetManager.getCurrentProgress();
+            String pFileName = aAssetManager.getCurrentFile();
+
+            if ( pTotal > 0 ) {
+                int vPercent = (int) ( ( (double) pCurrent / pTotal ) * 100 );
+                aProgressBar.setValue( vPercent );
+                aCountLabel.setText( pCurrent + " / " + pTotal );
+            }
+            
+            if ( aAssetManager.getErrorMessage() != null ) {
+                aStatusLabel.setText( aAssetManager.getErrorMessage() );
+                aCountLabel.setText( "Starting in offline mode..." );
+            }
+            else if ( aAssetManager.isComplete() ) {
+                aProgressBar.setValue( 100 );
+                aStatusLabel.setText( "All assets downloaded!" );
+            }
+            else {
+                if ( pFileName != null && !pFileName.isEmpty() ) {
+                    aStatusLabel.setText( "Downloading: " + pFileName );
+                }
+            }
+        });
     }
 
     /**
@@ -120,76 +144,29 @@ public class LoadingScreen implements AssetManager.ProgressListener
         this.aFrame.setVisible( true );
         Thread vDownloadThread = new Thread( () -> aAssetManager.downloadAssets() );
         vDownloadThread.start();
-        try {
-            vDownloadThread.join();
+        
+        while ( vDownloadThread.isAlive() ) {
+            this.updateUI();
+            try {
+                Thread.sleep( 50 );
+            }
+            catch ( InterruptedException vE ) {
+                System.out.println( "Download interrupted: " + vE.getMessage() );
+            }
         }
-        catch ( InterruptedException vE ) {
-            System.out.println( "Download interrupted: " + vE.getMessage() );
+        this.updateUI();
+
+        if ( this.aAssetManager.getErrorMessage() != null ) {
+            try { Thread.sleep( 2500 ); } catch ( InterruptedException e ) {}
+            this.aFinished = true;
+        } else {
+            this.aFinished = true;
         }
+
         this.aFrame.setVisible( false );
         this.aFrame.dispose();
     }
 
 
-    /**
-     * Updates the progress bar and status labels when a file is processed.
-     *
-     * @param pFileName the filename just processed
-     * @param pCurrent  1-indexed count of files processed so far
-     * @param pTotal    total number of files
-     */
-    @Override public void onProgress( final String pFileName, final int pCurrent, final int pTotal )
-    {
-        SwingUtilities.invokeLater( new Runnable()
-        {
-            @Override public void run()
-            {
-                int vPercent = (int) ( ( (double) pCurrent / pTotal ) * 100 );
-                aProgressBar.setValue( vPercent );
-                aStatusLabel.setText( "Downloading: " + pFileName );
-                aCountLabel.setText( pCurrent + " / " + pTotal );
-            }
-        } );
-    } // onProgress()
 
-    /**
-     * Called when all downloads complete successfully. Marks the screen as finished.
-     */
-    @Override public void onComplete()
-    {
-        SwingUtilities.invokeLater( new Runnable()
-        {
-            @Override public void run()
-            {
-                aProgressBar.setValue( 100 );
-                aStatusLabel.setText( "All assets downloaded!" );
-            }
-        } );
-        this.aFinished = true;
-    } // onComplete()
-
-    /**
-     * Called when some downloads failed. Shows the error then proceeds in offline mode.
-     *
-     * @param pMessage error description
-     */
-    @Override public void onError( final String pMessage )
-    {
-        SwingUtilities.invokeLater( new Runnable()
-        {
-            @Override public void run()
-            {
-                aStatusLabel.setText( pMessage );
-                aCountLabel.setText( "Starting in offline mode..." );
-            }
-        } );
-
-        // brief pause so the user can read the message
-        try {
-            Thread.sleep( 2500 );
-        }
-        catch ( InterruptedException vE ) { /* nothing to do */ }
-
-        this.aFinished = true;
-    } // onError()
 } // LoadingScreen

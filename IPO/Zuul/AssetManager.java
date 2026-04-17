@@ -62,36 +62,17 @@ public class AssetManager
         "sky pillar.gif"
     };
 
-    /**
-     * Callback interface for reporting download progress to the UI.
-     */
-    @FunctionalInterface
-    public interface ProgressListener {
-        /**
-         * Called after each file is processed (downloaded or skipped).
-         *
-         * @param pFileName the name of the file just processed
-         * @param pCurrent  the number of files processed so far (1-indexed)
-         * @param pTotal    the total number of files to process
-         */
-        void onProgress( String pFileName, int pCurrent, int pTotal );
+    private String aCurrentFile = "";
+    private int aCurrentProgress = 0;
+    private int aTotalAssets = ASSETS.length;
+    private boolean aIsComplete = false;
+    private String aErrorMessage = null;
 
-        /**
-         * Called when all downloads complete successfully.
-         */
-        default void onComplete() {}
-
-        /**
-         * Called when one or more downloads failed after all retries.
-         * The game will continue in offline mode.
-         *
-         * @param pMessage a human-readable error summary
-         */
-        default void onError( String pMessage ) {}
-    }
-
-    /** Optional listener for progress updates. */
-    private ProgressListener aListener;
+    public String getCurrentFile() { return aCurrentFile; }
+    public int getCurrentProgress() { return aCurrentProgress; }
+    public int getTotalAssets() { return aTotalAssets; }
+    public boolean isComplete() { return aIsComplete; }
+    public String getErrorMessage() { return aErrorMessage; }
 
     /**
      * Creates a new asset manager.
@@ -105,15 +86,7 @@ public class AssetManager
         }
     } // AssetManager()
 
-    /**
-     * Attaches a progress listener for download feedback.
-     *
-     * @param pListener the listener to notify (may be {@code null})
-     */
-    public void setProgressListener( final ProgressListener pListener )
-    {
-        this.aListener = pListener;
-    } // setProgressListener()
+
 
     /**
      * Checks whether all assets are already present in the local cache.
@@ -167,9 +140,8 @@ public class AssetManager
 
             if ( vLocalFile.exists() ) {
                 // already cached, skip
-                if ( this.aListener != null ) {
-                    this.aListener.onProgress( vFileName, vI + 1, vTotal );
-                }
+                this.aCurrentFile = vFileName;
+                this.aCurrentProgress = vI + 1;
                 continue;
             }
 
@@ -187,19 +159,14 @@ public class AssetManager
                 System.out.println( "Failed to download after " + MAX_RETRIES + " attempts: " + vFileName + " try to restart the game with wifi or consider downloading the offline version from the website");
             }
 
-            if ( this.aListener != null ) {
-                this.aListener.onProgress( vFileName, vI + 1, vTotal );
-            }
+            this.aCurrentFile = vFileName;
+            this.aCurrentProgress = vI + 1;
         }
 
-        if ( this.aListener != null ) {
-            if ( vFailCount > 0 ) {
-                this.aListener.onError( vFailCount + " file(s) could not be downloaded. Running in offline mode." );
-            }
-            else {
-                this.aListener.onComplete();
-            }
+        if ( vFailCount > 0 ) {
+            this.aErrorMessage = vFailCount + " file(s) could not be downloaded. Running in offline mode.";
         }
+        this.aIsComplete = true;
     } // downloadAssets()
 
     /**

@@ -43,10 +43,10 @@ public class CommandWords
      */
     public String getCommandList()
     {
-        StringBuilder vChaineDesCommandes = new StringBuilder();
+        String vChaineDesCommandes = "";
         for ( String vCommand : this.aValidCommands ) {
-            vChaineDesCommandes.append( vCommand ).append( " " );
+            vChaineDesCommandes += vCommand + " ";
         }
-        return vChaineDesCommandes.toString();
+        return vChaineDesCommandes;
     } // getCommandList()
 } // CommandWords

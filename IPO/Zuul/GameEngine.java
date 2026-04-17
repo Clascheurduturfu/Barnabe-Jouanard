@@ -138,10 +138,8 @@ public class GameEngine
                 }
             }
 
-            if ( this.aPlayer.getItem( "delta-orb" ) != null ) {
-                if ( this.aPlayer.getCurrentRoom().isWinningRoom() ) {
-                    this.aGui.println( "\n" + "Congratulations! You just won! Thank you for playing the whole game!" );
-                }
+            if ( this.aPlayer.getItem( "delta-orb" ) != null && this.aPlayer.getCurrentRoom().isWinningRoom() ) {
+                this.aGui.println( "\n" + "Congratulations! You just won! Thank you for playing the whole game!" );
             }
         }
     } // goRoom()
@@ -159,7 +157,7 @@ public class GameEngine
     {
         if ( pCommand.hasSecondWord() ) {
             // If there is a second word, we don't know where to go.
-            this.aGui.println( "Back where?" );
+            this.aGui.println( "Back what?" );
             return;
         }
 
@@ -176,10 +174,8 @@ public class GameEngine
                 }
             }
             
-            if ( this.aPlayer.getItem( "delta-orb" ) != null ) {
-                if ( this.aPlayer.getCurrentRoom().isWinningRoom() ) {
-                    this.aGui.println( "\n" + "You want to keep winning, don't you?" );
-                }
+            if ( this.aPlayer.getItem( "delta-orb" ) != null && this.aPlayer.getCurrentRoom().isWinningRoom() ) {
+                this.aGui.println( "\n" + "You want to keep winning, don't you?" );
             }
         }
     } // goBack()
@@ -197,75 +193,45 @@ public class GameEngine
     {
         this.aGui.println( "\n\n> " + pCommand + "\n" );
         Command vCommand = this.aParser.getCommand( pCommand );
-
         if ( vCommand.isUnknown() ) {
             this.aGui.println( "I don't know what you mean..." );
             return;
         }
-
         String vCommandWord = vCommand.getCommandWord();
-        if ( vCommandWord.equals( "help" ) ) {
-            this.printHelp();
-        }
-        else if ( vCommandWord.equals( "go" ) ) {
-            this.goRoom( vCommand );
-        }
-        else if ( vCommandWord.equals( "cashin" ) ) {
-            if ( vCommand.hasSecondWord() ) {
+        switch ( vCommandWord ) {
+            case "help":
+                this.printHelp();
+                break;
+            case "go":
+                this.goRoom( vCommand );
+                break;
+            case "cashin":
                 this.cashin( vCommand );
-            }
-            else {
-                this.aGui.println( "You need something to cash in!" );
-            }
-        }
-        else if ( vCommandWord.equals( "look" ) ) {
-            this.look();
-        }
-        else if ( vCommandWord.equals( "take" ) ) {
-            this.take( vCommand );
-        }
-        else if ( vCommandWord.equals( "drop" ) ) {
-            this.drop( vCommand );
-        }
-        else if ( vCommandWord.equals( "back" ) ) {
-            if ( vCommand.hasSecondWord() ) {
-                this.aGui.println( "Back what?" );
-            }
-            else {
+                break;
+            case "look":
+                this.look();
+                break;
+            case "take":
+                this.take( vCommand );
+                break;
+            case "drop":
+                this.drop( vCommand );
+                break;
+            case "back":
                 this.goBack( vCommand );
-            }
-        }
-        else if ( vCommandWord.equals( "inventory" ) ) {
-            if ( vCommand.hasSecondWord() ) {
-                this.aGui.println( "Inventory what?" );
-            }
-            else {
-                this.inventory();
-            }
-        }
-        else if ( vCommandWord.equals( "test" ) ) {
-            if ( ! vCommand.hasSecondWord() ) {
-                this.aGui.println( "Need a file name!" );
-            }
-            else {
+                break;
+            case "inventory":
+                this.inventory( vCommand );
+                break;
+            case "test":
                 this.test( vCommand );
-            }
-        }
-        else if ( vCommandWord.equals( "name" ) ) {
-            if ( ! vCommand.hasSecondWord() ) {
-                this.aGui.println( "You need a name!" );
-            }
-            else {
+                break;
+            case "name":
                 this.name( vCommand );
-            }
-        }
-        else if ( vCommandWord.equals( "quit" ) ) {
-            if ( vCommand.hasSecondWord() ) {
-                this.aGui.println( "Quit what?" );
-            }
-            else {
-                this.endGame();
-            }
+                break;
+            case "quit":
+                this.endGame( vCommand );
+                break;
         }
     } // interpretCommand()
 
@@ -284,6 +250,10 @@ public class GameEngine
      */
     private void cashin( final Command pCommand )
     {
+        if ( ! pCommand.hasSecondWord() ) {
+            this.aGui.println( "You need something to cash in!" );
+            return;
+        }
         String vItemName = pCommand.getSecondWord();
         HashMap<String, Integer> vCashableItem = new HashMap<String, Integer>();
         vCashableItem.put( "grant", 75 );
@@ -314,6 +284,10 @@ public class GameEngine
      */
     private void name( final Command pCommand )
     {
+        if ( pCommand.hasSecondWord() ) {
+            this.aGui.println( "You need a name!" );
+            return;
+        }
         String vName = pCommand.getSecondWord();
         this.aPlayer.setName( vName );
         this.aGui.println( "Your new name is " + this.aPlayer.getName() + '!' );
@@ -383,8 +357,12 @@ public class GameEngine
     /**
      * Ends the session by printing a farewell line and disabling further input.
      */
-    private void endGame()
+    private void endGame( final Command pCommand )
     {
+        if ( pCommand.hasSecondWord() ) {
+            this.aGui.println( "Quit what?" );
+            return;
+        }
         this.aGui.println( "Thank you for playing! Goodbye." );
         this.aGui.enable( false );
         System.exit( 0 );
@@ -400,6 +378,11 @@ public class GameEngine
      */
     private void test( final Command pCommand )
     {
+        if ( ! pCommand.hasSecondWord() ) {
+            this.aGui.println( "You need a file name !" );
+            return;
+        }
+        
         String vFileName = pCommand.getSecondWord();
         vFileName = vFileName + ".txt";
 
@@ -464,8 +447,12 @@ public class GameEngine
     /**
      * Prints the player's inventory summary (items and total value).
      */
-    private void inventory()
+    private void inventory( final Command pCommand )
     {
+        if ( pCommand.hasSecondWord() ) {
+            this.aGui.println( "Inventory what?" );
+            return;
+        }
         this.aGui.println( this.aPlayer.getItemInventory() );
     } // inventory()
 } // GameEngine
