@@ -8,21 +8,20 @@
  * @author Barnabe Jouanard
  * @version 2026.02.17
  */
-public class Command
-{
+public class Command {
     /** Primary verb, or {@code null} when the input was not recognized. */
     private String aCommandWord;
     /** Optional second token; {@code null} if none was supplied. */
     private String aSecondWord;
 
     /**
-     * Creates a command. Either argument may be {@code null} depending on user input.
+     * Creates a command. Either argument may be {@code null} depending on user
+     * input.
      *
      * @param pCommandWord the recognized verb, or {@code null} if unknown
      * @param pSecondWord  the argument word, or {@code null} if absent
      */
-    public Command( final String pCommandWord, final String pSecondWord )
-    {
+    public Command(final String pCommandWord, final String pSecondWord) {
         this.aCommandWord = pCommandWord;
         this.aSecondWord = pSecondWord;
     } // Command()
@@ -32,8 +31,7 @@ public class Command
      *
      * @return the verb, or {@code null} if the command was not understood
      */
-    public String getCommandWord()
-    {
+    public String getCommandWord() {
         return this.aCommandWord;
     } // getCommandWord()
 
@@ -42,8 +40,7 @@ public class Command
      *
      * @return the second token, or {@code null}
      */
-    public String getSecondWord()
-    {
+    public String getSecondWord() {
         return this.aSecondWord;
     } // getSecondWord()
 
@@ -52,8 +49,7 @@ public class Command
      *
      * @return {@code true} if {@link #getSecondWord()} is not {@code null}
      */
-    public boolean hasSecondWord()
-    {
+    public boolean hasSecondWord() {
         return this.aSecondWord != null;
     } // hasSecondWord()
 
@@ -62,8 +58,7 @@ public class Command
      *
      * @return {@code true} if {@link #getCommandWord()} is {@code null}
      */
-    public boolean isUnknown()
-    {
+    public boolean isUnknown() {
         return this.aCommandWord == null;
     } // isUnknown()
 } // Command

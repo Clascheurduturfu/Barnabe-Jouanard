@@ -22,27 +22,33 @@
 <span class="source-line-no">009</span><span id="line-9"> * @author Barnabe Jouanard</span>
 <span class="source-line-no">010</span><span id="line-10"> * @version 2026.02.17</span>
 <span class="source-line-no">011</span><span id="line-11"> */</span>
-<span class="source-line-no">012</span><span id="line-12">public class Game</span>
-<span class="source-line-no">013</span><span id="line-13">{</span>
-<span class="source-line-no">014</span><span id="line-14">    /** Swing-based view that shows text, images, and command controls. */</span>
-<span class="source-line-no">015</span><span id="line-15">    private UserInterface aGui;</span>
-<span class="source-line-no">016</span><span id="line-16">    /** Core game logic: rooms, parser, and command interpretation. */</span>
-<span class="source-line-no">017</span><span id="line-17">    private GameEngine aEngine;</span>
-<span class="source-line-no">018</span><span id="line-18"></span>
-<span class="source-line-no">019</span><span id="line-19">    /**</span>
-<span class="source-line-no">020</span><span id="line-20">     * Constructs the game by creating the engine and GUI, then linking them.</span>
-<span class="source-line-no">021</span><span id="line-21">     * &lt;p&gt;</span>
-<span class="source-line-no">022</span><span id="line-22">     * The GUI receives a reference to the engine; the engine is given the GUI</span>
-<span class="source-line-no">023</span><span id="line-23">     * so it can print messages and update the display after construction.</span>
-<span class="source-line-no">024</span><span id="line-24">     * &lt;/p&gt;</span>
-<span class="source-line-no">025</span><span id="line-25">     */</span>
-<span class="source-line-no">026</span><span id="line-26">    public Game()</span>
-<span class="source-line-no">027</span><span id="line-27">    {</span>
-<span class="source-line-no">028</span><span id="line-28">        this.aEngine = new GameEngine();</span>
-<span class="source-line-no">029</span><span id="line-29">        this.aGui = new UserInterface( this.aEngine );</span>
-<span class="source-line-no">030</span><span id="line-30">        this.aEngine.setGUI( this.aGui );</span>
-<span class="source-line-no">031</span><span id="line-31">    } // Game()</span>
-<span class="source-line-no">032</span><span id="line-32">} // Game</span>
+<span class="source-line-no">012</span><span id="line-12">public class Game {</span>
+<span class="source-line-no">013</span><span id="line-13">    /** Swing-based view that shows text, images, and command controls. */</span>
+<span class="source-line-no">014</span><span id="line-14">    private UserInterface aGui;</span>
+<span class="source-line-no">015</span><span id="line-15">    /** Core game logic: rooms, parser, and command interpretation. */</span>
+<span class="source-line-no">016</span><span id="line-16">    private GameEngine aEngine;</span>
+<span class="source-line-no">017</span><span id="line-17">    /** Asset manager responsible for downloading missing files at startup. */</span>
+<span class="source-line-no">018</span><span id="line-18">    private AssetManager aAssetManager;</span>
+<span class="source-line-no">019</span><span id="line-19"></span>
+<span class="source-line-no">020</span><span id="line-20">    /**</span>
+<span class="source-line-no">021</span><span id="line-21">     * Constructs the game by creating the engine and GUI, then linking them.</span>
+<span class="source-line-no">022</span><span id="line-22">     * &lt;p&gt;</span>
+<span class="source-line-no">023</span><span id="line-23">     * The GUI receives a reference to the engine; the engine is given the GUI</span>
+<span class="source-line-no">024</span><span id="line-24">     * so it can print messages and update the display after construction.</span>
+<span class="source-line-no">025</span><span id="line-25">     * &lt;/p&gt;</span>
+<span class="source-line-no">026</span><span id="line-26">     */</span>
+<span class="source-line-no">027</span><span id="line-27">    public Game() {</span>
+<span class="source-line-no">028</span><span id="line-28">        this.aAssetManager = new AssetManager();</span>
+<span class="source-line-no">029</span><span id="line-29">        if (!aAssetManager.allAssetsCached()) {</span>
+<span class="source-line-no">030</span><span id="line-30">            LoadingScreen vLoading = new LoadingScreen(aAssetManager);</span>
+<span class="source-line-no">031</span><span id="line-31">            vLoading.startAndWait();</span>
+<span class="source-line-no">032</span><span id="line-32">        }</span>
+<span class="source-line-no">033</span><span id="line-33"></span>
+<span class="source-line-no">034</span><span id="line-34">        this.aEngine = new GameEngine();</span>
+<span class="source-line-no">035</span><span id="line-35">        this.aGui = new UserInterface(this.aEngine);</span>
+<span class="source-line-no">036</span><span id="line-36">        this.aEngine.setGUI(this.aGui);</span>
+<span class="source-line-no">037</span><span id="line-37">    } // Game()</span>
+<span class="source-line-no">038</span><span id="line-38">} // Game</span>
 
 
 

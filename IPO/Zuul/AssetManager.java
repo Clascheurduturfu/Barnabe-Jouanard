@@ -7,97 +7,79 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 /**
- * Downloads game assets from the ESIEE web server and caches them locally.
+ * Downloads game assets from the ESIEE web server and stores them locally.
  * <p>
- * On each launch, checks which assets are missing from the local {@code assets/}
- * folder and downloads them from the remote server. Files already present are
- * skipped. Each download is attempted up to {@value #MAX_RETRIES} times before
- * being marked as failed. If any downloads fail, the game continues in offline
- * mode with whatever assets are available.
+ * On each launch, checks which assets are missing from the local
+ * {@code assets/} folder and downloads them from the remote server. Files
+ * already present are skipped. Each download is attempted up to
+ * {@value #aMaxRetries} times before being marked as failed. If any downloads
+ * fail, the game continues in offline mode with whatever assets are available.
  * </p>
  *
  * @author Barnabe Jouanard
  * @version 2026.04.17
  */
-public class AssetManager
-{
-    /** Base URL of the remote asset server. */
-    private static final String BASE_URL = "https://perso.esiee.fr/~jouanarb/assets/";
-
-    /** Local directory where downloaded assets are cached. */
-    private static final String CACHE_DIR = "assets";
-
+public class AssetManager {
+    /** URL of the asset location. */
+    private static final String aAssetsUrl = "https://perso.esiee.fr/~jouanarb/assets/";
     /** Maximum number of download attempts per file before giving up. */
-    private static final int MAX_RETRIES = 3;
-
-    /** Size of the byte buffer used when reading download streams. */
-    private static final int BUFFER_SIZE = 8192;
-
-    /** HTTP connection timeout in milliseconds. */
-    private static final int CONNECT_TIMEOUT = 10000;
-
-    /** HTTP read timeout in milliseconds. */
-    private static final int READ_TIMEOUT = 15000;
-
-    /** Hardcoded list of all asset filenames to download. */
-    private static final String[] ASSETS = {
-        "home.gif",
-        "home_map.jpeg",
-        "littleroot town.gif",
-        "littleroot_map.jpeg",
-        "no map.jpeg",
-        "oldale town.gif",
-        "oldale town_map.jpeg",
-        "petalburg city.gif",
-        "petalburg city_map.jpeg",
-        "petalburg woods.gif",
-        "petalburg woods_map.jpeg",
-        "route 101.gif",
-        "route101_map.jpeg",
-        "route 102.gif",
-        "route102_map.jpeg",
-        "rustboro city.gif",
-        "rustboro city_map.jpeg",
-        "sky pilar_map.jpeg",
-        "sky pillar.gif"
-    };
-
+    private static final int aMaxRetries = 3;
+    /** Local directory where assets are stored. */
+    private static final String aAssetsFolder = "assets";
+    /** Current filename being downloaded. */
     private String aCurrentFile = "";
+    /** Current progress count. */
     private int aCurrentProgress = 0;
-    private int aTotalAssets = ASSETS.length;
+    /** Flag indicating whether the download phase is complete. */
     private boolean aIsComplete = false;
+    /** Error message if any downloads failed (null if all succeeded). */
     private String aErrorMessage = null;
-
-    public String getCurrentFile() { return aCurrentFile; }
-    public int getCurrentProgress() { return aCurrentProgress; }
-    public int getTotalAssets() { return aTotalAssets; }
-    public boolean isComplete() { return aIsComplete; }
-    public String getErrorMessage() { return aErrorMessage; }
+    /** List of all asset filenames to download. */
+    private String[] aAessetsList = {
+            "home.gif",
+            "home_map.jpeg",
+            "littleroot town.gif",
+            "littleroot_map.jpeg",
+            "no map.jpeg",
+            "oldale town.gif",
+            "oldale town_map.jpeg",
+            "petalburg city.gif",
+            "petalburg city_map.jpeg",
+            "petalburg woods.gif",
+            "petalburg woods_map.jpeg",
+            "route 101.gif",
+            "route101_map.jpeg",
+            "route 102.gif",
+            "route102_map.jpeg",
+            "rustboro city.gif",
+            "rustboro city_map.jpeg",
+            "sky pilar_map.jpeg",
+            "sky pillar.gif",
+            "lose_screen.png"
+    };
+    /** Total number of assets to download. */
+    private int aTotalAssets = aAessetsList.length;
 
     /**
      * Creates a new asset manager.
      */
-    public AssetManager()
-    {
-        // ensure the cache directory exists
-        File vCacheDir = new File( CACHE_DIR );
-        if ( !vCacheDir.exists() ) {
-            vCacheDir.mkdirs();
+    public AssetManager() {
+        // ensure the assets directory exists
+        File vAssetsFolder = new File(aAssetsFolder);
+        if (!vAssetsFolder.exists()) {
+            vAssetsFolder.mkdirs();
         }
     } // AssetManager()
 
-
-
     /**
-     * Checks whether all assets are already present in the local cache.
+     * Checks whether all assets are already present in the local folder.
      *
-     * @return {@code true} if every file in {@link #ASSETS} exists locally
+     * @return {@code true} if every file in {@link #aAessetsList} exists locally
      */
-    public boolean allAssetsCached()
-    {
-        for ( String vFileName : ASSETS ) {
-            File vFile = new File( CACHE_DIR + File.separator + vFileName );
-            if ( !vFile.exists() ) {
+    public boolean allAssetsCached() {
+        for (String vFileName : aAessetsList) {
+            File vFile = new File(aAssetsFolder + File.separator + vFileName);
+            if (!vFile.exists()) {
                 return false;
             }
         }
@@ -107,14 +89,13 @@ public class AssetManager
     /**
      * Returns the total number of assets that need to be downloaded.
      *
-     * @return count of files not yet present in the local cache
+     * @return count of files not yet present in the local folder
      */
-    public int countMissingAssets()
-    {
+    public int countMissingAssets() {
         int vCount = 0;
-        for ( String vFileName : ASSETS ) {
-            File vFile = new File( CACHE_DIR + File.separator + vFileName );
-            if ( !vFile.exists() ) {
+        for (String vFileName : aAessetsList) {
+            File vFile = new File(aAssetsFolder + File.separator + vFileName);
+            if (!vFile.exists()) {
                 vCount++;
             }
         }
@@ -122,49 +103,48 @@ public class AssetManager
     } // countMissingAssets()
 
     /**
-     * Downloads all missing assets from the remote server.
+     * Downloads all missing assets from the assets url.
      * <p>
-     * Each file is attempted up to {@value #MAX_RETRIES} times. If a file
-     * still fails after all retries, it is skipped and the game will run
-     * in offline mode (missing images appear as blank panels).
+     * Each file is attempted up to {@value #aMaxRetries} times. If a file still
+     * fails after all retries, it is skipped and the game will run in offline
+     * mode (missing images appear as blank panels).
      * </p>
      */
-    public void downloadAssets()
-    {
-        int vTotal = ASSETS.length;
+    public void downloadAssets() {
         int vFailCount = 0;
 
-        for ( int vI = 0; vI < vTotal; vI++ ) {
-            String vFileName = ASSETS[vI];
-            File vLocalFile = new File( CACHE_DIR + File.separator + vFileName );
+        for (int vI = 0; vI < aTotalAssets; vI++) {
+            String vFileName = aAessetsList[vI];
+            File vLocalFile = new File(aAssetsFolder + File.separator + vFileName);
 
-            if ( vLocalFile.exists() ) {
-                // already cached, skip
+            if (vLocalFile.exists()) {
+                // already stored locally, skip
                 this.aCurrentFile = vFileName;
                 this.aCurrentProgress = vI + 1;
                 continue;
             }
 
             boolean vSuccess = false;
-            for ( int vAttempt = 1; vAttempt <= MAX_RETRIES; vAttempt++ ) {
-                vSuccess = this.downloadFile( vFileName, vLocalFile );
-                if ( vSuccess ) {
+            for (int vAttempt = 1; vAttempt <= aMaxRetries; vAttempt++) {
+                vSuccess = this.downloadFile(vFileName, vLocalFile);
+                if (vSuccess) {
                     break;
                 }
-                System.out.println( "Retry " + vAttempt + "/" + MAX_RETRIES + " for: " + vFileName );
             }
 
-            if ( !vSuccess ) {
+            if (!vSuccess) {
                 vFailCount++;
-                System.out.println( "Failed to download after " + MAX_RETRIES + " attempts: " + vFileName + " try to restart the game with wifi or consider downloading the offline version from the website");
+                System.out.println("Failed to download " + vFileName + " after " + aMaxRetries + " attempts.");
             }
 
             this.aCurrentFile = vFileName;
             this.aCurrentProgress = vI + 1;
         }
 
-        if ( vFailCount > 0 ) {
-            this.aErrorMessage = vFailCount + " file(s) could not be downloaded. Running in offline mode.";
+        if (vFailCount > 0) {
+            this.aErrorMessage = vFailCount + " file(s) could not be downloaded. Running in offline mode." + "\n"
+                    + "Try restarting the game with Wi‑Fi, or consider downloading the offline version from the website.";
+            System.out.println(aErrorMessage);
         }
         this.aIsComplete = true;
     } // downloadAssets()
@@ -176,61 +156,88 @@ public class AssetManager
      * @param pLocalFile the local destination file
      * @return {@code true} if the download succeeded; {@code false} otherwise
      */
-    private boolean downloadFile( final String pFileName, final File pLocalFile )
-    {
+    private boolean downloadFile(final String pFileName, final File pLocalFile) {
         HttpURLConnection vConnection = null;
         try {
-            // URL‑encode the filename (handles spaces → %20)
-            String vEncodedName = URLEncoder.encode( pFileName, "UTF-8" ).replace( "+", "%20" );
-            URL vUrl = new URL( BASE_URL + vEncodedName );
+            // URL-encode the filename (handles spaces -> %20).
+            String vEncodedName = URLEncoder.encode(pFileName, "UTF-8").replace("+", "%20");
+            URL vUrl = new URL(aAssetsUrl + vEncodedName);
 
             vConnection = (HttpURLConnection) vUrl.openConnection();
-            vConnection.setConnectTimeout( CONNECT_TIMEOUT );
-            vConnection.setReadTimeout( READ_TIMEOUT );
-            vConnection.setRequestMethod( "GET" );
+            vConnection.setConnectTimeout(10000);
+            vConnection.setReadTimeout(10000);
+            vConnection.setRequestMethod("GET");
 
             int vResponseCode = vConnection.getResponseCode();
-            if ( vResponseCode != HttpURLConnection.HTTP_OK ) {
-                System.out.println( "HTTP " + vResponseCode + " for: " + pFileName );
+            if (vResponseCode != HttpURLConnection.HTTP_OK) {
+                System.out.println("HTTP " + vResponseCode + " for: " + pFileName);
                 return false;
             }
 
-            // Use try‑with‑resources and transferTo (Java 9+)
-            try ( InputStream vInput = vConnection.getInputStream();
-                  FileOutputStream vOutput = new FileOutputStream( pLocalFile ) ) {
-                vInput.transferTo( vOutput );
+            try (InputStream vInput = vConnection.getInputStream();
+                    FileOutputStream vOutput = new FileOutputStream(pLocalFile)) {
+                vInput.transferTo(vOutput);
             }
 
             return true;
-        }
-        catch ( IOException vException ) {
-            System.out.println( "Download error for " + pFileName + ": " + vException.getMessage() );
-            // clean up partial file
-            if ( pLocalFile.exists() ) {
+        } catch (IOException vException) {
+            System.out.println("Download error for " + pFileName + ": " + vException.getMessage());
+            // Clean up any partial file.
+            if (pLocalFile.exists()) {
                 pLocalFile.delete();
             }
             return false;
-        }
-        finally {
-            if ( vConnection != null ) {
+        } finally {
+            if (vConnection != null) {
                 vConnection.disconnect();
             }
         }
     } // downloadFile()
 
     /**
-     * Resolves a relative asset path to an absolute {@link File} on disk.
-     * <p>
-     * This is the single point of access for all image loading in the game.
-     * Both {@code UserInterface.showImage()} and {@code UserInterface.showMap()}
-     * call this method to locate asset files.
-     * </p>
+     * Returns the name of the most recent file processed by {@link #downloadAssets()}.
      *
-     * @param pRelativePath the path as stored in {@link Room}, e.g. {@code "assets/home.gif"}
-     * @return a {@link File} pointing to the local cached asset
+     * @return the current filename (may be empty)
      */
-    public static File resolveAsset( final String pRelativePath )
-    {
-        return new File( pRelativePath );
-    } // resolveAsset()
+    public String getCurrentFile() {
+        return aCurrentFile;
+    }
+
+    /**
+     * Returns the 1-based index of the most recent asset processed by
+     * {@link #downloadAssets()}.
+     *
+     * @return progress count in the range {@code [0..getTotalAssets()]}
+     */
+    public int getCurrentProgress() {
+        return aCurrentProgress;
+    }
+
+    /**
+     * Returns the total number of assets configured for download.
+     *
+     * @return total assets count
+     */
+    public int getTotalAssets() {
+        return aTotalAssets;
+    }
+
+    /**
+     * Indicates whether the asset download phase has completed.
+     *
+     * @return {@code true} once {@link #downloadAssets()} has finished
+     */
+    public boolean isComplete() {
+        return aIsComplete;
+    }
+
+    /**
+     * Returns a human-readable error message when at least one download failed.
+     *
+     * @return error message, or {@code null} when no errors occurred
+     */
+    public String getErrorMessage() {
+        return aErrorMessage;
+    }
+
 } // AssetManager

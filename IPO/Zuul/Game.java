@@ -9,12 +9,12 @@
  * @author Barnabe Jouanard
  * @version 2026.02.17
  */
-public class Game
-{
+public class Game {
     /** Swing-based view that shows text, images, and command controls. */
     private UserInterface aGui;
     /** Core game logic: rooms, parser, and command interpretation. */
     private GameEngine aEngine;
+    /** Asset manager responsible for downloading missing files at startup. */
     private AssetManager aAssetManager;
 
     /**
@@ -24,16 +24,15 @@ public class Game
      * so it can print messages and update the display after construction.
      * </p>
      */
-    public Game()
-    {
+    public Game() {
         this.aAssetManager = new AssetManager();
-        if ( !aAssetManager.allAssetsCached() ) {
-            LoadingScreen vLoading = new LoadingScreen( aAssetManager );
+        if (!aAssetManager.allAssetsCached()) {
+            LoadingScreen vLoading = new LoadingScreen(aAssetManager);
             vLoading.startAndWait();
         }
 
         this.aEngine = new GameEngine();
-        this.aGui = new UserInterface( this.aEngine );
-        this.aEngine.setGUI( this.aGui );
+        this.aGui = new UserInterface(this.aEngine);
+        this.aEngine.setGUI(this.aGui);
     } // Game()
 } // Game

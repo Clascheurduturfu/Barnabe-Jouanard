@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=LoadingScreen
-comment0.text=\r\n\ A\ splash\ screen\ displayed\ while\ the\ {@link\ AssetManager}\ downloads\ missing\r\n\ game\ assets\ from\ the\ remote\ server.\r\n\ <p>\r\n\ Shows\ a\ progress\ bar\ with\ a\ status\ label\ indicating\ which\ file\ is\ being\r\n\ downloaded\ and\ how\ many\ remain.\ When\ all\ downloads\ complete\ (or\ fail\ after\r\n\ retries),\ the\ screen\ closes\ automatically\ and\ the\ game\ starts.\r\n\ </p>\r\n\r\n\ @author\ Gemini\r\n\ @version\ 2026.04.17\r\n
+comment0.text=\r\n\ A\ splash\ screen\ displayed\ while\ the\ {@link\ AssetManager}\ downloads\ missing\r\n\ game\ assets\ from\ the\ remote\ server.\r\n\ <p>\r\n\ Shows\ a\ progress\ bar\ with\ a\ status\ label\ indicating\ which\ file\ is\ being\r\n\ downloaded\ and\ how\ many\ remain.\ When\ all\ downloads\ complete\ (or\ fail\ after\r\n\ retries),\ the\ screen\ closes\ automatically\ and\ the\ game\ starts.\r\n\ </p>\r\n\r\n\ @author\ Barnabe\ Jouanard\r\n\ @version\ 2026.04.17\r\n
 comment1.params=pAssetManager
 comment1.target=LoadingScreen(AssetManager)
 comment1.text=\r\n\ Creates\ a\ new\ loading\ screen\ linked\ to\ the\ given\ asset\ manager.\r\n\r\n\ @param\ pAssetManager\ the\ asset\ manager\ that\ will\ perform\ the\ downloads\r\n
@@ -8,9 +8,6 @@ comment2.params=
 comment2.target=void\ createGUI()
 comment2.text=\r\n\ Builds\ the\ loading\ screen\ UI\:\ title,\ progress\ bar,\ and\ status\ labels.\r\n
 comment3.params=
-comment3.target=void\ updateUI()
-comment3.text=\r\n\ Updates\ the\ UI\ components\ safely\ on\ the\ EDT\ using\ the\ current\ state\ from\ AssetManager.\r\n
-comment4.params=
-comment4.target=void\ startAndWait()
-comment4.text=\r\n\ Shows\ the\ loading\ screen\ and\ starts\ the\ asset\ download\ on\ a\ background\ thread.\r\n\ This\ method\ blocks\ until\ the\ download\ finishes\ (success\ or\ offline\ fallback).\r\n
-numComments=5
+comment3.target=void\ startAndWait()
+comment3.text=\r\n\ Shows\ the\ loading\ screen.\r\n\ This\ method\ blocks\ until\ the\ download\ finishes\ (success\ or\ offline\ fallback).\r\n
+numComments=4

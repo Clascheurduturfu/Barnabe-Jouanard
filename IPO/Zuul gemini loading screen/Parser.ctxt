@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Parser
+comment0.text=\r\n\ Turns\ a\ single\ input\ line\ into\ a\ {@link\ Command}\ for\ the\ adventure\ game.\r\n\ <p>\r\n\ The\ first\ token\ becomes\ the\ command\ word;\ the\ second\ token\ (if\ any)\ is\ kept\ as\r\n\ the\ command's\ second\ word.\ Additional\ tokens\ on\ the\ same\ line\ are\ ignored.\r\n\ Unknown\ first\ words\ yield\ a\ command\ whose\ {@link\ Command\#getCommandWord()}\ is\r\n\ {@code\ null}\ so\ that\ {@link\ Command\#isUnknown()}\ is\ {@code\ true}.\r\n\ </p>\r\n\r\n\ @author\ Michael\ Kolling\ and\ David\ J.\ Barnes\ +\ D.\ Bureau\r\n\ @version\ 2008.03.30\ +\ 2013.09.15\r\n
+comment1.params=
+comment1.target=Parser()
+comment1.text=\r\n\ Prepares\ the\ internal\ {@link\ CommandWords}\ table\ used\ during\ parsing.\r\n
+comment2.params=pInputLine
+comment2.target=Command\ getCommand(java.lang.String)
+comment2.text=\r\n\ Tokenizes\ {@code\ pInputLine}\ and\ builds\ the\ corresponding\ {@link\ Command}.\r\n\r\n\ @param\ pInputLine\ raw\ user\ text;\ may\ be\ {@code\ null},\ empty,\ or\ multi-word\r\n\ @return\ a\ populated\ {@link\ Command},\ possibly\ marked\ unknown\r\n
+comment3.params=
+comment3.target=java.lang.String\ getCommandString()
+comment3.text=\r\n\ Returns\ a\ space-separated\ list\ of\ all\ valid\ command\ words.\r\n\r\n\ @return\ human-readable\ command\ summary\ suitable\ for\ help\ text\r\n
+numComments=4

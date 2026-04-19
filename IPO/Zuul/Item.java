@@ -1,12 +1,12 @@
 /**
- * Describes a collectible or scenery object with a textual blurb and an arbitrary weight
+ * Describes a collectible or scenery object with a textual blurb and an
+ * arbitrary weight
  * or price value surfaced to the player.
  *
  * @author Barnabe Jouanard
  * @version 2026.02.17
  */
-public class Item
-{
+public class Item {
     /** Narrative name or sentence shown in room listings. */
     private String aDescription;
     /** Numeric attribute (treated as price in user-facing strings). */
@@ -18,8 +18,7 @@ public class Item
      * @param pDescription text presented inside {@link #getItemDescription()}
      * @param pPrice       non-negative value interpreted as the item's price
      */
-    public Item( final String pDescription, final int pPrice )
-    {
+    public Item(final String pDescription, final int pPrice) {
         this.aDescription = pDescription;
         this.aPrice = pPrice;
     }
@@ -29,8 +28,7 @@ public class Item
      *
      * @return the configured price
      */
-    public int getItemPrice()
-    {
+    public int getItemPrice() {
         return this.aPrice;
     } // getItemPrice()
 
@@ -39,8 +37,7 @@ public class Item
      *
      * @return two-line English text suitable for room descriptions
      */
-    public String getItemDescription()
-    {
+    public String getItemDescription() {
         return "There is " + this.aDescription + '\n' + "Item price: " + this.aPrice;
     }
 } // Item

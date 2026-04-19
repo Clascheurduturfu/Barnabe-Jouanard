@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon Delta Emerald - Projet Zuul</title>
     
-    <link rel="icon" type="image/png" href="https://github.com/Clascheurduturfu/Barnabe-Jouanard/blob/main/Delta_Emerald_icon.jpg?raw=true">
+    <link rel="icon" type="image/png" href="Delta_Emerald_icon.jpg">
 
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     
@@ -60,28 +60,28 @@
             font-size: 0.9em;
             color: #666;
         }
-    .download-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-.btn {
-  padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #4a90e2, #0077b6);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-</style>
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #4a90e2, #0077b6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+    </style>
 </head>
 <body>
 
@@ -113,15 +113,23 @@
             <p>Voici l'organisation géographique des lieux et des donjons de l'aventure en 3D :</p>
             
             <model-viewer 
-                src="https://raw.githubusercontent.com/Clascheurduturfu/Barnabe-Jouanard/main/Hoenn_map.glb" 
-		environment-image="neutral" 
+                src="Hoenn_map.glb" 
+		        environment-image="neutral" 
+                camera-orbit="0deg 75deg 4m"
+                field-of-view="45deg"
+                min-camera-orbit="auto 30deg 30m"
+                max-camera-orbit="auto 90deg 100m"
+                camera-target="10m 0m 0m"
+                interpolation-decay="200"
+                bounds="tight"
                 alt="3D map of the Hoenn region"
-		exposure="1"
+		        exposure="1"
                 ar 
                 auto-rotate 
+                disable-pan
                 camera-controls 
                 shadow-intensity="1" 
-                touch-action="pan-y">
+                touch-action="none">
             </model-viewer>
             
             <p><em>Utilisez votre souris ou votre doigt pour faire pivoter la carte et explorer les connexions entre les zones.</em></p>
@@ -133,8 +141,9 @@
         <p>&copy; 2026 Barnabé Jouanard - Projet Programmation Orientée Objet</p>
     </footer>
     <div class="download-buttons">
-      <a href="IPO_barnabe_jouanard.jar" download class="btn">Download IPO.jar</a>
-      <a href="IPO_barnabe_jouanard_offline.jar" download class="btn">Download IPO Offline.jar</a>
+      <a href="../IPO_barnabe_jouanard.jar" download class="btn">Download IPO.jar</a>
+      <a href="../IPO_barnabe_jouanard_offline.jar" download class="btn">Download IPO Offline.jar</a>
     </div>
+
 </body>
 </html>
