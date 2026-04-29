@@ -1,13 +1,15 @@
 #BlueJ class context
 comment0.target=LoadingScreen
-comment0.text=\r\n\ A\ splash\ screen\ displayed\ while\ the\ {@link\ AssetManager}\ downloads\ missing\r\n\ game\ assets\ from\ the\ remote\ server.\r\n\ <p>\r\n\ Shows\ a\ progress\ bar\ with\ a\ status\ label\ indicating\ which\ file\ is\ being\r\n\ downloaded\ and\ how\ many\ remain.\ When\ all\ downloads\ complete\ (or\ fail\ after\r\n\ retries),\ the\ screen\ closes\ automatically\ and\ the\ game\ starts.\r\n\ </p>\r\n\r\n\ @author\ Barnabe\ Jouanard\r\n\ @version\ 2026.04.17\r\n
+comment0.text=\n\ A\ splash\ screen\ displayed\ while\ the\ {@link\ AssetManager}\ downloads\ missing\n\ game\ assets\ from\ the\ remote\ server.\n\ <p>\n\ Shows\ a\ progress\ bar\ with\ a\ status\ label\ indicating\ which\ file\ is\ being\n\ downloaded\ and\ how\ many\ remain.\ When\ all\ downloads\ complete\ (or\ fail\ after\n\ retries),\ the\ screen\ closes\ automatically\ and\ the\ game\ starts.\n\ </p>\n\n\ @author\ Barnabe\ Jouanard\n\ @version\ 2026.04.17\n
 comment1.params=pAssetManager
 comment1.target=LoadingScreen(AssetManager)
-comment1.text=\r\n\ Creates\ a\ new\ loading\ screen\ linked\ to\ the\ given\ asset\ manager.\r\n\r\n\ @param\ pAssetManager\ the\ asset\ manager\ that\ will\ perform\ the\ downloads\r\n
+comment1.text=\n\ Creates\ a\ new\ loading\ screen\ linked\ to\ the\ given\ asset\ manager.\n\n\ @param\ pAssetManager\ the\ asset\ manager\ that\ will\ perform\ the\ downloads\n
 comment2.params=
 comment2.target=void\ createGUI()
-comment2.text=\r\n\ Builds\ the\ loading\ screen\ UI\:\ title,\ progress\ bar,\ and\ status\ labels.\r\n
+comment2.text=\n\ Builds\ the\ loading\ screen\ UI\:\ title,\ progress\ bar,\ and\ status\ labels.\n
 comment3.params=
-comment3.target=void\ startAndWait()
-comment3.text=\r\n\ Shows\ the\ loading\ screen.\r\n\ This\ method\ blocks\ until\ the\ download\ finishes\ (success\ or\ offline\ fallback).\r\n
-numComments=4
+comment3.target=void\ setProgressBar()
+comment4.params=
+comment4.target=void\ startAndWait()
+comment4.text=\n\ Shows\ the\ loading\ screen.\n\ This\ method\ blocks\ until\ the\ download\ finishes\ (success\ or\ offline\ fallback).\n
+numComments=5

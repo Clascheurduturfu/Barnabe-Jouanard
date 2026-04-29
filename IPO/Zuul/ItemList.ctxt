@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=ItemList
-comment0.text=\n\ Stores\ a\ private\ collection\ of\ items\ keyed\ by\ name.\n\n\ The\ internal\ collection\ is\ fully\ encapsulated\ and\ cannot\ be\ manipulated\ directly\n\ from\ outside\ this\ class.\n\n\ @author\ Barnabe\ Jouanard\n\ @version\ 2026.04.13\n
+comment0.text=\n\ Stores\ a\ private\ collection\ of\ items\ keyed\ by\ name.\n\n\ The\ internal\ collection\ is\ fully\ encapsulated\ and\ cannot\ be\ manipulated\n\ directly\n\ from\ outside\ this\ class.\n\n\ @author\ Barnabe\ Jouanard\n\ @version\ 2026.04.13\n
 comment1.params=
 comment1.target=ItemList()
 comment1.text=\n\ Creates\ an\ empty\ item\ list.\n

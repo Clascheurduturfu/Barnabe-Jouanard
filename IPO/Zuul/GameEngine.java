@@ -53,23 +53,23 @@ public class GameEngine {
     private void createRooms() {
         Room house, littleroot, route101, oldale, route102, petalburg, petalburgWoods, rustboro, skyPillar;
 
-        house = new Room("in your house in Littleroot Town", "assets/home.gif", "assets/home_map.jpeg");
-        littleroot = new Room("in Littleroot Town, your home town", "assets/littleroot town.gif",
-                "assets/littleroot_map.jpeg");
-        route101 = new Room("on Route 101; wild Pokémon might appear in the tall grass", "assets/route 101.gif",
-                "assets/route101_map.jpeg");
-        oldale = new Room("in Oldale Town, a small junction with a Pokémon Center", "assets/oldale town.gif",
-                "assets/oldale town_map.jpeg");
-        route102 = new Room("on Route 102; wild Pokémon might appear in the tall grass", "assets/route 102.gif",
-                "assets/route102_map.jpeg");
-        petalburg = new Room("in Petalburg City, where your father is the Gym Leader", "assets/petalburg city.gif",
-                "assets/petalburg city_map.jpeg");
-        petalburgWoods = new Room("in Petalburg Woods", "assets/petalburg woods.gif",
-                "assets/petalburg woods_map.jpeg");
-        rustboro = new Room("in Rustboro City, where the Devon Corporation is located", "assets/rustboro city.gif",
-                "assets/rustboro city_map.jpeg");
-        skyPillar = new Room("on the Sky Pillar, Rayquaza's home", "assets/sky pillar.gif",
-                "assets/sky pilar_map.jpeg");
+        house = new Room("in your house in Littleroot Town", "home.gif", "home_map.jpeg");
+        littleroot = new Room("in Littleroot Town, your home town", "littleroot town.gif",
+                "littleroot_map.jpeg");
+        route101 = new Room("on Route 101; wild Pokémon might appear in the tall grass", "route 101.gif",
+                "route101_map.jpeg");
+        oldale = new Room("in Oldale Town, a small junction with a Pokémon Center", "oldale town.gif",
+                "oldale town_map.jpeg");
+        route102 = new Room("on Route 102; wild Pokémon might appear in the tall grass", "route 102.gif",
+                "route102_map.jpeg");
+        petalburg = new Room("in Petalburg City, where your father is the Gym Leader", "petalburg city.gif",
+                "petalburg city_map.jpeg");
+        petalburgWoods = new Room("in Petalburg Woods", "petalburg woods.gif",
+                "petalburg woods_map.jpeg");
+        rustboro = new Room("in Rustboro City, where the Devon Corporation is located", "rustboro city.gif",
+                "rustboro city_map.jpeg");
+        skyPillar = new Room("on the Sky Pillar, Rayquaza's home", "sky pillar.gif",
+                "sky pilar_map.jpeg");
 
         house.setExit("west", littleroot);
 
@@ -347,7 +347,7 @@ public class GameEngine {
         this.aGui.println("Dropped " + vItemName + "!");
         this.aPlayer.setMoney(this.aPlayer.getMoney() + vItem.getItemPrice());
         if (this.aPlayer.getItem("map") == null) {
-            this.aGui.showMap("assets/no map.jpeg");
+            this.aGui.showMap("no map.jpeg");
         }
     } // drop()
 
@@ -436,7 +436,7 @@ public class GameEngine {
             this.aGui.showImage(this.aPlayer.getCurrentRoom().getImageName());
         }
         if (this.aPlayer.getItem("map") == null) {
-            this.aGui.showMap("assets/no map.jpeg");
+            this.aGui.showMap("no map.jpeg");
         }
     } // printWelcome()
 
@@ -487,7 +487,7 @@ public class GameEngine {
             this.aGui.setProgress(this.aGui.getProgressBar() - 1);
         }
         this.aGui.println("Time's up! You lose!");
-        this.aGui.showImage("assets/lose_screen.png");
+        this.aGui.showImage("lose_screen.png");
         this.endGame();
     } // losingTimer()
 } // GameEngine

@@ -100,7 +100,7 @@ public class UserInterface implements ActionListener {
      * @param pImageName resource path relative to the class loader root
      */
     public void showImage(final String pImageName) {
-        String vImagePath = "" + pImageName;
+        String vImagePath = "Images/" + pImageName;
         URL vImageURL = this.getClass().getClassLoader().getResource(vImagePath);
         if (vImageURL == null) {
             System.out.println("Image not found: " + vImagePath);
@@ -117,7 +117,7 @@ public class UserInterface implements ActionListener {
      * @param pImageName resource path relative to the class loader root
      */
     public void showMap(final String pImageName) {
-        String vImagePath = "" + pImageName;
+        String vImagePath = "Images/" + pImageName;
         URL vImageURL = this.getClass().getClassLoader().getResource(vImagePath);
         if (vImageURL == null) {
             System.out.println("Image not found: " + vImagePath);

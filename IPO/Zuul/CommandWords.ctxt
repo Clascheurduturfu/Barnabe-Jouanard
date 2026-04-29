@@ -1,13 +1,13 @@
 #BlueJ class context
 comment0.target=CommandWords
-comment0.text=\r\n\ Maintains\ the\ fixed\ vocabulary\ of\ primary\ commands\ understood\ by\ the\ {@link\ Parser}.\r\n\ <p>\r\n\ Each\ entry\ must\ stay\ synchronized\ with\ the\ branches\ handled\ in\r\n\ {@link\ GameEngine\#interpretCommand(String)}.\r\n\ </p>\r\n\r\n\ @author\ Michael\ Kolling\ and\ David\ J.\ Barnes\ +\ D.\ Bureau\r\n\ @version\ 2008.03.30\ +\ 2019.09.25\r\n
+comment0.text=\n\ Maintains\ the\ fixed\ vocabulary\ of\ primary\ commands\ understood\ by\ the\n\ {@link\ Parser}.\n\ <p>\n\ Each\ entry\ must\ stay\ synchronized\ with\ the\ branches\ handled\ in\n\ {@link\ GameEngine\#interpretCommand(String)}.\n\ </p>\n\n\ @author\ Michael\ Kolling\ and\ David\ J.\ Barnes\ +\ D.\ Bureau\n\ @version\ 2008.03.30\ +\ 2019.09.25\n
 comment1.params=
 comment1.target=CommandWords()
-comment1.text=\r\n\ Creates\ a\ CommandWords\ object\ containing\ all\ valid\ commands.\r\n
+comment1.text=\n\ Creates\ a\ CommandWords\ object\ containing\ all\ valid\ commands.\n
 comment2.params=pString
 comment2.target=boolean\ isCommand(java.lang.String)
-comment2.text=\r\n\ Tests\ membership\ of\ {@code\ pString}\ in\ the\ internal\ command\ table\ (case-sensitive).\r\n\r\n\ @param\ pString\ candidate\ verb,\ usually\ lower-case\r\n\ @return\ {@code\ true}\ if\ {@code\ pString}\ is\ a\ known\ command\ word\r\n
+comment2.text=\n\ Tests\ membership\ of\ {@code\ pString}\ in\ the\ internal\ command\ table\n\ (case-sensitive).\n\n\ @param\ pString\ candidate\ verb,\ usually\ lower-case\n\ @return\ {@code\ true}\ if\ {@code\ pString}\ is\ a\ known\ command\ word\n
 comment3.params=
 comment3.target=java.lang.String\ getCommandList()
-comment3.text=\r\n\ Builds\ a\ single\ string\ listing\ every\ valid\ command,\ separated\ by\ spaces.\r\n\r\n\ @return\ space-delimited\ command\ list\ for\ help\ output\r\n
+comment3.text=\n\ Builds\ a\ single\ string\ listing\ every\ valid\ command,\ separated\ by\ spaces.\n\n\ @return\ space-delimited\ command\ list\ for\ help\ output\n
 numComments=4

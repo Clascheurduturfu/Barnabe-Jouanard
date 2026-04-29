@@ -28,6 +28,7 @@ public class Game {
         this.aAssetManager = new AssetManager();
         if (!aAssetManager.allAssetsCached()) {
             LoadingScreen vLoading = new LoadingScreen(aAssetManager);
+            aAssetManager.setLoadingScreen(vLoading);
             vLoading.startAndWait();
         }
 

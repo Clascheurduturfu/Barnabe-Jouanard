@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Item
-comment0.text=\n\ Describes\ a\ collectible\ or\ scenery\ object\ with\ a\ textual\ blurb\ and\ an\ arbitrary\ weight\n\ or\ price\ value\ surfaced\ to\ the\ player.\n\n\ @author\ Barnabe\ Jouanard\n\ @version\ 2026.02.17\n
+comment0.text=\n\ Describes\ a\ collectible\ or\ scenery\ object\ with\ a\ textual\ blurb\ and\ an\n\ arbitrary\ weight\n\ or\ price\ value\ surfaced\ to\ the\ player.\n\n\ @author\ Barnabe\ Jouanard\n\ @version\ 2026.02.17\n
 comment1.params=pDescription\ pPrice
 comment1.target=Item(java.lang.String,\ int)
 comment1.text=\n\ Stores\ the\ immutable\ description\ and\ numeric\ metadata\ for\ an\ item.\n\n\ @param\ pDescription\ text\ presented\ inside\ {@link\ \#getItemDescription()}\n\ @param\ pPrice\ \ \ \ \ \ \ non-negative\ value\ interpreted\ as\ the\ item's\ price\n

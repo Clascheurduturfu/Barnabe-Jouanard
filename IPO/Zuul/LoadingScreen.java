@@ -93,6 +93,12 @@ public class LoadingScreen {
         this.aFrame.setLocationRelativeTo(null);
     } // createGUI()
 
+    public void setProgressBar( )
+    {
+        int vProgress = (int) (((double) aAssetManager.getCurrentProgress() / aAssetManager.getTotalAssets()) * 100);
+        this.aProgressBar.setValue(vProgress);
+    }
+
     /**
      * Shows the loading screen.
      * This method blocks until the download finishes (success or offline fallback).
@@ -101,10 +107,10 @@ public class LoadingScreen {
         this.aFrame.setVisible(true);
         aAssetManager.downloadAssets();
         while (aAssetManager.isComplete() == false) {
-            int vProgress = (int) (((double) aAssetManager.getCurrentProgress() / aAssetManager.getTotalAssets())
-                    * 100);
+            int vProgress = (int) (((double) aAssetManager.getCurrentProgress() / aAssetManager.getTotalAssets()) * 100);
             this.aProgressBar.setValue(vProgress);
         }
+        
         if (aAssetManager.getErrorMessage() != null) {
             aStatusLabel.setText(aAssetManager.getErrorMessage());
             aCountLabel.setText("Starting in offline mode...");

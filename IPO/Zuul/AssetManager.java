@@ -25,11 +25,13 @@ public class AssetManager {
     /** Maximum number of download attempts per file before giving up. */
     private static final int aMaxRetries = 3;
     /** Local directory where assets are stored. */
-    private static final String aAssetsFolder = "assets";
+    private static final String aAssetsFolder = "Images";
     /** Current filename being downloaded. */
     private String aCurrentFile = "";
     /** Current progress count. */
     private int aCurrentProgress = 0;
+    /** Reference to the loading screen used for progress updates. */
+    private LoadingScreen aLoadingScreen;
     /** Flag indicating whether the download phase is complete. */
     private boolean aIsComplete = false;
     /** Error message if any downloads failed (null if all succeeded). */
@@ -70,6 +72,15 @@ public class AssetManager {
             vAssetsFolder.mkdirs();
         }
     } // AssetManager()
+
+    /**
+     * Sets the loading screen used to report download progress.
+     *
+     * @param pLoadingScreen the loading screen instance to update
+     */
+    public void setLoadingScreen(final LoadingScreen pLoadingScreen) {
+        this.aLoadingScreen = pLoadingScreen;
+    }
 
     /**
      * Checks whether all assets are already present in the local folder.
@@ -190,6 +201,9 @@ public class AssetManager {
         } finally {
             if (vConnection != null) {
                 vConnection.disconnect();
+            }
+            if (this.aLoadingScreen != null) {
+                this.aLoadingScreen.setProgressBar();
             }
         }
     } // downloadFile()
