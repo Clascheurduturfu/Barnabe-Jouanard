@@ -1,40 +1,42 @@
 package pkg_commands;
 
 import pkg_engine.GameEngine;
+
 import pkg_entities.Item;
 
 /**
- * Implementation of the 'drop' user command.
+ * Implements the {@code drop} command, moving an item from the inventory to the current room.
  *
- * @author Michael Kolling and David J. Barnes
- * @version 2011.07.31
+ * @author Barnabe Jouanard
+ * @version 2026.05.08
  */
+public class DropCommand extends Command {
+    /** Creates the command. */
+    public DropCommand() {}
 
-
-public class DropCommand extends Command
-{
-    public DropCommand()
-    {
-    }
-
-    public boolean execute(GameEngine gameEngine)
-    {
-        if (!hasSecondWord()) {
-            gameEngine.getGui().println("Drop what?");
+    /**
+     * Drops the named item and refunds its value to the player.
+     *
+     * @param pGameEngine the game engine containing the player inventory
+     * @return always {@code false}; this command does not end the game
+     */
+    public boolean execute(final GameEngine pGameEngine) {
+        if (!this.hasSecondWord()) {
+            pGameEngine.getGui().println("Drop what?");
             return false;
         }
-        String vItemName = getSecondWord();
-        Item vItem = gameEngine.getPlayer().getItem(vItemName);
+        final String vItemName = this.getSecondWord();
+        final Item vItem = pGameEngine.getPlayer().getItem(vItemName);
         if (vItem == null) {
-            gameEngine.getGui().println("I can't find any " + vItemName + "!");
+            pGameEngine.getGui().println("I can't find any " + vItemName + "!");
             return false;
         }
-        gameEngine.getPlayer().getCurrentRoom().addItem(vItemName, vItem);
-        gameEngine.getPlayer().removeItem(vItemName);
-        gameEngine.getGui().println("Dropped " + vItemName + "!");
-        gameEngine.getPlayer().setMoney(gameEngine.getPlayer().getMoney() + vItem.getItemPrice());
-        if (gameEngine.getPlayer().getItem("map") == null) {
-            gameEngine.getGui().showMap("no map.jpeg");
+        pGameEngine.getPlayer().getCurrentRoom().addItem(vItemName, vItem);
+        pGameEngine.getPlayer().removeItem(vItemName);
+        pGameEngine.getGui().println("Dropped " + vItemName + "!");
+        pGameEngine.getPlayer().setMoney(pGameEngine.getPlayer().getMoney() + vItem.getItemPrice());
+        if (pGameEngine.getPlayer().getItem("map") == null) {
+            pGameEngine.getGui().showMap("no map.jpeg");
         }
         return false;
     }

@@ -1,34 +1,37 @@
 package pkg_commands;
+
 import pkg_engine.GameEngine;
-import pkg_entities.Room;
+
 import pkg_entities.TransporterRoom;
 
 /**
- * Implementation of the 'alea' user command.
+ * Implements the {@code alea} test command for forcing a transporter room destination.
  *
- * @author Michael Kolling and David J. Barnes
- * @version 2011.07.31
+ * @author Barnabe Jouanard
+ * @version 2026.05.08
  */
+public class AleaCommand extends Command {
+    /** Creates the command. */
+    public AleaCommand() {}
 
-
-public class AleaCommand extends Command
-{
-    public AleaCommand()
-    {
-    }
-
-    public boolean execute(GameEngine gameEngine)
-    {
-        if (gameEngine.getPlayer().getCurrentRoom().isTeleporterRoom() && gameEngine.isTest()) {
-            TransporterRoom vTransporterRoom = (TransporterRoom) gameEngine.getPlayer().getCurrentRoom();
-            if(getSecondWord() == null){
+    /**
+     * Forces or resets the current transporter room destination while in test mode.
+     *
+     * @param pGameEngine the game engine containing the player and room state
+     * @return always {@code false}; this command does not end the game
+     */
+    public boolean execute(final GameEngine pGameEngine) {
+        if (pGameEngine.getPlayer().getCurrentRoom().isTeleporterRoom() && pGameEngine.isTest()) {
+            final TransporterRoom vTransporterRoom =
+                    (TransporterRoom) pGameEngine.getPlayer().getCurrentRoom();
+            if (this.getSecondWord() == null) {
                 vTransporterRoom.resetForcedRoom();
-            } else{
-                String vRoom = getSecondWord();
+            } else {
+                final String vRoom = this.getSecondWord();
                 vTransporterRoom.setForcedRoom(vRoom);
             }
         } else {
-            gameEngine.getGui().println("you are not in the Transporter Room or in test mode");
+            pGameEngine.getGui().println("You are not in the Transporter Room or in test mode.");
         }
         return false;
     }

@@ -1,37 +1,40 @@
 package pkg_entities;
+
 import java.util.HashMap;
 import java.util.Stack;
 
 /**
- * Stores the state that belongs to the player: identity, current position,
- * history,
- * and a personal item list.
+ * Stores the state that belongs to the player: identity, current position, history, and a personal
+ * item list.
  *
  * @author Barnabe Jouanard
  * @version 2026.04.13
  */
-
-
 public class Player {
     /** Player display name (may be {@code null}). */
     private String aName;
+
     /** Current room occupied by the player. */
     private Room aCurrentRoom;
+
     /** Stack of previously visited rooms, used to support {@code back}. */
     private Stack<Room> aPreviousRooms;
+
     /** Items currently held by the player, keyed by a short lookup name. */
     private ItemList aItems;
+
     /** Current money balance used when buying items. */
     private int aMoney;
+
     /** Flag indicating whether the player has won the game. */
     private boolean aHasWon;
-    private HashMap<Integer, Pokemon> aTeam;
 
+    private HashMap<Integer, Pokemon> aTeam;
 
     /**
      * Creates a player with a name and a starting room.
      *
-     * @param pName      the player name (can be empty or {@code null})
+     * @param pName the player name (can be empty or {@code null})
      * @param pStartRoom the initial room
      */
     public Player(final String pName, final Room pStartRoom) {
@@ -53,15 +56,19 @@ public class Player {
         return this.aCurrentRoom;
     }
 
-    public void setCurrentRoom(Room pRoom) {
+    /**
+     * Sets the current room without changing the back-stack history.
+     *
+     * @param pRoom the room to set as current
+     */
+    public void setCurrentRoom(final Room pRoom) {
         this.aCurrentRoom = pRoom;
     }
 
     /**
      * Changes the current room, saving the previous one to the history stack.
-     * <p>
-     * Intended to be called by the engine after validating the intended direction.
-     * </p>
+     *
+     * <p>Intended to be called by the engine after validating the intended direction.
      *
      * @param pNextRoom the room to move to (may be {@code null})
      */
@@ -92,10 +99,9 @@ public class Player {
 
     /**
      * Moves back to the previous room.
-     * <p>
-     * This method assumes {@link #canGoBack()} is {@code true}. If the stack is
-     * empty, {@link Stack#pop()} will throw an exception.
-     * </p>
+     *
+     * <p>This method assumes {@link #canGoBack()} is {@code true}. If the stack is empty, {@link
+     * Stack#pop()} will throw an exception.
      */
     public void goBack() {
         this.aCurrentRoom = this.aPreviousRooms.pop();
@@ -129,10 +135,20 @@ public class Player {
         return this.aItems.getItem(pName);
     }
 
+    /**
+     * Returns all items in the player's inventory.
+     *
+     * @return item keys mapped to item objects
+     */
     public java.util.HashMap<String, Item> getItems() {
         return this.aItems.getAllItems();
     }
 
+    /**
+     * Returns the stack of previous rooms.
+     *
+     * @return previous rooms used by the {@code back} command
+     */
     public java.util.Stack<Room> getPreviousRooms() {
         return this.aPreviousRooms;
     }
@@ -174,14 +190,31 @@ public class Player {
         this.aMoney = pNewMoney;
     }
 
+    /**
+     * Adds or replaces a Pokemon at the given team position.
+     *
+     * @param pPosition the team slot
+     * @param pPokemon the Pokemon to store
+     */
     public void setPokemon(final Integer pPosition, final Pokemon pPokemon) {
         this.aTeam.put(pPosition, pPokemon);
     } // setPokemon()
 
+    /**
+     * Returns the Pokemon in the given team position.
+     *
+     * @param pPosition the team slot
+     * @return the matching Pokemon, or {@code null}
+     */
     public Pokemon getPokemon(final Integer pPosition) {
         return this.aTeam.get(pPosition);
     } // getPokemon()
 
+    /**
+     * Returns the number of Pokemon in the player's team.
+     *
+     * @return the team size
+     */
     public int getTeamSize() {
         return this.aTeam.size();
     } // getTeamSize()
@@ -195,10 +228,20 @@ public class Player {
         return this.aItems.getItemList();
     }
 
+    /**
+     * Indicates whether the player has won the game.
+     *
+     * @return {@code true} once the win condition has been completed
+     */
     public boolean hasWon() {
         return this.aHasWon;
     }
 
+    /**
+     * Updates the player's win flag.
+     *
+     * @param pHasWon {@code true} when the player has won
+     */
     public void setHasWon(final boolean pHasWon) {
         this.aHasWon = pHasWon;
     }

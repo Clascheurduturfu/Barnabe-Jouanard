@@ -3,20 +3,18 @@ package pkg_commands;
 import java.util.StringTokenizer;
 
 /**
- * </p>
+ * Converts raw user input into executable command objects.
+ *
+ * <p>The parser reads at most two tokens: the command word and one optional argument.
  *
  * @author Michael Kolling and David J. Barnes + D. Bureau
  * @version 2008.03.30 + 2013.09.15
  */
-
-
 public class Parser {
     /** Catalogue of valid primary command words. */
     private CommandWords aCommand;
 
-    /**
-     * Prepares the internal {@link CommandWords} table used during parsing.
-     */
+    /** Prepares the internal {@link CommandWords} table used during parsing. */
     public Parser() {
         this.aCommand = new CommandWords();
     } // Parser()
@@ -24,17 +22,16 @@ public class Parser {
     /**
      * Tokenizes {@code pInputLine} and builds the corresponding {@link Command}.
      *
-     * @param pInputLine raw user text; may be {@code null}, empty, or multi-word
+     * @param pInput raw user text; may be {@code null}, empty, or multi-word
      * @return a populated {@link Command}, possibly marked unknown
      */
-    public Command getCommand(final String vInput) {
-        String vInputLine = vInput;
+    public Command getCommand(final String pInput) {
+        final String vInputLine = pInput;
         String vWord1;
         String vWord2;
-        
-        StringTokenizer tokenizer = new StringTokenizer(vInputLine);
-        
-        
+
+        final StringTokenizer tokenizer = new StringTokenizer(vInputLine);
+
         if (tokenizer.hasMoreTokens()) {
             vWord1 = tokenizer.nextToken();
         } else {
@@ -46,18 +43,17 @@ public class Parser {
         } else {
             vWord2 = null;
         }
-        
-        if (aCommand.isCommand(vWord1) == false) {
+
+        if (this.aCommand.isCommand(vWord1) == false) {
             return null;
         }
-        
-        Command command = aCommand.get(vWord1);
-        command.setSecondWord(null);
-        if(command != null) {
-            command.setSecondWord(vWord2);
+
+        final Command vCommand = this.aCommand.get(vWord1);
+        if (vCommand != null) {
+            vCommand.setSecondWord(vWord2);
         }
 
-        return command;
+        return vCommand;
     } // getCommand()
 
     /**

@@ -3,26 +3,27 @@ package pkg_commands;
 import pkg_engine.GameEngine;
 
 /**
- * Implementation of the 'inventory' user command.
+ * Implements the {@code inventory} command, printing the player's current items.
  *
- * @author Michael Kolling and David J. Barnes
- * @version 2011.07.31
+ * @author Barnabe Jouanard
+ * @version 2026.05.08
  */
+public class InventoryCommand extends Command {
+    /** Creates the command. */
+    public InventoryCommand() {}
 
-
-public class InventoryCommand extends Command
-{
-    public InventoryCommand()
-    {
-    }
-
-    public boolean execute(GameEngine gameEngine)
-    {
-        if (hasSecondWord()) {
-            gameEngine.getGui().println("Inventory what?");
+    /**
+     * Prints the inventory summary.
+     *
+     * @param pGameEngine the game engine containing the player inventory
+     * @return always {@code false}; this command does not end the game
+     */
+    public boolean execute(final GameEngine pGameEngine) {
+        if (this.hasSecondWord()) {
+            pGameEngine.getGui().println("Inventory what?");
             return false;
         }
-        gameEngine.getGui().println(gameEngine.getPlayer().getItemInventory());
+        pGameEngine.getGui().println(pGameEngine.getPlayer().getItemInventory());
         return false;
     }
 }

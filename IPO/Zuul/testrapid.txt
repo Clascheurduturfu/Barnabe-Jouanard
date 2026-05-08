@@ -7,3 +7,4 @@ take delta-orb
 go north
 go west
 go up
+battle Rayquaza

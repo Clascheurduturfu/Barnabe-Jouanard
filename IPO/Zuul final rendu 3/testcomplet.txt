@@ -1,0 +1,41 @@
+back
+name Jean
+take map
+take shoes
+go west
+cashin
+take grant
+cashin grant
+look
+help
+drop shoes
+go north
+drop map
+take map
+inventory
+back
+take shoes
+go north
+go north
+go north
+go east
+go east
+take delta-orb
+go down
+alea route102
+go west
+alea
+go north
+go west
+take wallet
+cashin wallet
+go east
+go south
+go east
+take delta-orb
+go north
+go west
+go up
+battle Rayquaza
+go down
+go up

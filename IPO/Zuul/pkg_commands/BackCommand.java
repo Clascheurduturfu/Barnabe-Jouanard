@@ -1,49 +1,61 @@
 package pkg_commands;
 
 import pkg_engine.GameEngine;
+
 import pkg_entities.MovingTrainer;
 
 /**
- * Implementation of the 'back' user command.
+ * Implements the {@code back} command, moving the player to the previous room when possible.
  *
- * @author Michael Kolling and David J. Barnes
- * @version 2011.07.31
+ * @author Barnabe Jouanard
+ * @version 2026.05.08
  */
+public class BackCommand extends Command {
+    /** Creates the command. */
+    public BackCommand() {}
 
-
-public class BackCommand extends Command
-{
-    public BackCommand()
-    {
-    }
-
-    public boolean execute(GameEngine gameEngine)
-    {
-        if (hasSecondWord()) {
-            // If there is a second word, we don't know where to go.
-            gameEngine.getGui().println("Back what?");
+    /**
+     * Moves the player to the previous room and refreshes room output.
+     *
+     * @param pGameEngine the game engine containing player history
+     * @return always {@code false}; this command does not end the game
+     */
+    public boolean execute(final GameEngine pGameEngine) {
+        if (this.hasSecondWord()) {
+            pGameEngine.getGui().println("Back what?");
             return false;
         }
 
-        if (!gameEngine.getPlayer().canGoBack()) {
-            gameEngine.getGui().println("Can't go back, you just started!");
-        } else if (gameEngine.getPlayer().getCurrentRoom().isExit(gameEngine.getPlayer().getPreviousRoom()) == false) {
-            gameEngine.getGui().println("There is no door!");
+        if (!pGameEngine.getPlayer().canGoBack()) {
+            pGameEngine.getGui().println("Can't go back, you just started!");
+        } else if (pGameEngine
+                        .getPlayer()
+                        .getCurrentRoom()
+                        .isExit(pGameEngine.getPlayer().getPreviousRoom())
+                == false) {
+            pGameEngine.getGui().println("There is no door!");
             return false;
         } else {
-            gameEngine.getPlayer().goBack();
-            gameEngine.getGui().println(gameEngine.getPlayer().getCurrentRoom().getLongDescription());
-            if (gameEngine.getPlayer().getCurrentRoom().getImageName() != null) {
-                gameEngine.getGui().showImage(gameEngine.getPlayer().getCurrentRoom().getImageName());
-                if (gameEngine.getPlayer().getItem("map") != null) {
-                    gameEngine.getGui().showMap(gameEngine.getPlayer().getCurrentRoom().getMapImageName());
+            pGameEngine.getPlayer().goBack();
+            pGameEngine
+                    .getGui()
+                    .println(pGameEngine.getPlayer().getCurrentRoom().getLongDescription());
+            if (pGameEngine.getPlayer().getCurrentRoom().getImageName() != null) {
+                pGameEngine
+                        .getGui()
+                        .showImage(pGameEngine.getPlayer().getCurrentRoom().getImageName());
+                if (pGameEngine.getPlayer().getItem("map") != null) {
+                    pGameEngine
+                            .getGui()
+                            .showMap(pGameEngine.getPlayer().getCurrentRoom().getMapImageName());
                 }
             }
-            for (MovingTrainer vMovingTrainer : gameEngine.getMovingTrainers()) {
+            for (final MovingTrainer vMovingTrainer : pGameEngine.getMovingTrainers()) {
                 vMovingTrainer.tryMove();
             }
-            if (gameEngine.getPlayer().getItem("delta-orb") != null && gameEngine.getPlayer().getCurrentRoom().isWinningRoom()) {
-                gameEngine.getGui().println("\n" + "You want to keep winning, don't you?");
+            if (pGameEngine.getPlayer().getItem("delta-orb") != null
+                    && pGameEngine.getPlayer().getCurrentRoom().isWinningRoom()) {
+                pGameEngine.getGui().println("\n" + "You want to keep winning, don't you?");
             }
         }
         return false;

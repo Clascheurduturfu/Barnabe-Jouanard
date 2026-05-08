@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=MovingTrainer
+comment0.text=\r\n\ D\u00E9crivez\ votre\ classe\ MovingTrainer\ ici.\r\n\r\n\ @author\ \r\n\ @version\ \r\n
+comment1.params=pName\ pDialog\ pStartRoom
+comment1.target=MovingTrainer(java.lang.String,\ java.lang.String,\ Room)
+comment2.params=
+comment2.target=void\ tryMove()
+numComments=3

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,28 +12,29 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 /**
- * A splash screen displayed while the {@link AssetManager} downloads missing
- * game assets from the remote server.
- * <p>
- * Shows a progress bar with a status label indicating which file is being
- * downloaded and how many remain. When all downloads complete (or fail after
- * retries), the screen closes automatically and the game starts.
- * </p>
+ * A splash screen displayed while the {@link AssetManager} downloads missing game assets from the
+ * remote server.
+ *
+ * <p>Shows a progress bar with a status label indicating which file is being downloaded and how
+ * many remain. When all downloads complete (or fail after retries), the screen closes automatically
+ * and the game starts.
  *
  * @author Barnabe Jouanard
  * @version 2026.04.17
  */
-
-
 public class LoadingScreen {
     /** The loading window frame. */
     private JFrame aFrame;
+
     /** Progress bar tracking download completion. */
     private JProgressBar aProgressBar;
+
     /** Label showing the name of the file currently being downloaded. */
     private JLabel aStatusLabel;
+
     /** Label showing the overall download count (e.g. "3 / 19"). */
     private JLabel aCountLabel;
+
     /** Reference to the asset manager performing the downloads. */
     private AssetManager aAssetManager;
 
@@ -46,9 +48,7 @@ public class LoadingScreen {
         this.createGUI();
     } // LoadingScreen()
 
-    /**
-     * Builds the loading screen UI: title, progress bar, and status labels.
-     */
+    /** Builds the loading screen UI: title, progress bar, and status labels. */
     private void createGUI() {
         this.aFrame = new JFrame("Pokémon Delta Emerald — Loading");
         this.aFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,25 +97,28 @@ public class LoadingScreen {
         this.aFrame.setLocationRelativeTo(null);
     } // createGUI()
 
-    public void setProgressBar( )
-    {
-        int vProgress = (int) (((double) aAssetManager.getCurrentProgress() / aAssetManager.getTotalAssets()) * 100);
+    /** Refreshes the visible progress bar from the asset manager counters. */
+    public void setProgressBar() {
+        final int vProgress =
+                (int)
+                        (((double) this.aAssetManager.getCurrentProgress()
+                                        / this.aAssetManager.getTotalAssets())
+                                * 100);
         this.aProgressBar.setValue(vProgress);
     }
 
     /**
-     * Shows the loading screen.
-     * This method blocks until the download finishes (success or offline fallback).
+     * Shows the loading screen. This method blocks until the download finishes (success or offline
+     * fallback).
      */
     public void startAndWait() {
         this.aFrame.setVisible(true);
-        aAssetManager.downloadAssets();
-        while (aAssetManager.isComplete() == false) {
-        }
-        
-        if (aAssetManager.getErrorMessage() != null) {
-            aStatusLabel.setText(aAssetManager.getErrorMessage());
-            aCountLabel.setText("Starting in offline mode...");
+        this.aAssetManager.downloadAssets();
+        while (this.aAssetManager.isComplete() == false) {}
+
+        if (this.aAssetManager.getErrorMessage() != null) {
+            this.aStatusLabel.setText(this.aAssetManager.getErrorMessage());
+            this.aCountLabel.setText("Starting in offline mode...");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException ignore) {
@@ -125,7 +128,7 @@ public class LoadingScreen {
             return;
         }
         this.aProgressBar.setValue(100);
-        aStatusLabel.setText("All assets downloaded! Starting game...");
+        this.aStatusLabel.setText("All assets downloaded! Starting game...");
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ignore) {

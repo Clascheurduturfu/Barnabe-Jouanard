@@ -5,11 +5,9 @@ import java.util.HashMap;
 /**
  * Stores a private collection of items keyed by name.
  *
- * The internal collection is fully encapsulated and cannot be manipulated
- * directly
-
-
- * from outside this class.
+ * <p>The internal collection is fully encapsulated and cannot be manipulated directly
+ *
+ * <p>from outside this class.
  *
  * @author Barnabe Jouanard
  * @version 2026.04.13
@@ -18,9 +16,7 @@ public class ItemList {
     /** Internal storage keyed by item name. */
     private HashMap<String, Item> aItems;
 
-    /**
-     * Creates an empty item list.
-     */
+    /** Creates an empty item list. */
     public ItemList() {
         this.aItems = new HashMap<String, Item>();
     }
@@ -35,6 +31,11 @@ public class ItemList {
         return this.aItems.get(pName);
     }
 
+    /**
+     * Returns the backing item map.
+     *
+     * @return item keys mapped to item objects
+     */
     public HashMap<String, Item> getAllItems() {
         return this.aItems;
     }
@@ -68,8 +69,8 @@ public class ItemList {
     }
 
     /**
-     * Builds a multi-line string with each item's description,
-     * or a default notice when the list is empty.
+     * Builds a multi-line string with each item's description, or a default notice when the list is
+     * empty.
      *
      * @return formatted item descriptions
      */

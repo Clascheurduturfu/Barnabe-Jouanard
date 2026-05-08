@@ -1,58 +1,71 @@
 package pkg_commands;
+
 import pkg_engine.GameEngine;
+
+import pkg_entities.MovingTrainer;
 import pkg_entities.Room;
 import pkg_entities.TransporterRoom;
-import pkg_entities.MovingTrainer;
 
 /**
- * Implementation of the 'look' user command.
+ * Implements the {@code go} command for room navigation and transporter movement.
  *
- * @author Michael Kolling and David J. Barnes
- * @version 2011.07.31
+ * @author Barnabe Jouanard
+ * @version 2026.05.08
  */
+public class GoCommand extends Command {
+    /** Creates the command. */
+    public GoCommand() {}
 
-
-public class GoCommand extends Command
-{
-    public GoCommand()
-    {
-    }
-
-    public boolean execute(GameEngine gameEngine)
-    {
-        if (!hasSecondWord()) {
-            // If there is no second word, we don't know where to go.
-            gameEngine.getGui().println("Go where?");
+    /**
+     * Moves the player through an exit named by the second command word.
+     *
+     * @param pGameEngine the game engine containing player and room state
+     * @return always {@code false}; this command does not end the game
+     */
+    public boolean execute(final GameEngine pGameEngine) {
+        if (!this.hasSecondWord()) {
+            pGameEngine.getGui().println("Go where?");
             return false;
         }
 
-        String vDirection = getSecondWord();
+        final String vDirection = this.getSecondWord();
+        final Room vNextRoom = pGameEngine.getPlayer().getCurrentRoom().getExit(vDirection);
 
-        Room vNextRoom = gameEngine.getPlayer().getCurrentRoom().getExit(vDirection);
-
-        if (vNextRoom == null && !gameEngine.getPlayer().getCurrentRoom().isTeleporterRoom()) {
-            gameEngine.getGui().println("There is no door!");
+        if (vNextRoom == null && !pGameEngine.getPlayer().getCurrentRoom().isTeleporterRoom()) {
+            pGameEngine.getGui().println("There is no door!");
         } else {
-            if (gameEngine.getPlayer().getCurrentRoom().isTeleporterRoom()) {
-                TransporterRoom vTransporterRoom = (TransporterRoom)gameEngine.getPlayer().getCurrentRoom();
-                gameEngine.getPlayer().moveTo(vTransporterRoom.getRandomRoom());
+            if (pGameEngine.getPlayer().getCurrentRoom().isTeleporterRoom()) {
+                final TransporterRoom vTransporterRoom =
+                        (TransporterRoom) pGameEngine.getPlayer().getCurrentRoom();
+                pGameEngine.getPlayer().moveTo(vTransporterRoom.getRandomRoom());
             } else {
-                gameEngine.getPlayer().moveTo(vNextRoom);
+                pGameEngine.getPlayer().moveTo(vNextRoom);
             }
-            gameEngine.getGui().println(gameEngine.getPlayer().getCurrentRoom().getLongDescription());
-            if (gameEngine.getPlayer().getCurrentRoom().getImageName() != null) {
-                gameEngine.getGui().showImage(gameEngine.getPlayer().getCurrentRoom().getImageName());
-                if (gameEngine.getPlayer().getItem("map") != null) {
-                    gameEngine.getGui().showMap(gameEngine.getPlayer().getCurrentRoom().getMapImageName());
+            pGameEngine
+                    .getGui()
+                    .println(pGameEngine.getPlayer().getCurrentRoom().getLongDescription());
+            if (pGameEngine.getPlayer().getCurrentRoom().getImageName() != null) {
+                pGameEngine
+                        .getGui()
+                        .showImage(pGameEngine.getPlayer().getCurrentRoom().getImageName());
+                if (pGameEngine.getPlayer().getItem("map") != null) {
+                    pGameEngine
+                            .getGui()
+                            .showMap(pGameEngine.getPlayer().getCurrentRoom().getMapImageName());
                 }
             }
 
-            if (gameEngine.getPlayer().getItem("delta-orb") != null && gameEngine.getPlayer().getCurrentRoom().isWinningRoom()) {
-                gameEngine.getGui().println("\n" + "Congratulations! You just won! Youve stopped rayquazza from destroying the world!" + "\n" + "Thank you for playing the whole game!");
-                gameEngine.getPlayer().setHasWon(true);
+            if (pGameEngine.getPlayer().hasWon()
+                    && pGameEngine.getPlayer().getCurrentRoom().isWinningRoom()) {
+                pGameEngine
+                        .getGui()
+                        .println(
+                                "\n"
+                                    + "It's here that you've stopped Rayquaza from destroying the"
+                                    + " world!");
             }
-            
-            for (MovingTrainer vMovingTrainer : gameEngine.getMovingTrainers()) {
+
+            for (final MovingTrainer vMovingTrainer : pGameEngine.getMovingTrainers()) {
                 vMovingTrainer.tryMove();
             }
         }

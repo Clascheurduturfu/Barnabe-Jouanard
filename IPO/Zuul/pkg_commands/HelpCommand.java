@@ -3,27 +3,28 @@ package pkg_commands;
 import pkg_engine.GameEngine;
 
 /**
- * Implementation of the 'inventory' user command.
+ * Implements the {@code help} command, printing the game goal and command list.
  *
- * @author Michael Kolling and David J. Barnes
- * @version 2011.07.31
+ * @author Barnabe Jouanard
+ * @version 2026.05.08
  */
+public class HelpCommand extends Command {
+    /** Creates the command. */
+    public HelpCommand() {}
 
-
-public class HelpCommand extends Command
-{
-    public HelpCommand()
-    {
-    }
-
-    public boolean execute(GameEngine gameEngine)
-    {
-        gameEngine.getGui().println("Hello " + gameEngine.getPlayer().getName() + "!");
-        gameEngine.getGui().println("You are in the wonderful world of Pokémon.");
-        gameEngine.getGui().println("You are trying to stop Rayquaza from destroying Hoenn.");
-        gameEngine.getGui().println("Your command words are:");
-        Parser vParser = new Parser();
-        gameEngine.getGui().println(vParser.getCommandString());
+    /**
+     * Prints help text and all available commands.
+     *
+     * @param pGameEngine the game engine used for output and player state
+     * @return always {@code false}; this command does not end the game
+     */
+    public boolean execute(final GameEngine pGameEngine) {
+        pGameEngine.getGui().println("Hello " + pGameEngine.getPlayer().getName() + "!");
+        pGameEngine.getGui().println("You are in the wonderful world of Pokémon.");
+        pGameEngine.getGui().println("You are trying to stop Rayquaza from destroying Hoenn.");
+        pGameEngine.getGui().println("Your command words are:");
+        final Parser vParser = new Parser();
+        pGameEngine.getGui().println(vParser.getCommandString());
         return false;
     }
 }

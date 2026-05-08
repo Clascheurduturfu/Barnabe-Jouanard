@@ -3,22 +3,23 @@ package pkg_commands;
 import pkg_engine.GameEngine;
 
 /**
- * Implementation of the 'look' user command.
+ * Implements the {@code look} command, reprinting the current room description.
  *
- * @author Michael Kolling and David J. Barnes
- * @version 2011.07.31
+ * @author Barnabe Jouanard
+ * @version 2026.05.08
  */
+public class LookCommand extends Command {
+    /** Creates the command. */
+    public LookCommand() {}
 
-
-public class LookCommand extends Command
-{
-    public LookCommand()
-    {
-    }
-
-    public boolean execute(GameEngine gameEngine)
-    {
-        gameEngine.getGui().println(gameEngine.getPlayer().getCurrentRoom().getLongDescription());
+    /**
+     * Prints the current room description.
+     *
+     * @param pGameEngine the game engine containing player location
+     * @return always {@code false}; this command does not end the game
+     */
+    public boolean execute(final GameEngine pGameEngine) {
+        pGameEngine.getGui().println(pGameEngine.getPlayer().getCurrentRoom().getLongDescription());
         return false;
     }
 }

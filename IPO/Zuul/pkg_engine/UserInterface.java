@@ -4,14 +4,13 @@ import pkg_commands.Command;
 import pkg_commands.Parser;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.net.URL;
-import java.awt.Color;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,74 +22,91 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- * Swing-based graphical shell for the text adventure: log area, text field,
- * directional shortcut buttons, and an optional room image.
- * <p>
- * Implements {@link ActionListener} so both the entry field and buttons forward
- * normalized commands to the {@link GameEngine}.
- * </p>
+ * Swing-based graphical shell for the text adventure: log area, text field, directional shortcut
+ * buttons, and an optional room image.
+ *
+ * <p>Implements {@link ActionListener} so both the entry field and buttons forward normalized
+ * commands to the {@link GameEngine}.
  *
  * @author Michael Kolling
  * @version 1.0 (Jan 2003) DB edited (2023)
  */
-
-
 public final class UserInterface implements ActionListener {
     /** Top-level window hosting all components. */
     private JFrame aMyFrame;
+
     /** Single-line input where the player types commands. */
     private JTextField aEntryField;
+
     /** Scrollable transcript of game output. */
     private JTextArea aLog;
+
     /** Displays the current room image when available. */
     private JLabel aImage;
+
     /** Displays a map image (if provided by the engine). */
     private JLabel aMap;
+
     /** Sends {@code go north} when clicked. */
     private JButton aButtonGoNorth;
+
     /** Sends {@code go south} when clicked. */
     private JButton aButtonGoSouth;
+
     /** Sends {@code go east} when clicked. */
     private JButton aButtonGoEast;
+
     /** Sends {@code go west} when clicked. */
     private JButton aButtonGoWest;
+
     /** Sends {@code go up} when clicked. */
     private JButton aButtonGoUp;
+
     /** Sends {@code go down} when clicked. */
     private JButton aButtonGoDown;
+
     /** Sends {@code help} when clicked. */
     private JButton aButtonHelp;
+
     /** Sends {@code back} when clicked. */
     private JButton aButtonBack;
+
     /** Sends {@code quit} when clicked. */
     private JButton aButtonQuit;
+
     /** Progress bar shown during asset download at startup. */
     private JProgressBar aProgressBar;
+
     /** Parser used to turn user input into commands. */
     private Parser aParser;
+
     private GameEngine aEngine;
 
     /** Main exploration UI panel */
     private JPanel aExplorationPanel;
+
     /** Battle UI panel */
     private JPanel aBattlePanel;
+
     /** Player Pokemon image (left side) */
     private JLabel aPlayerPokemonImage;
+
     /** Opponent Pokemon image (right side) */
     private JLabel aOpponentPokemonImage;
+
     /** Player Pokemon HP bar */
     private JProgressBar aPlayerHPBar;
+
     /** Opponent Pokemon HP bar */
     private JProgressBar aOpponentHPBar;
+
     /** Battle action buttons */
     private JButton aAttack1Button, aAttack2Button, aAttack3Button, aAttack4Button, aRunButton;
 
     /**
-     * Builds the frame, layout, and listeners, storing the engine for later
-     * callbacks.
+     * Builds the frame, layout, and listeners, storing the engine for later callbacks.
      *
-     * @param pGameEngine the non-{@code null} game engine that will interpret
-     *                    commands
+     * @param pGameEngine the non-{@code null} game engine that will interpret commands
      */
     public UserInterface(final GameEngine pGameEngine) {
         this.aEngine = pGameEngine;
@@ -119,8 +135,8 @@ public final class UserInterface implements ActionListener {
     } // println(.)
 
     /**
-     * Loads an image from the classpath (typically under {@code images/}) and sets
-     * it on the north label, packing the frame to fit.
+     * Loads an image from the classpath (typically under {@code images/}) and sets it on the north
+     * label, packing the frame to fit.
      *
      * @param pImageName resource path relative to the class loader root
      */
@@ -136,8 +152,8 @@ public final class UserInterface implements ActionListener {
     } // showImage(.)
 
     /**
-     * Loads an image from the classpath (typically under {@code images/}) and sets
-     * it on the map label.
+     * Loads an image from the classpath (typically under {@code images/}) and sets it on the map
+     * label.
      *
      * @param pImageName resource path relative to the class loader root
      */
@@ -148,16 +164,17 @@ public final class UserInterface implements ActionListener {
             System.out.println("Image not found: " + vImagePath);
         } else {
             ImageIcon vIcon = new ImageIcon(vImageURL);
-            this.aMap.setIcon(new ImageIcon(vIcon.getImage().getScaledInstance(460, 345, java.awt.Image.SCALE_SMOOTH)));
+            this.aMap.setIcon(
+                    new ImageIcon(
+                            vIcon.getImage()
+                                    .getScaledInstance(460, 345, java.awt.Image.SCALE_SMOOTH)));
         }
     } // showMap(.)
 
     /**
-     * Enables or disables keyboard entry in the command field and toggles caret
-     * blink.
+     * Enables or disables keyboard entry in the command field and toggles caret blink.
      *
-     * @param pOnOff {@code true} to allow typing; {@code false} to freeze input at
-     *               game end
+     * @param pOnOff {@code true} to allow typing; {@code false} to freeze input at game end
      */
     public void enable(final boolean pOnOff) {
         this.aEntryField.setEditable(pOnOff);
@@ -170,9 +187,7 @@ public final class UserInterface implements ActionListener {
         }
     } // enable(.)
 
-    /**
-     * Lays out components, registers listeners, and shows the window.
-     */
+    /** Lays out components, registers listeners, and shows the window. */
     private void createGUI() {
         this.aMyFrame = new JFrame("Pokémon Delta Emerald");
         this.aEntryField = new JTextField(34);
@@ -259,9 +274,7 @@ public final class UserInterface implements ActionListener {
         this.aMyFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     } // createGUI()
 
-    /**
-     * Creates the battle UI panel with HP bars, battle image, and attack buttons.
-     */
+    /** Creates the battle UI panel with HP bars, battle image, and attack buttons. */
     private void createBattlePanel() {
         this.aBattlePanel = new JPanel();
         this.aBattlePanel.setLayout(new BorderLayout());
@@ -330,9 +343,7 @@ public final class UserInterface implements ActionListener {
         this.aBattlePanel.setVisible(false);
     } // createBattlePanel()
 
-    /**
-     * Switches from exploration mode to battle mode.
-     */
+    /** Switches from exploration mode to battle mode. */
     public void startBattle() {
         this.aMyFrame.getContentPane().remove(this.aExplorationPanel);
         this.aMyFrame.getContentPane().add(this.aBattlePanel, BorderLayout.CENTER);
@@ -341,9 +352,7 @@ public final class UserInterface implements ActionListener {
         this.aMyFrame.repaint();
     } // startBattle()
 
-    /**
-     * Switches from battle mode back to exploration mode.
-     */
+    /** Switches from battle mode back to exploration mode. */
     public void endBattle() {
         this.aMyFrame.getContentPane().remove(this.aBattlePanel);
         this.aMyFrame.getContentPane().add(this.aExplorationPanel, BorderLayout.CENTER);
@@ -353,8 +362,9 @@ public final class UserInterface implements ActionListener {
     } // endBattle()
 
     /**
-     * Shows player's Pokemon image (left side).
-     * PNG files are scaled to 640x400, GIF files are displayed raw.
+     * Shows player's Pokemon image (left side). PNG files are scaled to 640x400, GIF files are
+     * displayed raw.
+     *
      * @param pImageName resource path for player pokemon
      */
     public void showPlayerPokemonImage(final String pImageName) {
@@ -365,7 +375,10 @@ public final class UserInterface implements ActionListener {
         } else {
             if (pImageName.endsWith(".png")) {
                 ImageIcon vIcon = new ImageIcon(vImageURL);
-                this.aPlayerPokemonImage.setIcon(new ImageIcon(vIcon.getImage().getScaledInstance(960, 904, java.awt.Image.SCALE_SMOOTH)));
+                this.aPlayerPokemonImage.setIcon(
+                        new ImageIcon(
+                                vIcon.getImage()
+                                        .getScaledInstance(960, 904, java.awt.Image.SCALE_SMOOTH)));
             } else {
                 ImageIcon vIcon = new ImageIcon(vImageURL);
                 vIcon.getImage().flush();
@@ -375,8 +388,9 @@ public final class UserInterface implements ActionListener {
     } // showPlayerPokemonImage()
 
     /**
-     * Shows opponent's Pokemon image (right side).
-     * PNG files are scaled to 960x904, GIF files are displayed raw with animation.
+     * Shows opponent's Pokemon image (right side). PNG files are scaled to 960x904, GIF files are
+     * displayed raw with animation.
+     *
      * @param pImageName resource path for opponent pokemon
      */
     public void showOpponentPokemonImage(final String pImageName) {
@@ -387,7 +401,10 @@ public final class UserInterface implements ActionListener {
         } else {
             if (pImageName.endsWith(".png")) {
                 ImageIcon vIcon = new ImageIcon(vImageURL);
-                this.aOpponentPokemonImage.setIcon(new ImageIcon(vIcon.getImage().getScaledInstance(960, 904, java.awt.Image.SCALE_SMOOTH)));
+                this.aOpponentPokemonImage.setIcon(
+                        new ImageIcon(
+                                vIcon.getImage()
+                                        .getScaledInstance(960, 904, java.awt.Image.SCALE_SMOOTH)));
             } else {
                 ImageIcon vIcon = new ImageIcon(vImageURL);
                 vIcon.getImage().flush();
@@ -398,10 +415,11 @@ public final class UserInterface implements ActionListener {
 
     /**
      * Updates player HP bar.
+     *
      * @param pCurrent current HP
      * @param pMax max HP
      */
-    public void setPlayerHP(int pCurrent, int pMax) {
+    public void setPlayerHP(final int pCurrent, final int pMax) {
         this.aPlayerHPBar.setMaximum(pMax);
         this.aPlayerHPBar.setValue(pCurrent);
         this.aPlayerHPBar.setString("Your Pokemon: " + pCurrent + "/" + pMax);
@@ -409,10 +427,11 @@ public final class UserInterface implements ActionListener {
 
     /**
      * Updates opponent HP bar.
+     *
      * @param pCurrent current HP
      * @param pMax max HP
      */
-    public void setOpponentHP(int pCurrent, int pMax) {
+    public void setOpponentHP(final int pCurrent, final int pMax) {
         this.aOpponentHPBar.setMaximum(pMax);
         this.aOpponentHPBar.setValue(pCurrent);
         this.aOpponentHPBar.setString("Opponent: " + pCurrent + "/" + pMax);
@@ -420,6 +439,8 @@ public final class UserInterface implements ActionListener {
 
     /**
      * Gets attack button 1 for adding listeners.
+     *
+     * @return the first attack button
      */
     public JButton getAttack1Button() {
         return this.aAttack1Button;
@@ -427,6 +448,8 @@ public final class UserInterface implements ActionListener {
 
     /**
      * Gets attack button 2 for adding listeners.
+     *
+     * @return the second attack button
      */
     public JButton getAttack2Button() {
         return this.aAttack2Button;
@@ -434,6 +457,8 @@ public final class UserInterface implements ActionListener {
 
     /**
      * Gets attack button 3 for adding listeners.
+     *
+     * @return the third attack button
      */
     public JButton getAttack3Button() {
         return this.aAttack3Button;
@@ -441,6 +466,8 @@ public final class UserInterface implements ActionListener {
 
     /**
      * Gets attack button 4 for adding listeners.
+     *
+     * @return the fourth attack button
      */
     public JButton getAttack4Button() {
         return this.aAttack4Button;
@@ -448,14 +475,15 @@ public final class UserInterface implements ActionListener {
 
     /**
      * Gets run button for adding listeners.
+     *
+     * @return the run button
      */
     public JButton getRunButton() {
         return this.aRunButton;
     }
 
     /**
-     * Dispatches button clicks as canned commands, or reads the text field on
-     * Enter.
+     * Dispatches button clicks as canned commands, or reads the text field on Enter.
      *
      * @param pE the originating AWT event (button or text field)
      */
@@ -489,9 +517,9 @@ public final class UserInterface implements ActionListener {
             this.println("\n\n> help\n");
             this.aParser.getCommand("help").execute(this.aEngine);
         } else {
-            String vInput = this.aEntryField.getText();
+            final String vInput = this.aEntryField.getText();
             this.println("\n\n> " + vInput + "\n");
-            Command vCommand = this.aParser.getCommand(vInput);
+            final Command vCommand = this.aParser.getCommand(vInput);
             if (vCommand == null) {
                 this.println("I don't know what you mean...");
             } else {
@@ -511,6 +539,15 @@ public final class UserInterface implements ActionListener {
     } // setProgress()
 
     /**
+     * Updates the progress bar label.
+     *
+     * @param pText the text to display inside the progress bar
+     */
+    public void setProgressString(final String pText) {
+        this.aProgressBar.setString(pText);
+    } // setProgress()
+
+    /**
      * Returns the current value of the progress bar.
      *
      * @return progress value
@@ -519,6 +556,11 @@ public final class UserInterface implements ActionListener {
         return this.aProgressBar.getValue();
     } // getProgressBar()
 
+    /**
+     * Returns the parser used by this interface.
+     *
+     * @return the parser instance
+     */
     public Parser getParser() {
         return this.aParser;
     } // getParser()

@@ -1,66 +1,81 @@
 package pkg_commands;
-import pkg_engine.GameEngine;
-import pkg_entities.Trainer;
-import pkg_entities.Room;
 
+import pkg_engine.GameEngine;
+
+import pkg_entities.Room;
+import pkg_entities.Trainer;
 
 /**
- * Décrivez votre classe BattleCommand ici.
+ * Starts a trainer battle, or lists available trainers when no trainer name is provided.
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Barnabe Jouanard
+ * @version 2026.05.08
  */
-public class BattleCommand extends Command
-{
+public class BattleCommand extends Command {
+    /** Indicates whether the battle command is currently in a player turn. */
     private boolean aIsTurn;
-    public BattleCommand()
-    {
+
+    /** Creates a battle command ready for the player's turn. */
+    public BattleCommand() {
         this.aIsTurn = true;
     }
 
-    public boolean execute(GameEngine gameEngine)
-    {
-        if (!hasSecondWord()) {
-            // List trainers in current room
-            gameEngine.getGui().println("Trainers in this room:");
-            java.util.ArrayList<String> vTrainerNames = gameEngine.getPlayer().getCurrentRoom().getTrainerNames();
+    /**
+     * Executes the battle command.
+     *
+     * @param pGameEngine the game engine containing the current room and battle manager
+     * @return always {@code false}; battles do not close the application directly
+     */
+    public boolean execute(final GameEngine pGameEngine) {
+        if (!this.hasSecondWord()) {
+            pGameEngine.getGui().println("Trainers in this room:");
+            final java.util.ArrayList<String> vTrainerNames =
+                    pGameEngine.getPlayer().getCurrentRoom().getTrainerNames();
 
             if (vTrainerNames.isEmpty()) {
-                gameEngine.getGui().println("No trainers here!");
+                pGameEngine.getGui().println("No trainers here!");
             } else {
-                for (String vName : vTrainerNames) {
-                    gameEngine.getGui().println("- " + vName);
+                for (final String vName : vTrainerNames) {
+                    pGameEngine.getGui().println("- " + vName);
                 }
-                gameEngine.getGui().println("\nUse: battle <trainer_name>");
+                pGameEngine.getGui().println("\nUse: battle <trainer_name>");
             }
             return false;
         }
 
-        String vTrainerName = getSecondWord();
-
-        // Check if trainer is in current room
-        Room vCurrentRoom = gameEngine.getPlayer().getCurrentRoom();
-        java.util.HashMap<String, Trainer> vTrainers = vCurrentRoom.getAllTrainers();
-        Trainer vTrainer = vTrainers.get(vTrainerName);
+        final String vTrainerName = this.getSecondWord();
+        final Room vCurrentRoom = pGameEngine.getPlayer().getCurrentRoom();
+        final java.util.HashMap<String, Trainer> vTrainers = vCurrentRoom.getAllTrainers();
+        final Trainer vTrainer = vTrainers.get(vTrainerName);
 
         if (vTrainer == null) {
-            gameEngine.getGui().println("There is no trainer by that name here!");
+            pGameEngine.getGui().println("There is no trainer by that name here!");
             return false;
         }
 
         if (vTrainer.isDefeated()) {
-            gameEngine.getGui().println(vTrainerName + " has already been defeated!");
+            pGameEngine.getGui().println(vTrainerName + " has already been defeated!");
             return false;
         }
 
-        gameEngine.getBattleManager().startBattle(vTrainer);
+        if (vTrainerName.equals("Rayquaza")
+                && pGameEngine.getPlayer().getItem("delta-orb") == null) {
+            pGameEngine
+                    .getGui()
+                    .println("You need the Delta Orb to battle Rayquaza! Find it and come back!");
+            return false;
+        }
 
+        pGameEngine.getBattleManager().startBattle(vTrainer);
         return false;
     }
 
+    /**
+     * Indicates whether the command is in a player turn.
+     *
+     * @return {@code true} when it is the player's turn
+     */
     public boolean isTurn() {
         return this.aIsTurn;
     }
-
-
 }

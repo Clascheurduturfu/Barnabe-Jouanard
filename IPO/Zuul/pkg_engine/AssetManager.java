@@ -10,98 +10,102 @@ import java.net.URLEncoder;
 
 /**
  * Downloads game assets from the ESIEE web server and stores them locally.
- * <p>
- * On each launch, checks which assets are missing from the local
- * {@code assets/} folder and downloads them from the remote server. Files
- * already present are skipped. Each download is attempted up to
- * {@value #aMaxRetries} times before being marked as failed. If any downloads
- * fail, the game continues in offline mode with whatever assets are available.
- * </p>
+ *
+ * <p>On each launch, checks which assets are missing from the local {@code assets/} folder and
+ * downloads them from the remote server. Files already present are skipped. Each download is
+ * attempted up to {@value #aMaxRetries} times before being marked as failed. If any downloads fail,
+ * the game continues in offline mode with whatever assets are available.
  *
  * @author Barnabe Jouanard
  * @version 2026.04.17
  */
-
-
 public class AssetManager {
     /** URL of the asset location. */
     private static final String aAssetsUrl = "https://perso.esiee.fr/~jouanarb/assets/";
+
     /** Maximum number of download attempts per file before giving up. */
     private static final int aMaxRetries = 3;
+
     /** Local directory where assets are stored. */
     private static final String aAssetsFolder = "Images";
+
     /** Current filename being downloaded. */
     private String aCurrentFile = "";
+
     /** Current progress count. */
     private int aCurrentProgress = 0;
+
     /** Reference to the loading screen used for progress updates. */
     private LoadingScreen aLoadingScreen;
+
     /** Flag indicating whether the download phase is complete. */
     private boolean aIsComplete = false;
+
     /** Error message if any downloads failed (null if all succeeded). */
     private String aErrorMessage = null;
+
     /** All asset filenames to download. */
     private String[] aAssets = {
-            "home.gif",
-            "home_map.jpeg",
-            "littleroot town.gif",
-            "littleroot_map.jpeg",
-            "no map.jpeg",
-            "oldale town.gif",
-            "oldale town_map.jpeg",
-            "petalburg city.gif",
-            "petalburg city_map.jpeg",
-            "petalburg woods.gif",
-            "petalburg woods_map.jpeg",
-            "route 101.gif",
-            "route101_map.jpeg",
-            "route 102.gif",
-            "route102_map.jpeg",
-            "rustboro city.gif",
-            "rustboro city_map.jpeg",
-            "sky pillar_map.jpeg",
-            "sky pillar.gif",
-            "cascade.gif",
-            "cascade_map.jpeg",
-            "lose screen.png",
-            "trainer_battle.png",
-            "Javier_battle.png",
-            "Zucko_battle.png",
-            "Ichigo_battle.png",
-            "Rayquaza trainer.png",
-            "Blastoise solo.png",
-            "Blastoise dammage.gif",
-            "Charizard solo.png",
-            "Charizard dammage.gif",
-            "Dragonite solo.png",
-            "Dragonite dammage.gif",
-            "Garchomp solo.png",
-            "Garchomp dammage.gif",
-            "Greninja solo.png",
-            "Greninja dammage.gif",
-            "Gyarados solo.png",
-            "Gyarados dammage.gif",
-            "Hydreigon solo.png",
-            "Hydreigon dammage.gif",
-            "Incineroar solo.png",
-            "Incineroar dammage.gif",
-            "Metagross solo.png",
-            "Metagross dammage.gif",
-            "Poochyena solo.png",
-            "Poochyena dammage.gif",
-            "Rattata solo.png",
-            "Rattata dammage.gif",
-            "Rayquaza solo.png",
-            "Rayquaza dammage.gif",
-            "Salamence solo.png",
-            "Salamence dammage.gif"
+        "home.gif",
+        "home_map.jpeg",
+        "littleroot town.gif",
+        "littleroot_map.jpeg",
+        "no map.jpeg",
+        "oldale town.gif",
+        "oldale town_map.jpeg",
+        "petalburg city.gif",
+        "petalburg city_map.jpeg",
+        "petalburg woods.gif",
+        "petalburg woods_map.jpeg",
+        "route 101.gif",
+        "route101_map.jpeg",
+        "route 102.gif",
+        "route102_map.jpeg",
+        "rustboro city.gif",
+        "rustboro city_map.jpeg",
+        "sky pillar_map.jpeg",
+        "sky pillar.gif",
+        "cascade.gif",
+        "cascade_map.jpeg",
+        "lose screen.png",
+        "trainer_battle.png",
+        "Javier_battle.png",
+        "Zucko_battle.png",
+        "Ichigo_battle.png",
+        "Rayquaza_battle.png",
+        "Blastoise solo.png",
+        "Blastoise dammage.gif",
+        "Charizard solo.png",
+        "Charizard dammage.gif",
+        "Dragonite solo.png",
+        "Dragonite dammage.gif",
+        "Garchomp solo.png",
+        "Garchomp dammage.gif",
+        "Greninja solo.png",
+        "Greninja dammage.gif",
+        "Gyarados solo.png",
+        "Gyarados dammage.gif",
+        "Hydreigon solo.png",
+        "Hydreigon dammage.gif",
+        "Incineroar solo.png",
+        "Incineroar dammage.gif",
+        "Metagross solo.png",
+        "Metagross dammage.gif",
+        "Poochyena solo.png",
+        "Poochyena dammage.gif",
+        "Rattata solo.png",
+        "Rattata dammage.gif",
+        "Rayquaza solo.png",
+        "Rayquaza dammage.gif",
+        "Salamence solo.png",
+        "Audio.mp3",
+        "Salamence dammage.gif"
     };
+
     /** Total number of assets to download. */
     private int aTotalAssets = aAssets.length;
 
-    /**
-     * Creates a new asset manager.
-     */
+    /** Creates a new asset manager. */
     public AssetManager() {
         // ensure the assets directory exists
         File vAssetsFolder = new File(aAssetsFolder);
@@ -152,11 +156,10 @@ public class AssetManager {
 
     /**
      * Downloads all missing assets from the assets url.
-     * <p>
-     * Each file is attempted up to {@value #aMaxRetries} times. If a file still
-     * fails after all retries, it is skipped and the game will run in offline
-     * mode (missing images appear as blank panels).
-     * </p>
+     *
+     * <p>Each file is attempted up to {@value #aMaxRetries} times. If a file still fails after all
+     * retries, it is skipped and the game will run in offline mode (missing images appear as blank
+     * panels).
      */
     public void downloadAssets() {
         int vFailCount = 0;
@@ -182,7 +185,8 @@ public class AssetManager {
 
             if (!vSuccess) {
                 vFailCount++;
-                System.out.println("Failed to download " + vFileName + " after " + aMaxRetries + " attempts.");
+                System.out.println(
+                        "Failed to download " + vFileName + " after " + aMaxRetries + " attempts.");
             }
 
             this.aCurrentFile = vFileName;
@@ -190,8 +194,11 @@ public class AssetManager {
         }
 
         if (vFailCount > 0) {
-            this.aErrorMessage = vFailCount + " file(s) could not be downloaded. Running in offline mode." + "\n"
-                    + "Try restarting the game with Wi‑Fi, or consider downloading the offline version from the website.";
+            this.aErrorMessage =
+                    vFailCount
+                            + " file(s) could not be downloaded. Running in offline mode.\n"
+                            + "Try restarting the game with Wi‑Fi, or consider downloading the"
+                            + " offline version from the website.";
             System.out.println(aErrorMessage);
         }
         this.aIsComplete = true;
@@ -200,7 +207,7 @@ public class AssetManager {
     /**
      * Downloads a single file from the remote server to the local path.
      *
-     * @param pFileName  the filename on the server (e.g. {@code "home.gif"})
+     * @param pFileName the filename on the server (e.g. {@code "home.gif"})
      * @param pLocalFile the local destination file
      * @return {@code true} if the download succeeded; {@code false} otherwise
      */
@@ -255,8 +262,7 @@ public class AssetManager {
     }
 
     /**
-     * Returns the 1-based index of the most recent asset processed by
-     * {@link #downloadAssets()}.
+     * Returns the 1-based index of the most recent asset processed by {@link #downloadAssets()}.
      *
      * @return progress count in the range {@code [0..getTotalAssets()]}
      */
@@ -290,5 +296,4 @@ public class AssetManager {
     public String getErrorMessage() {
         return aErrorMessage;
     }
-
 } // AssetManager

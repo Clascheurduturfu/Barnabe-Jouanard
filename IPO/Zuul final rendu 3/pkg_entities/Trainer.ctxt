@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Trainer
+comment0.text=\r\n\ D\u00E9crivez\ votre\ classe\ Trainer\ ici.\r\n\r\n\ @author\ \r\n\ @version\ \r\n
+comment1.params=pDialog
+comment1.target=Trainer(java.lang.String)
+comment2.params=
+comment2.target=int\ getTeamSize()
+comment2.text=\r\n\ Returns\ the\ numeric\ team\ size\ associated\ with\ this\ trainer.\r\n\r\n\ @return\ the\ configured\ team\ size\r\n
+comment3.params=pPokemon\ pPosition
+comment3.target=void\ setPokemon(java.lang.String,\ java.lang.Integer)
+comment3.text=\r\n\ Adds\ or\ replaces\ a\ pokemon\ under\ the\ given\ key.\r\n\r\n\ @param\ pPokemon\ the\ pokemon\ name\ used\ for\ later\ retrieval\r\n\ @param\ pPosition\ the\ numeric\ team\ size\ to\ store\r\n
+comment4.params=
+comment4.target=java.lang.String\ getTrainerDescription()
+comment4.text=\r\n\ Builds\ a\ short\ multi-line\ summary\ combining\ description\ and\ team\ size.\r\n\r\n\ @return\ two-line\ English\ text\ suitable\ for\ room\ descriptions\r\n
+numComments=5

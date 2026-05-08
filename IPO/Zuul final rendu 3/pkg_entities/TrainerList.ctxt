@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=TrainerList
+comment0.text=\r\n\ Stores\ a\ private\ collection\ of\ trainers\ keyed\ by\ name.\r\n\r\n\ The\ internal\ collection\ is\ fully\ encapsulated\ and\ cannot\ be\ manipulated\r\n\ directly\r\n\r\n\ from\ outside\ this\ class.\r\n\r\n\ @author\ Barnabe\ Jouanard\r\n\ @version\ 2026.04.13\r\n
+comment1.params=
+comment1.target=TrainerList()
+comment1.text=\r\n\ Creates\ an\ empty\ trainer\ list.\r\n
+comment2.params=pName
+comment2.target=Trainer\ getTrainer(java.lang.String)
+comment2.text=\r\n\ Returns\ the\ trainer\ associated\ with\ the\ given\ name,\ or\ {@code\ null}.\r\n\r\n\ @param\ pName\ the\ lookup\ key\r\n\ @return\ the\ matching\ {@link\ Trainer},\ or\ {@code\ null}\r\n
+comment3.params=pName\ pTrainer
+comment3.target=void\ addTrainer(java.lang.String,\ Trainer)
+comment3.text=\r\n\ Adds\ or\ replaces\ a\ trainer\ under\ the\ given\ key.\r\n\r\n\ @param\ pName\ short\ identifier\ used\ for\ later\ retrieval\r\n\ @param\ pTrainer\ the\ {@link\ Trainer}\ to\ store\r\n
+comment4.params=pName
+comment4.target=void\ removeTrainer(java.lang.String)
+comment4.text=\r\n\ Removes\ the\ trainer\ associated\ with\ the\ given\ key.\r\n\r\n\ @param\ pName\ the\ lookup\ key\r\n
+comment5.params=
+comment5.target=boolean\ isEmpty()
+comment5.text=\r\n\ Checks\ whether\ this\ trainer\ list\ contains\ no\ elements.\r\n\r\n\ @return\ {@code\ true}\ when\ no\ trainers\ are\ stored\r\n
+comment6.params=
+comment6.target=java.lang.String\ getTrainersDescription()
+comment6.text=\r\n\ Builds\ a\ multi-line\ string\ with\ each\ trainer's\ description,\r\n\ or\ a\ default\ notice\ when\ the\ list\ is\ empty.\r\n\r\n\ @return\ formatted\ trainer\ descriptions\r\n
+numComments=7

@@ -1,18 +1,16 @@
 package pkg_entities;
 
 /**
- * Describes a collectible or scenery object with a textual blurb and an
- * arbitrary weight
- * or price value surfaced to the player.
+ * Describes a collectible or scenery object with a textual blurb and an arbitrary weight or price
+ * value surfaced to the player.
  *
  * @author Barnabe Jouanard
  * @version 2026.02.17
  */
-
-
 public class Item {
     /** Narrative name or sentence shown in room listings. */
     private String aDescription;
+
     /** Numeric attribute (treated as price in user-facing strings). */
     private int aPrice;
 
@@ -20,7 +18,7 @@ public class Item {
      * Stores the immutable description and numeric metadata for an item.
      *
      * @param pDescription text presented inside {@link #getItemDescription()}
-     * @param pPrice       non-negative value interpreted as the item's price
+     * @param pPrice non-negative value interpreted as the item's price
      */
     public Item(final String pDescription, final int pPrice) {
         this.aDescription = pDescription;

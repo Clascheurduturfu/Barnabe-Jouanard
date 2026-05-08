@@ -1,23 +1,35 @@
 package pkg_entities;
+
 import java.util.HashMap;
 
 /**
- * Décrivez votre classe Trainer ici.
+ * Represents a trainer who can appear in a room and battle the player.
  *
- * @author 
- * @version 
+ * <p>Each trainer owns a numbered Pokemon team and keeps track of whether the player has already
+ * defeated them.
+ *
+ * @author Barnabe Jouanard
+ * @version 2026.05.08
  */
-public class Trainer
-{
-    /** Trainer's name used as key in room trainer lists. */
+public class Trainer {
+    /** Trainer name used as a key in room trainer lists. */
     private String aName;
-    /** Narrative name or sentence shown in room listings. */
+
+    /** Narrative description shown in room listings. */
     private String aDialog;
-    /** Numeric attribute (treated as price in user-facing strings). */
+
+    /** Pokemon team indexed from one for battle order. */
     private HashMap<Integer, Pokemon> aTeam;
+
     /** Whether this trainer has been defeated by the player. */
     private boolean aIsDefeated;
 
+    /**
+     * Creates a trainer with a display name and room description.
+     *
+     * @param pName the trainer name
+     * @param pDialog the description shown when the trainer is in a room
+     */
     public Trainer(final String pName, final String pDialog) {
         this.aName = pName;
         this.aDialog = pDialog;
@@ -25,20 +37,35 @@ public class Trainer
         this.aIsDefeated = false;
     }
 
+    /**
+     * Returns the trainer name.
+     *
+     * @return the trainer name
+     */
     public String getName() {
         return this.aName;
     }
 
+    /**
+     * Indicates whether this trainer has already been defeated.
+     *
+     * @return {@code true} when the player has defeated this trainer
+     */
     public boolean isDefeated() {
         return this.aIsDefeated;
     }
 
-    public void setDefeated(boolean pDefeated) {
+    /**
+     * Sets this trainer's defeated state.
+     *
+     * @param pDefeated {@code true} after the trainer loses a battle
+     */
+    public void setDefeated(final boolean pDefeated) {
         this.aIsDefeated = pDefeated;
     }
 
     /**
-     * Returns the numeric team size associated with this trainer.
+     * Returns the number of Pokemon in this trainer's team.
      *
      * @return the configured team size
      */
@@ -47,15 +74,21 @@ public class Trainer
     } // getTeamSize()
 
     /**
-     * Adds or replaces a pokemon under the given key.
+     * Adds or replaces a Pokemon at the given team position.
      *
-     * @param pPokemon the pokemon name used for later retrieval
-     * @param pPosition the numeric team size to store
+     * @param pPosition the team slot
+     * @param pPokemon the Pokemon to store
      */
     public void setPokemon(final Integer pPosition, final Pokemon pPokemon) {
         this.aTeam.put(pPosition, pPokemon);
     } // setPokemon()
 
+    /**
+     * Returns the Pokemon in the given team slot.
+     *
+     * @param pPosition the team slot
+     * @return the matching Pokemon, or {@code null}
+     */
     public Pokemon getPokemon(final Integer pPosition) {
         return this.aTeam.get(pPosition);
     }
@@ -66,6 +99,12 @@ public class Trainer
      * @return two-line English text suitable for room descriptions
      */
     public String getTrainerDescription() {
-        return this.aDialog + '\n' + "Team size: " + this.aTeam.size();
+        final String vDefeatedText;
+        if (this.isDefeated()) {
+            vDefeatedText = " (defeated)";
+        } else {
+            vDefeatedText = "";
+        }
+        return this.aDialog + vDefeatedText + '\n' + "Team size: " + this.aTeam.size();
     }
 }

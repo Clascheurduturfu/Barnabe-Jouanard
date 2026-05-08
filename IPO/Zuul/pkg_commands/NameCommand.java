@@ -3,29 +3,30 @@ package pkg_commands;
 import pkg_engine.GameEngine;
 
 /**
- * Implementation of the 'name' user command.
+ * Implements the {@code name} command, changing the player's display name.
  *
- * @author Michael Kolling and David J. Barnes
- * @version 2011.07.31
+ * @author Barnabe Jouanard
+ * @version 2026.05.08
  */
+public class NameCommand extends Command {
+    /** Creates the command. */
+    public NameCommand() {}
 
-
-public class NameCommand extends Command
-{
-    public NameCommand()
-    {
-    }
-
-    public boolean execute(GameEngine gameEngine)
-    {
-        if (!hasSecondWord()) {
-            gameEngine.getGui().println("You need a name!");
+    /**
+     * Sets the player's name to the second command word.
+     *
+     * @param pGameEngine the game engine containing player state
+     * @return always {@code false}; this command does not end the game
+     */
+    public boolean execute(final GameEngine pGameEngine) {
+        if (!this.hasSecondWord()) {
+            pGameEngine.getGui().println("You need a name!");
             return false;
         }
-        String vName = getSecondWord();
-        gameEngine.getPlayer().setName(vName);
-        gameEngine.getGui().println("Your new name is " + gameEngine.getPlayer().getName() + '!');
-        gameEngine.printWelcome();
+        final String vName = this.getSecondWord();
+        pGameEngine.getPlayer().setName(vName);
+        pGameEngine.getGui().println("Your new name is " + pGameEngine.getPlayer().getName() + '!');
+        pGameEngine.printWelcome();
         return false;
     }
 }

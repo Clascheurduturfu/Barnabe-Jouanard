@@ -3,42 +3,22 @@ package pkg_commands;
 import pkg_engine.GameEngine;
 
 /**
- * Immutable pair of tokens representing one player command.
- * <p>
- * The first token is the command verb; the second is an optional argument
- * (for example the direction in {@code go north}).
- * </p>
+ * Base type for all executable player commands.
+ *
+ * <p>The parser creates a concrete command object and stores the optional second token here before
+ * the command is executed.
  *
  * @author Barnabe Jouanard
  * @version 2026.02.17
  */
-
-
 public abstract class Command {
-    /** Primary verb, or {@code null} when the input was not recognized. */
-    private String aCommandWord;
     /** Optional second token; {@code null} if none was supplied. */
     private String aSecondWord;
 
-    /**
-     * Creates a command. Either argument may be {@code null} depending on user
-     * input.
-     *
-     * @param pCommandWord the recognized verb, or {@code null} if unknown
-     * @param pSecondWord  the argument word, or {@code null} if absent
-     */
+    /** Creates a command with no second word. */
     public Command() {
-        aSecondWord = null;
+        this.aSecondWord = null;
     } // Command()
-
-    /**
-     * Returns the command word (first token).
-     *
-     * @return the verb, or {@code null} if the command was not understood
-     */
-    public String getCommandWord() {
-        return this.aCommandWord;
-    } // getCommandWord()
 
     /**
      * Returns the second word of this command, if any.
@@ -49,8 +29,13 @@ public abstract class Command {
         return this.aSecondWord;
     } // getSecondWord()
 
-    public void setSecondWord(String aSecondWord) {
-        this.aSecondWord = aSecondWord;
+    /**
+     * Replaces the optional second word before execution.
+     *
+     * @param pSecondWord the new second word, or {@code null}
+     */
+    public void setSecondWord(final String pSecondWord) {
+        this.aSecondWord = pSecondWord;
     }
 
     /**
@@ -63,13 +48,19 @@ public abstract class Command {
     } // hasSecondWord()
 
     /**
-     * Indicates whether the parser recognized the command word.
+     * Indicates whether this command is unknown.
      *
-     * @return {@code true} if {@link #getCommandWord()} is {@code null}
+     * @return always {@code false}; unknown input is represented by {@code null} commands
      */
     public boolean isUnknown() {
-        return this.aCommandWord == null;
+        return false;
     } // isUnknown()
-    
-    public abstract boolean execute(GameEngine gameEngine);
+
+    /**
+     * Executes the command against the current game engine.
+     *
+     * @param pGameEngine the game engine to update
+     * @return {@code true} when the command requests that the game ends
+     */
+    public abstract boolean execute(final GameEngine pGameEngine);
 } // Command

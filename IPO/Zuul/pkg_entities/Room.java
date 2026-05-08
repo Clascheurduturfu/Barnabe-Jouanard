@@ -1,32 +1,42 @@
 package pkg_entities;
+
 import java.util.HashMap;
+
 /**
- * Models one location in the game world: narrative text, image, exits to other
- * rooms,
- * and a keyed collection of {@link Item}s the player can examine.
+ * Models one location in the game world: narrative text, image, exits to other rooms, and a keyed
+ * collection of {@link Item}s the player can examine.
  *
  * @author Barnabe Jouanard
  * @version 2026.02.17
  */
-
-
 public class Room {
     /** Unique identifier for save/load. */
     private String aRoomId;
+
     /** Short phrase used in descriptions, e.g. "in the kitchen". */
     private String aDescription;
+
     /** Maps direction names to neighboring {@link Room} instances. */
     private HashMap<String, Room> aExits;
+
     /** Classpath resource path for the room illustration. */
     private String aImageName;
+
     /** Classpath resource path for the room's map illustration. */
     private String aMapImageName;
+
     /** Items present in this room, keyed by a short lookup name. */
     private ItemList aItems;
+
     /** Marks this room as a win condition when the player holds the required item. */
     private boolean aIsWinningRoom;
-    /** Marks this room as a teleporter room, which teleports the player to a random location when entered. */
+
+    /**
+     * Marks this room as a teleporter room, which teleports the player to a random location when
+     * entered.
+     */
     private boolean aIsTeleporterRoom;
+
     /** Trainers present in this room, keyed by a short lookup name. */
     private TrainerList aTrainers;
 
@@ -34,8 +44,8 @@ public class Room {
      * Creates a room with a description, image path, and empty exit/item maps.
      *
      * @param pDescription human-readable location phrase shown to the player
-     * @param pImage       resource path for the picture, or {@code null} if none
-     * @param pMapImage    resource path for the map image, or {@code null} if none
+     * @param pImage resource path for the picture, or {@code null} if none
+     * @param pMapImage resource path for the map image, or {@code null} if none
      */
     public Room(final String pDescription, final String pImage, final String pMapImage) {
         this.aRoomId = "";
@@ -47,22 +57,38 @@ public class Room {
         this.aTrainers = new TrainerList();
     } // Room()
 
-    public void setRoomId(String pId) {
+    /**
+     * Sets the stable identifier used by save/load code.
+     *
+     * @param pId the room id
+     */
+    public void setRoomId(final String pId) {
         this.aRoomId = pId;
     }
 
+    /**
+     * Returns the stable room identifier.
+     *
+     * @return the room id
+     */
     public String getRoomId() {
         return this.aRoomId;
     }
 
     /**
-     * Composes the room description, exit list, and either item lines or a default
-     * notice.
+     * Composes the room description, exit list, and either item lines or a default notice.
      *
      * @return multi-line description suitable for printing or appending to the log
      */
     public String getLongDescription() {
-        return "You are " + this.getDescription() + "\n" + this.getExitString() + "\n\n" + this.aItems.getItemsDescription() + "\n" + this.aTrainers.getTrainersDescription();
+        return "You are "
+                + this.getDescription()
+                + "\n"
+                + this.getExitString()
+                + "\n\n"
+                + this.aItems.getItemsDescription()
+                + "\n"
+                + this.aTrainers.getTrainersDescription();
     } // getLongDescription()
 
     /**
@@ -98,12 +124,17 @@ public class Room {
      * Registers a one-way exit from this room to {@code pExit}.
      *
      * @param pDirection compass or vertical direction used by the parser
-     * @param pExit      destination room; may be {@code null} to remove an exit
+     * @param pExit destination room; may be {@code null} to remove an exit
      */
     public void setExit(final String pDirection, final Room pExit) {
         this.aExits.put(pDirection, pExit);
     } // setExit()
 
+    /**
+     * Returns the table of exits from this room.
+     *
+     * @return exit directions mapped to destination rooms
+     */
     public HashMap<String, Room> getAllExits() {
         return this.aExits;
     }
@@ -145,18 +176,27 @@ public class Room {
     /**
      * Retrieves an item currently stored in the room.
      *
-     * @param pName lookup key used when the item was {@link #addItem(String, Item)
-     *              added}
+     * @param pName lookup key used when the item was {@link #addItem(String, Item) added}
      * @return the matching {@link Item}, or {@code null}
      */
     public Item getItem(final String pName) {
         return this.aItems.getItem(pName);
     }
 
+    /**
+     * Returns all items currently stored in the room.
+     *
+     * @return item keys mapped to item objects
+     */
     public java.util.HashMap<String, Item> getItems() {
         return this.aItems.getAllItems();
     }
 
+    /**
+     * Returns the names of all trainers currently in the room.
+     *
+     * @return a list of trainer names
+     */
     public java.util.ArrayList<String> getTrainerNames() {
         java.util.ArrayList<String> vNames = new java.util.ArrayList<>();
         for (String vName : this.aTrainers.getAllTrainers().keySet()) {
@@ -165,6 +205,11 @@ public class Room {
         return vNames;
     }
 
+    /**
+     * Returns all trainers currently stored in the room.
+     *
+     * @return trainer names mapped to trainer objects
+     */
     public java.util.HashMap<String, Trainer> getAllTrainers() {
         return this.aTrainers.getAllTrainers();
     }
@@ -189,9 +234,8 @@ public class Room {
     }
 
     /**
-     * Adds or replaces a trainer under the given key.
+     * Adds or replaces a trainer in this room.
      *
-     * @param pName short identifier used for later retrieval
      * @param pTrainer the {@link Trainer} to store
      */
     public void addTrainer(final Trainer pTrainer) {
@@ -209,17 +253,17 @@ public class Room {
 
     /**
      * Marks this room as a winning room.
-     * <p>
-     * The win condition is evaluated by the engine (for example: being in a winning
-     * room while holding a specific item).
-     * </p>
+     *
+     * <p>The win condition is evaluated by the engine (for example: being in a winning room while
+     * holding a specific item).
      */
     public void setAsWinningRoom() {
         this.aIsWinningRoom = true;
     }
 
     /**
-     * Marks this room as a teleporter room, which teleports the player to a random location when entered.
+     * Marks this room as a teleporter room, which teleports the player to a random location when
+     * entered.
      */
     public void setAsTeleporterRoom() {
         this.aIsTeleporterRoom = true;

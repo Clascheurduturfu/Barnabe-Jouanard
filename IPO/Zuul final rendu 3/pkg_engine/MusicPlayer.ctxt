@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=MusicPlayer
+comment0.text=Plays\ an\ MP3\ file\ in\ a\ loop\ on\ a\ background\ thread.
+comment1.params=pFilePath
+comment1.target=MusicPlayer(java.lang.String)
+comment1.text=\r\n\ Creates\ a\ music\ player\ for\ the\ given\ MP3\ path.\r\n\r\n\ @param\ pFilePath\ the\ local\ MP3\ file\ path\r\n
+comment2.params=
+comment2.target=void\ playLoop()
+comment2.text=Starts\ playing\ the\ MP3\ in\ a\ loop\ on\ a\ background\ thread.
+comment3.params=
+comment3.target=void\ stop()
+comment3.text=Stops\ the\ music.
+numComments=4

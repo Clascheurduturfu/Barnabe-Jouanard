@@ -3,41 +3,61 @@ package pkg_entities;
 import java.util.Random;
 
 /**
- * Décrivez votre classe Attack ici.
+ * Represents a Pokemon attack with a name, base damage, and hit precision.
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * <p>The damage returned by this class already includes the accuracy check: a missed attack returns
+ * zero damage.
+ *
+ * @author Barnabe Jouanard
+ * @version 2026.05.08
  */
-public class Attack
-{
+public class Attack {
+    /** Display name of the attack. */
     private String aName;
+
+    /** Base damage dealt when the attack hits. */
     private int aDamage;
+
+    /** Hit precision as a percentage from 0 to 100. */
     private int aPrecision;
+
     /**
-     * Constructeur d'objets de classe Attack
+     * Creates an attack with its display name, damage, and precision.
+     *
+     * @param pName the attack name
+     * @param pDamage the damage dealt on a successful hit
+     * @param pPrecision the chance to hit, expressed as a percentage
      */
-    public Attack(final String pName, final int pDamage, final int pPrecision)
-    {
+    public Attack(final String pName, final int pDamage, final int pPrecision) {
         this.aName = pName;
         this.aDamage = pDamage;
         this.aPrecision = pPrecision;
     }
 
+    /**
+     * Calculates the damage for one use of the attack.
+     *
+     * @return the base damage when the attack hits, or {@code 0} when it misses
+     */
     public int getDamage() {
-        Random random = new Random();
-        int roll = random.nextInt(101);
+        final Random vRandom = new Random();
+        final int vRoll = vRandom.nextInt(101);
+        final int vFactor;
 
-        int vFactor;
-
-        if (roll > aPrecision) {
+        if (vRoll > this.aPrecision) {
             vFactor = 0;
         } else {
             vFactor = 1;
         }
-        return aDamage * vFactor;
+        return this.aDamage * vFactor;
     }
 
+    /**
+     * Returns the attack display name.
+     *
+     * @return the attack name
+     */
     public String getName() {
-        return aName;
+        return this.aName;
     }
 }

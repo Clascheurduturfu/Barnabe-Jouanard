@@ -1,13 +1,13 @@
 package pkg_entities;
+
 import java.util.HashMap;
 
 /**
  * Stores a private collection of trainers keyed by name.
  *
- * The internal collection is fully encapsulated and cannot be manipulated
- * directly
+ * <p>The internal collection is fully encapsulated and cannot be manipulated directly
  *
- * from outside this class.
+ * <p>from outside this class.
  *
  * @author Barnabe Jouanard
  * @version 2026.04.13
@@ -16,9 +16,7 @@ public class TrainerList {
     /** Internal storage keyed by trainer name. */
     private HashMap<String, Trainer> aTrainers;
 
-    /**
-     * Creates an empty trainer list.
-     */
+    /** Creates an empty trainer list. */
     public TrainerList() {
         this.aTrainers = new HashMap<String, Trainer>();
     } // TrainerList()
@@ -42,6 +40,11 @@ public class TrainerList {
         this.aTrainers.remove(pName);
     }
 
+    /**
+     * Returns the backing trainer map.
+     *
+     * @return trainer names mapped to trainer objects
+     */
     public HashMap<String, Trainer> getAllTrainers() {
         return this.aTrainers;
     }
@@ -56,8 +59,8 @@ public class TrainerList {
     }
 
     /**
-     * Builds a multi-line string with each trainer's description,
-     * or a default notice when the list is empty.
+     * Builds a multi-line string with each trainer's description, or a default notice when the list
+     * is empty.
      *
      * @return formatted trainer descriptions
      */
@@ -67,7 +70,12 @@ public class TrainerList {
         }
         String vResult = "";
         for (String vName : this.aTrainers.keySet()) {
-            vResult += "There is " + vName + ", " + this.aTrainers.get(vName).getTrainerDescription() + "\n";
+            vResult +=
+                    "There is "
+                            + vName
+                            + ", "
+                            + this.aTrainers.get(vName).getTrainerDescription()
+                            + "\n";
         }
         return vResult;
     }
