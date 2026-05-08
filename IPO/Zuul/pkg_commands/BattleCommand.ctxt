@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=BattleCommand
+comment0.text=\r\n\ D\u00E9crivez\ votre\ classe\ BattleCommand\ ici.\r\n\r\n\ @author\ (votre\ nom)\r\n\ @version\ (un\ num\u00E9ro\ de\ version\ ou\ une\ date)\r\n
+comment1.params=
+comment1.target=BattleCommand()
+comment2.params=gameEngine
+comment2.target=boolean\ execute(pkg_engine.GameEngine)
+comment3.params=
+comment3.target=boolean\ isTurn()
+numComments=4

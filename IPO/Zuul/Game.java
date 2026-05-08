@@ -1,6 +1,12 @@
+import pkg_engine.AssetManager;
+import pkg_engine.GameEngine;
+import pkg_engine.LoadingScreen;
+import pkg_engine.UserInterface;
+
 /**
  * Application entry point for the Zuul-style Pokémon adventure game.
  * <p>
+
  * This class wires the {@link GameEngine} to the {@link UserInterface} so that
  * player input is displayed and processed through a single {@code main}-less
  * bootstrap (typical BlueJ style: instantiate {@code Game} to start).
@@ -26,7 +32,7 @@ public class Game {
      */
     public Game() {
         this.aAssetManager = new AssetManager();
-        if (!aAssetManager.allAssetsCached()) {
+        if (!aAssetManager.allAssetsDownloaded()) {
             LoadingScreen vLoading = new LoadingScreen(aAssetManager);
             aAssetManager.setLoadingScreen(vLoading);
             vLoading.startAndWait();
@@ -36,4 +42,14 @@ public class Game {
         this.aGui = new UserInterface(this.aEngine);
         this.aEngine.setGUI(this.aGui);
     } // Game()
+
+    /**
+     * Entry point when running from command line.
+     * Creates a Game object to start the application.
+     *
+     * @param args command-line arguments (not used)
+     */
+    public static void main(String[] args) {
+        new Game();
+    } // main()
 } // Game

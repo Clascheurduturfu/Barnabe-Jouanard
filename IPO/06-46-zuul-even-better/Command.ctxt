@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Command
+comment0.text=\r\n\ Abstract\ superclass\ for\ all\ command\ classes.\r\n\ Each\ user\ command\ is\ implemented\ by\ a\ specific\ command\ subclass.\r\n\r\n\ @author\ Michael\ Kolling\ and\ David\ J.\ Barnes\r\n\ @version\ 2011.07.31\r\n
+comment1.params=
+comment1.target=Command()
+comment2.params=
+comment2.target=java.lang.String\ getSecondWord()
+comment3.params=
+comment3.target=boolean\ hasSecondWord()
+comment4.params=secondWord
+comment4.target=void\ setSecondWord(java.lang.String)
+comment5.params=player
+comment5.target=boolean\ execute(Player)
+numComments=6

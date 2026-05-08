@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=TransporterRoom
+comment0.text=\r\n\ A\ special\ type\ of\ {@link\ Room}\ that\ teleports\ the\ player\ to\ a\ random\ location\r\n\r\n\ @name\ Barnabe\ Jouanard\ \r\n\ @version\ 2026.05.01\r\n
+comment1.params=pDescription\ pImage\ pMapImage\ pTargetRooms
+comment1.target=TransporterRoom(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.util.ArrayList)
+comment2.params=
+comment2.target=Room\ getRandomRoom()
+comment3.params=pRoom
+comment3.target=void\ setForcedRoom(java.lang.String)
+comment4.params=
+comment4.target=void\ resetForcedRoom()
+numComments=5

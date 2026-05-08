@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=CommandWords
+comment0.text=\r\n\ This\ class\ holds\ a\ collection\ of\ all\ command\ words\ known\ to\ the\ game.\r\n\ It\ is\ used\ to\ recognise\ commands\ as\ they\ are\ typed\ in.\r\n\r\n\ @author\ Michael\ Kolling\ and\ David\ J.\ Barnes\r\n\ @version\ 2011.07.31\r\n
+comment1.params=
+comment1.target=CommandWords()
+comment1.text=\r\n\ Constructor\ -\ initialise\ the\ command\ words.\r\n
+comment2.params=word
+comment2.target=Command\ get(java.lang.String)
+comment2.text=\r\n\ Given\ a\ command\ word,\ find\ and\ return\ the\ matching\ command\ object.\r\n\ Return\ null\ if\ there\ is\ no\ command\ with\ this\ name.\r\n
+comment3.params=
+comment3.target=void\ showAll()
+comment3.text=\r\n\ Print\ all\ valid\ commands\ to\ System.out.\r\n
+numComments=4

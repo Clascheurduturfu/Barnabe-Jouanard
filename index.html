@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon Delta Emerald - Projet Zuul</title>
-    
+
     <link rel="icon" type="image/png" href="Delta_Emerald_icon.jpg">
 
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -19,6 +20,7 @@
             padding: 20px;
             background-color: #f4f7f6;
         }
+
         header {
             background-color: #2e7d32;
             color: white;
@@ -27,23 +29,29 @@
             border-radius: 8px;
             margin-bottom: 20px;
         }
-        h1 { margin: 0; }
+
+        h1 {
+            margin: 0;
+        }
+
         .container {
             background: white;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         h2 {
             color: #2e7d32;
             border-bottom: 2px solid #a5d6a7;
             padding-bottom: 10px;
             margin-top: 30px;
         }
+
         .info-section {
             margin-bottom: 20px;
         }
-        
+
         /* 3D MODEL STYLING */
         model-viewer {
             width: 100%;
@@ -60,29 +68,78 @@
             font-size: 0.9em;
             color: #666;
         }
-        .download-buttons {
+
+        .download-section {
             display: flex;
             justify-content: center;
-            gap: 1rem;
             margin-top: 2rem;
+            margin-bottom: 2rem;
         }
-        .btn {
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, #4a90e2, #0077b6);
-            color: white;
-            border: none;
+
+        .download-dropdown {
+            width: 100%;
+            max-width: 400px;
+            background: white;
             border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+        .dropdown-summary {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            text-align: center;
+            border-radius: 8px;
+            transition: background 0.3s;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1em;
+        }
+
+        .dropdown-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .dropdown-summary:hover {
+            background: linear-gradient(135deg, #388e3c, #2e7d32);
+        }
+
+        .dropdown-content {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5rem 0;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .dropdown-item:hover {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .dropdown-divider {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin: 0.5rem 0;
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -97,42 +154,35 @@
             <p><strong>Barnabé Jouanard</strong></p>
         </section>
 
-	<section class="info-section">
+        <section class="info-section">
             <h2>I.B) Thème</h2>
-            <p><strong>Un jeu d'aventure se déroulant dans la région de Hoenn (Pokémon), axé sur l'exploration et la résolution d'énigmes environnementales pour mettre fin à un conflit légendaire entre la terre et la mer.</strong></p>
+            <p><strong>Un jeu d'aventure se déroulant dans la région de Hoenn (Pokémon), axé sur l'exploration et la
+                    résolution d'énigmes environnementales pour mettre fin à un conflit légendaire entre la terre et la
+                    mer.</strong></p>
         </section>
 
         <section class="info-section">
             <h2>I.C) Résumé du scénario complet</h2>
-            <p>Le joueur incarne un jeune dresseur débutant son voyage à <strong>Bourg-en-Vol</strong> (Littleroot Town). La région est en proie à des dérèglements climatiques extrêmes sans précédent. </p>
-            <p>L'objectif principal est de traverser la partie ouest de Hoenn pour retrouver l'<strong>Orbe Émeraude</strong>. Cet objet sacré est la clé pour accéder au sommet du <strong>Pilier Céleste</strong> et réveiller le légendaire <strong>Rayquaza</strong>, le seul Pokémon capable de calmer les titans Groudon et Kyogre et de restaurer l'équilibre climatique de la région.</p>
+            <p>Le joueur incarne un jeune dresseur débutant son voyage à <strong>Bourg-en-Vol</strong> (Littleroot
+                Town). La région est en proie à des dérèglements climatiques extrêmes sans précédent. </p>
+            <p>L'objectif principal est de traverser la partie ouest de Hoenn pour retrouver l'<strong>Orbe
+                    Émeraude</strong>. Cet objet sacré est la clé pour accéder au sommet du <strong>Pilier
+                    Céleste</strong> et réveiller le légendaire <strong>Rayquaza</strong>, le seul Pokémon capable de
+                calmer les titans Groudon et Kyogre et de restaurer l'équilibre climatique de la région.</p>
         </section>
 
         <section class="info-section">
             <h2>I.D) Plan complet (Interactif)</h2>
             <p>Voici l'organisation géographique des lieux et des donjons de l'aventure en 3D :</p>
-            
-            <model-viewer 
-                src="Hoenn_map.glb" 
-		        environment-image="neutral" 
-                camera-orbit="0deg 75deg 4m"
-                field-of-view="45deg"
-                min-camera-orbit="auto 30deg 30m"
-                max-camera-orbit="auto 90deg 100m"
-                camera-target="10m 0m 0m"
-                interpolation-decay="200"
-                bounds="tight"
-                alt="3D map of the Hoenn region"
-		        exposure="1"
-                ar 
-                auto-rotate 
-                disable-pan
-                camera-controls 
-                shadow-intensity="1" 
-                touch-action="none">
+
+            <model-viewer src="Hoenn_map.glb" environment-image="neutral" camera-orbit="0deg 75deg 4m"
+                field-of-view="45deg" min-camera-orbit="auto 30deg 30m" max-camera-orbit="auto 90deg 100m"
+                camera-target="10m 0m 0m" interpolation-decay="200" bounds="tight" alt="3D map of the Hoenn region"
+                exposure="1" ar auto-rotate disable-pan camera-controls shadow-intensity="1" touch-action="none">
             </model-viewer>
-            
-            <p><em>Utilisez votre souris ou votre doigt pour faire pivoter la carte et explorer les connexions entre les zones.</em></p>
+
+            <p><em>Utilisez votre souris ou votre doigt pour faire pivoter la carte et explorer les connexions entre les
+                    zones.</em></p>
         </section>
 
     </div>
@@ -140,10 +190,27 @@
     <footer>
         <p>&copy; 2026 Barnabé Jouanard - Projet Programmation Orientée Objet</p>
     </footer>
-    <div class="download-buttons">
-      <a href="../IPO_barnabe_jouanard.jar" download class="btn">Download IPO.jar</a>
-      <a href="../IPO_barnabe_jouanard_offline.jar" download class="btn">Download IPO Offline.jar</a>
+    <div class="download-section">
+        <details class="download-dropdown">
+            <summary class="dropdown-summary">⬇️ Télécharger le jeu et les sources</summary>
+            <div class="dropdown-content">
+                <a href="../Pokemon Delta Emerald.jar" download class="dropdown-item">🎮 Pokémon Delta Emerald
+                    (.jar)</a>
+                <a href="../Pokemon Delta Emerald Offline.jar" download class="dropdown-item">🎮 Pokémon Delta Emerald
+                    Offline (.jar)</a>
+                <a href="../Pokemon Delta Emerald.exe" download class="dropdown-item">🖥️ Pokémon Delta Emerald
+                    (.exe)</a>
+                <a href="../Pokemon Delta Emerald Offline.exe" download class="dropdown-item">🖥️ Pokémon Delta Emerald
+                    Offline (.exe)</a>
+                <hr class="dropdown-divider">
+                <a href="../IPO_barnabe_jouanard_source.jar" download class="dropdown-item">📦 Code Source IPO
+                    (.jar)</a>
+                <a href="../IPO_barnabe_jouanard_source_offline.jar" download class="dropdown-item">📦 Code Source IPO
+                    Offline (.jar)</a>
+            </div>
+        </details>
     </div>
 
 </body>
+
 </html>

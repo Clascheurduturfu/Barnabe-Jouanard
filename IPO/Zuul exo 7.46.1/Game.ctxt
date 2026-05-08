@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Game
+comment0.text=\r\n\ Application\ entry\ point\ for\ the\ Zuul-style\ Pok\u00E9mon\ adventure\ game.\r\n\ <p>\r\n\ This\ class\ wires\ the\ {@link\ GameEngine}\ to\ the\ {@link\ UserInterface}\ so\ that\r\n\ player\ input\ is\ displayed\ and\ processed\ through\ a\ single\ {@code\ main}-less\r\n\ bootstrap\ (typical\ BlueJ\ style\:\ instantiate\ {@code\ Game}\ to\ start).\r\n\ </p>\r\n\r\n\ @author\ Barnabe\ Jouanard\r\n\ @version\ 2026.02.17\r\n
+comment1.params=
+comment1.target=Game()
+comment1.text=\r\n\ Constructs\ the\ game\ by\ creating\ the\ engine\ and\ GUI,\ then\ linking\ them.\r\n\ <p>\r\n\ The\ GUI\ receives\ a\ reference\ to\ the\ engine;\ the\ engine\ is\ given\ the\ GUI\r\n\ so\ it\ can\ print\ messages\ and\ update\ the\ display\ after\ construction.\r\n\ </p>\r\n
+numComments=2

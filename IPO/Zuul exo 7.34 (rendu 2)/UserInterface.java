@@ -31,7 +31,7 @@ public class UserInterface implements ActionListener
     /** Game logic invoked when the user submits a command. */
     private GameEngine aEngine;
     /** Top-level window hosting all components. */
-    private JFrame     aMyFrame;
+    private JFrame     aMainFrame;
     /** Single-line input where the player types commands. */
     private JTextField aEntryField;
     /** Scrollable transcript of game output. */
@@ -152,7 +152,7 @@ public class UserInterface implements ActionListener
      */
     private void createGUI()
     {
-        this.aMyFrame = new JFrame( "Pokémon Delta Emerald" );
+        this.aMainFrame = new JFrame( "Pokémon Delta Emerald" );
         this.aEntryField = new JTextField( 34 );
 
         this.aLog = new JTextArea();
@@ -204,7 +204,7 @@ public class UserInterface implements ActionListener
         
         vPanel.add( vSouthPanel, BorderLayout.SOUTH );
 
-        this.aMyFrame.getContentPane().add( vPanel, BorderLayout.CENTER );
+        this.aMainFrame.getContentPane().add( vPanel, BorderLayout.CENTER );
 
         this.aEntryField.addActionListener( this );
         this.aButtonGoNorth.addActionListener( this );
@@ -217,17 +217,11 @@ public class UserInterface implements ActionListener
         this.aButtonQuit.addActionListener( this );
         this.aButtonHelp.addActionListener( this );
 
-        this.aMyFrame.addWindowListener(
-            new WindowAdapter() {
-                @Override public void windowClosing( final WindowEvent pE )
-                {
-                    System.exit( 0 );
-                }
-            } );
+        this.aMainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             
-        this.aMyFrame.setVisible( true );
+        this.aMainFrame.setVisible( true );
         this.aEntryField.requestFocus();
-        this.aMyFrame.setExtendedState( JFrame.MAXIMIZED_BOTH );
+        this.aMainFrame.setExtendedState( JFrame.MAXIMIZED_BOTH );
     } // createGUI()
 
     /**

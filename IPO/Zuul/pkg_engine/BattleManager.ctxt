@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=BattleManager
+comment0.text=\r\n\ Manages\ battle\ state\ and\ turn\ processing.\r\n
+comment1.params=pEngine\ pGui
+comment1.target=BattleManager(GameEngine,\ UserInterface)
+comment2.params=pOpponent
+comment2.target=void\ startBattle(pkg_entities.Trainer)
+comment2.text=\r\n\ Starts\ a\ battle\ with\ the\ given\ trainer.\r\n
+comment3.params=
+comment3.target=void\ updateHP()
+comment3.text=\r\n\ Updates\ HP\ bars\ in\ UI.\r\n
+comment4.params=
+comment4.target=void\ setupAttackButtons()
+comment4.text=\r\n\ Sets\ up\ attack\ button\ listeners.\r\n
+comment5.params=pMoveName
+comment5.target=void\ playerTurn(java.lang.String)
+comment5.text=\r\n\ Processes\ a\ complete\ turn\:\ player\ attacks,\ then\ opponent\ attacks.\r\n
+comment6.params=pEnabled
+comment6.target=void\ setButtonsEnabled(boolean)
+comment6.text=\r\n\ Enables\ or\ disables\ all\ battle\ buttons.\r\n
+comment7.params=pPlayerWon
+comment7.target=void\ endBattle(boolean)
+comment7.text=\r\n\ Ends\ battle\ and\ returns\ to\ exploration.\r\n
+comment8.params=
+comment8.target=void\ runAway()
+comment8.text=\r\n\ Run\ away\ from\ battle.\r\n
+numComments=9
