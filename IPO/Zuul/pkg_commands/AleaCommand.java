@@ -22,17 +22,17 @@ public class AleaCommand extends Command {
      */
     public boolean execute(final GameEngine pGameEngine) {
         if (pGameEngine.getPlayer().getCurrentRoom().isTeleporterRoom() && pGameEngine.isTest()) {
-            final TransporterRoom vTransporterRoom =
+            TransporterRoom vTransporterRoom =
                     (TransporterRoom) pGameEngine.getPlayer().getCurrentRoom();
             if (this.getSecondWord() == null) {
                 vTransporterRoom.resetForcedRoom();
             } else {
-                final String vRoom = this.getSecondWord();
+                String vRoom = this.getSecondWord();
                 vTransporterRoom.setForcedRoom(vRoom);
             }
         } else {
             pGameEngine.getGui().println("You are not in the Transporter Room or in test mode.");
         }
         return false;
-    }
+    } // execute()
 }

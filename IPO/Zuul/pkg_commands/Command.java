@@ -9,7 +9,7 @@ import pkg_engine.GameEngine;
  * the command is executed.
  *
  * @author Barnabe Jouanard
- * @version 2026.02.17
+ * @version 2026.05.08
  */
 public abstract class Command {
     /** Optional second token; {@code null} if none was supplied. */
@@ -36,7 +36,7 @@ public abstract class Command {
      */
     public void setSecondWord(final String pSecondWord) {
         this.aSecondWord = pSecondWord;
-    }
+    } // setSecondWord()
 
     /**
      * Indicates whether a second token was present.

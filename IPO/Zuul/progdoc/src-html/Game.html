@@ -20,50 +20,49 @@
 <span class="source-line-no">007</span><span id="line-7"> * Application entry point for the Zuul-style Pokémon adventure game.</span>
 <span class="source-line-no">008</span><span id="line-8"> *</span>
 <span class="source-line-no">009</span><span id="line-9"> * &lt;p&gt;This class wires the {@link GameEngine} to the {@link UserInterface} so that player input is</span>
-<span class="source-line-no">010</span><span id="line-10"> * displayed and processed through a single {@code main}-less bootstrap (typical BlueJ style:</span>
-<span class="source-line-no">011</span><span id="line-11"> * instantiate {@code Game} to start).</span>
-<span class="source-line-no">012</span><span id="line-12"> *</span>
-<span class="source-line-no">013</span><span id="line-13"> * @author Barnabe Jouanard</span>
-<span class="source-line-no">014</span><span id="line-14"> * @version 2026.02.17</span>
-<span class="source-line-no">015</span><span id="line-15"> */</span>
-<span class="source-line-no">016</span><span id="line-16">public class Game {</span>
-<span class="source-line-no">017</span><span id="line-17">    /** Swing-based view that shows text, images, and command controls. */</span>
-<span class="source-line-no">018</span><span id="line-18">    private UserInterface aGui;</span>
-<span class="source-line-no">019</span><span id="line-19"></span>
-<span class="source-line-no">020</span><span id="line-20">    /** Core game logic: rooms, parser, and command interpretation. */</span>
-<span class="source-line-no">021</span><span id="line-21">    private GameEngine aEngine;</span>
-<span class="source-line-no">022</span><span id="line-22"></span>
-<span class="source-line-no">023</span><span id="line-23">    /** Asset manager responsible for downloading missing files at startup. */</span>
-<span class="source-line-no">024</span><span id="line-24">    private AssetManager aAssetManager;</span>
-<span class="source-line-no">025</span><span id="line-25"></span>
-<span class="source-line-no">026</span><span id="line-26">    /**</span>
-<span class="source-line-no">027</span><span id="line-27">     * Constructs the game by creating the engine and GUI, then linking them.</span>
-<span class="source-line-no">028</span><span id="line-28">     *</span>
-<span class="source-line-no">029</span><span id="line-29">     * &lt;p&gt;The GUI receives a reference to the engine; the engine is given the GUI so it can print</span>
-<span class="source-line-no">030</span><span id="line-30">     * messages and update the display after construction.</span>
-<span class="source-line-no">031</span><span id="line-31">     */</span>
-<span class="source-line-no">032</span><span id="line-32">    public Game() {</span>
-<span class="source-line-no">033</span><span id="line-33">        this.aAssetManager = new AssetManager();</span>
-<span class="source-line-no">034</span><span id="line-34">        if (!aAssetManager.allAssetsDownloaded()) {</span>
-<span class="source-line-no">035</span><span id="line-35">            LoadingScreen vLoading = new LoadingScreen(aAssetManager);</span>
-<span class="source-line-no">036</span><span id="line-36">            aAssetManager.setLoadingScreen(vLoading);</span>
-<span class="source-line-no">037</span><span id="line-37">            vLoading.startAndWait();</span>
-<span class="source-line-no">038</span><span id="line-38">        }</span>
-<span class="source-line-no">039</span><span id="line-39"></span>
-<span class="source-line-no">040</span><span id="line-40">        this.aEngine = new GameEngine();</span>
-<span class="source-line-no">041</span><span id="line-41">        this.aGui = new UserInterface(this.aEngine);</span>
-<span class="source-line-no">042</span><span id="line-42">        this.aEngine.setGUI(this.aGui);</span>
-<span class="source-line-no">043</span><span id="line-43">    } // Game()</span>
-<span class="source-line-no">044</span><span id="line-44"></span>
-<span class="source-line-no">045</span><span id="line-45">    /**</span>
-<span class="source-line-no">046</span><span id="line-46">     * Entry point when running from command line. Creates a Game object to start the application.</span>
-<span class="source-line-no">047</span><span id="line-47">     *</span>
-<span class="source-line-no">048</span><span id="line-48">     * @param args command-line arguments (not used)</span>
-<span class="source-line-no">049</span><span id="line-49">     */</span>
-<span class="source-line-no">050</span><span id="line-50">    public static void main(String[] args) {</span>
-<span class="source-line-no">051</span><span id="line-51">        new Game();</span>
-<span class="source-line-no">052</span><span id="line-52">    } // main()</span>
-<span class="source-line-no">053</span><span id="line-53">} // Game</span>
+<span class="source-line-no">010</span><span id="line-10"> * displayed and processed through a single {@code main} instantiate {@code Game} to start.</span>
+<span class="source-line-no">011</span><span id="line-11"> *</span>
+<span class="source-line-no">012</span><span id="line-12"> * @author Barnabe Jouanard</span>
+<span class="source-line-no">013</span><span id="line-13"> * @version 2026.02.17</span>
+<span class="source-line-no">014</span><span id="line-14"> */</span>
+<span class="source-line-no">015</span><span id="line-15">public class Game {</span>
+<span class="source-line-no">016</span><span id="line-16">    /** Swing-based view that shows text, images, and command controls. */</span>
+<span class="source-line-no">017</span><span id="line-17">    private UserInterface aGui;</span>
+<span class="source-line-no">018</span><span id="line-18"></span>
+<span class="source-line-no">019</span><span id="line-19">    /** Core game logic: rooms, parser, and command interpretation. */</span>
+<span class="source-line-no">020</span><span id="line-20">    private GameEngine aEngine;</span>
+<span class="source-line-no">021</span><span id="line-21"></span>
+<span class="source-line-no">022</span><span id="line-22">    /** Asset manager responsible for downloading missing files at startup. */</span>
+<span class="source-line-no">023</span><span id="line-23">    private AssetManager aAssetManager;</span>
+<span class="source-line-no">024</span><span id="line-24"></span>
+<span class="source-line-no">025</span><span id="line-25">    /**</span>
+<span class="source-line-no">026</span><span id="line-26">     * Constructs the game by creating the engine and GUI, then linking them.</span>
+<span class="source-line-no">027</span><span id="line-27">     *</span>
+<span class="source-line-no">028</span><span id="line-28">     * &lt;p&gt;The GUI receives a reference to the engine; the engine is given the GUI so it can print</span>
+<span class="source-line-no">029</span><span id="line-29">     * messages and update the display after construction.</span>
+<span class="source-line-no">030</span><span id="line-30">     */</span>
+<span class="source-line-no">031</span><span id="line-31">    public Game() {</span>
+<span class="source-line-no">032</span><span id="line-32">        this.aAssetManager = new AssetManager();</span>
+<span class="source-line-no">033</span><span id="line-33">        if (!aAssetManager.allAssetsDownloaded()) {</span>
+<span class="source-line-no">034</span><span id="line-34">            LoadingScreen vLoading = new LoadingScreen(aAssetManager);</span>
+<span class="source-line-no">035</span><span id="line-35">            aAssetManager.setLoadingScreen(vLoading);</span>
+<span class="source-line-no">036</span><span id="line-36">            vLoading.startAndWait();</span>
+<span class="source-line-no">037</span><span id="line-37">        }</span>
+<span class="source-line-no">038</span><span id="line-38"></span>
+<span class="source-line-no">039</span><span id="line-39">        this.aEngine = new GameEngine();</span>
+<span class="source-line-no">040</span><span id="line-40">        this.aGui = new UserInterface(this.aEngine);</span>
+<span class="source-line-no">041</span><span id="line-41">        this.aEngine.setGUI(this.aGui);</span>
+<span class="source-line-no">042</span><span id="line-42">    } // Game()</span>
+<span class="source-line-no">043</span><span id="line-43"></span>
+<span class="source-line-no">044</span><span id="line-44">    /**</span>
+<span class="source-line-no">045</span><span id="line-45">     * Entry point when running from command line. Creates a Game object to start the application.</span>
+<span class="source-line-no">046</span><span id="line-46">     *</span>
+<span class="source-line-no">047</span><span id="line-47">     * @param args command-line arguments (not used)</span>
+<span class="source-line-no">048</span><span id="line-48">     */</span>
+<span class="source-line-no">049</span><span id="line-49">    public static void main(String[] args) {</span>
+<span class="source-line-no">050</span><span id="line-50">        new Game();</span>
+<span class="source-line-no">051</span><span id="line-51">    } // main()</span>
+<span class="source-line-no">052</span><span id="line-52">} // Game</span>
 
 
 

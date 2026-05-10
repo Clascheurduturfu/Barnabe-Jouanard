@@ -121,7 +121,7 @@ public class AssetManager {
      */
     public void setLoadingScreen(final LoadingScreen pLoadingScreen) {
         this.aLoadingScreen = pLoadingScreen;
-    }
+    } // setLoadingScreen()
 
     /**
      * Checks whether all assets are already present in the local folder.
@@ -185,8 +185,7 @@ public class AssetManager {
 
             if (!vSuccess) {
                 vFailCount++;
-                System.out.println(
-                        "Failed to download " + vFileName + " after " + aMaxRetries + " attempts.");
+                System.out.println("Failed to download " + vFileName + " after " + aMaxRetries + " attempts.");
             }
 
             this.aCurrentFile = vFileName;
@@ -194,11 +193,7 @@ public class AssetManager {
         }
 
         if (vFailCount > 0) {
-            this.aErrorMessage =
-                    vFailCount
-                            + " file(s) could not be downloaded. Running in offline mode.\n"
-                            + "Try restarting the game with Wi‑Fi, or consider downloading the"
-                            + " offline version from the website.";
+            this.aErrorMessage = vFailCount + " file(s) could not be downloaded. Running in offline mode.\n" + "Try restarting the game with Wi‑Fi, or consider downloading the" + " offline version from the website.";
             System.out.println(aErrorMessage);
         }
         this.aIsComplete = true;
@@ -230,7 +225,7 @@ public class AssetManager {
             }
 
             try (InputStream vInput = vConnection.getInputStream();
-                    FileOutputStream vOutput = new FileOutputStream(pLocalFile)) {
+                FileOutputStream vOutput = new FileOutputStream(pLocalFile)) {
                 vInput.transferTo(vOutput);
             }
 
@@ -259,7 +254,7 @@ public class AssetManager {
      */
     public String getCurrentFile() {
         return aCurrentFile;
-    }
+    } // getCurrentFile()
 
     /**
      * Returns the 1-based index of the most recent asset processed by {@link #downloadAssets()}.
@@ -268,7 +263,7 @@ public class AssetManager {
      */
     public int getCurrentProgress() {
         return aCurrentProgress;
-    }
+    } // getCurrentProgress()
 
     /**
      * Returns the total number of assets configured for download.
@@ -277,7 +272,7 @@ public class AssetManager {
      */
     public int getTotalAssets() {
         return aTotalAssets;
-    }
+    } // getTotalAssets()
 
     /**
      * Indicates whether the asset download phase has completed.
@@ -286,7 +281,7 @@ public class AssetManager {
      */
     public boolean isComplete() {
         return aIsComplete;
-    }
+    } // isComplete()
 
     /**
      * Returns a human-readable error message when at least one download failed.
@@ -295,5 +290,5 @@ public class AssetManager {
      */
     public String getErrorMessage() {
         return aErrorMessage;
-    }
+    } // getErrorMessage()
 } // AssetManager

@@ -29,6 +29,7 @@ public class Player {
     /** Flag indicating whether the player has won the game. */
     private boolean aHasWon;
 
+    /** Pokemon team indexed from one for battle order. */
     private HashMap<Integer, Pokemon> aTeam;
 
     /**
@@ -45,7 +46,7 @@ public class Player {
         this.aMoney = 150;
         this.aHasWon = false;
         this.aTeam = new HashMap<>();
-    }
+    } // Player()
 
     /**
      * Returns the player's current room.
@@ -54,7 +55,7 @@ public class Player {
      */
     public Room getCurrentRoom() {
         return this.aCurrentRoom;
-    }
+    } // getCurrentRoom()
 
     /**
      * Sets the current room without changing the back-stack history.
@@ -63,7 +64,7 @@ public class Player {
      */
     public void setCurrentRoom(final Room pRoom) {
         this.aCurrentRoom = pRoom;
-    }
+    } // setCurrentRoom()
 
     /**
      * Changes the current room, saving the previous one to the history stack.
@@ -75,9 +76,9 @@ public class Player {
     public void moveTo(final Room pNextRoom) {
         if (this.aCurrentRoom != null) {
             this.aPreviousRooms.push(this.aCurrentRoom);
-        }
-        this.aCurrentRoom = pNextRoom;
     }
+        this.aCurrentRoom = pNextRoom;
+    } // moveTo()
 
     /**
      * Indicates whether the player can go back to a previous room.
@@ -86,7 +87,7 @@ public class Player {
      */
     public boolean canGoBack() {
         return !this.aPreviousRooms.isEmpty();
-    }
+    } // canGoBack()
 
     /**
      * Returns the previous room.
@@ -95,7 +96,7 @@ public class Player {
      */
     public Room getPreviousRoom() {
         return this.aPreviousRooms.peek();
-    }
+    } // getPreviousRoom()
 
     /**
      * Moves back to the previous room.
@@ -105,7 +106,7 @@ public class Player {
      */
     public void goBack() {
         this.aCurrentRoom = this.aPreviousRooms.pop();
-    }
+    } // goBack()
 
     /**
      * Returns the player name.
@@ -114,7 +115,7 @@ public class Player {
      */
     public String getName() {
         return this.aName;
-    }
+    } // getName()
 
     /**
      * Sets the player name.
@@ -123,7 +124,7 @@ public class Player {
      */
     public void setName(final String pName) {
         this.aName = pName;
-    }
+    } // setName()
 
     /**
      * Retrieves an item from the player's inventory.
@@ -133,7 +134,7 @@ public class Player {
      */
     public Item getItem(final String pName) {
         return this.aItems.getItem(pName);
-    }
+    } // getItem()
 
     /**
      * Returns all items in the player's inventory.
@@ -142,7 +143,7 @@ public class Player {
      */
     public java.util.HashMap<String, Item> getItems() {
         return this.aItems.getAllItems();
-    }
+    } // getItems()
 
     /**
      * Returns the stack of previous rooms.
@@ -151,7 +152,7 @@ public class Player {
      */
     public java.util.Stack<Room> getPreviousRooms() {
         return this.aPreviousRooms;
-    }
+    } // getPreviousRooms()
 
     /**
      * Adds (or replaces) an item in the player's inventory.
@@ -161,7 +162,7 @@ public class Player {
      */
     public void addItem(final String pName, final Item pItem) {
         this.aItems.addItem(pName, pItem);
-    }
+    } // addItem()
 
     /**
      * Removes an item from the player's inventory.
@@ -170,7 +171,7 @@ public class Player {
      */
     public void removeItem(final String pName) {
         this.aItems.removeItem(pName);
-    }
+    } // removeItem()
 
     /**
      * Returns the player's current money balance.
@@ -179,7 +180,7 @@ public class Player {
      */
     public int getMoney() {
         return this.aMoney;
-    }
+    } // getMoney()
 
     /**
      * Sets the player's money balance.
@@ -188,7 +189,7 @@ public class Player {
      */
     public void setMoney(final int pNewMoney) {
         this.aMoney = pNewMoney;
-    }
+    } // setMoney()
 
     /**
      * Adds or replaces a Pokemon at the given team position.
@@ -226,7 +227,7 @@ public class Player {
      */
     public String getItemInventory() {
         return this.aItems.getItemList();
-    }
+    } // getItemInventory()
 
     /**
      * Indicates whether the player has won the game.
@@ -235,7 +236,7 @@ public class Player {
      */
     public boolean hasWon() {
         return this.aHasWon;
-    }
+    } // hasWon()
 
     /**
      * Updates the player's win flag.
@@ -244,5 +245,5 @@ public class Player {
      */
     public void setHasWon(final boolean pHasWon) {
         this.aHasWon = pHasWon;
-    }
+    } // setHasWon()
 } // Player

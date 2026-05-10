@@ -33,9 +33,16 @@ public class GameEngine {
     /** Flag indicating whether the game is in test mode. */
     private boolean aIsTest;
 
+    /** Trainers that may move after player navigation. */
     private ArrayList<MovingTrainer> aMovingTrainers;
+
+    /** Lookup table from room id to room object for save/load operations. */
     private java.util.HashMap<String, Room> aRooms;
+
+    /** Manager responsible for trainer battles and turn flow. */
     private BattleManager aBattleManager;
+
+    /** Background music player for exploration and battle sessions. */
     private MusicPlayer aMusicPlayer;
 
     /**
@@ -61,7 +68,7 @@ public class GameEngine {
         this.aMusicPlayer.playLoop();
         this.printWelcome();
         this.losingTimer();
-    }
+    } // setGUI()
 
     /**
      * Creates every {@link Room}, connects exits, places {@link Item}s, and sets the player's
@@ -70,88 +77,46 @@ public class GameEngine {
     private void createRooms() {
         this.aRooms = new java.util.HashMap<>();
         ArrayList<Room> vTeleportableRooms = new ArrayList<Room>();
-        Room house,
-                littleroot,
-                route101,
-                oldale,
-                route102,
-                petalburg,
-                petalburgWoods,
-                rustboro,
-                skyPillar;
+        Room house, littleroot, route101, oldale, route102, petalburg, petalburgWoods, rustboro, skyPillar;
         TransporterRoom cascade;
 
         house = new Room("in your house in Littleroot Town.", "home.gif", "home_map.jpeg");
         house.setRoomId("house");
         this.aRooms.put("house", house);
         vTeleportableRooms.add(house);
-        littleroot =
-                new Room(
-                        "in Littleroot Town, your home town.",
-                        "littleroot town.gif",
-                        "littleroot_map.jpeg");
+        littleroot = new Room("in Littleroot Town, your home town.", "littleroot town.gif", "littleroot_map.jpeg");
         littleroot.setRoomId("littleroot");
         this.aRooms.put("littleroot", littleroot);
         vTeleportableRooms.add(littleroot);
-        route101 =
-                new Room(
-                        "on Route 101; wild Pokémon might appear in the tall grass.",
-                        "route 101.gif",
-                        "route101_map.jpeg");
+        route101 = new Room("on Route 101; wild Pokémon might appear in the tall grass.", "route 101.gif", "route101_map.jpeg");
         route101.setRoomId("route101");
         this.aRooms.put("route101", route101);
         vTeleportableRooms.add(route101);
-        oldale =
-                new Room(
-                        "in Oldale Town, a small junction with a Pokémon Center.",
-                        "oldale town.gif",
-                        "oldale town_map.jpeg");
+        oldale = new Room("in Oldale Town, a small junction with a Pokémon Center.", "oldale town.gif", "oldale town_map.jpeg");
         oldale.setRoomId("oldale");
         this.aRooms.put("oldale", oldale);
         vTeleportableRooms.add(oldale);
-        route102 =
-                new Room(
-                        "on Route 102; wild Pokémon might appear in the tall grass.",
-                        "route 102.gif",
-                        "route102_map.jpeg");
+        route102 = new Room("on Route 102; wild Pokémon might appear in the tall grass.", "route 102.gif", "route102_map.jpeg");
         route102.setRoomId("route102");
         this.aRooms.put("route102", route102);
         vTeleportableRooms.add(route102);
-        petalburg =
-                new Room(
-                        "in Petalburg City, where your father is the Gym Leader.",
-                        "petalburg city.gif",
-                        "petalburg city_map.jpeg");
+        petalburg = new Room("in Petalburg City, where your father is the Gym Leader.", "petalburg city.gif", "petalburg city_map.jpeg");
         petalburg.setRoomId("petalburg");
         this.aRooms.put("petalburg", petalburg);
         vTeleportableRooms.add(petalburg);
-        petalburgWoods =
-                new Room("in Petalburg Woods.", "petalburg woods.gif", "petalburg woods_map.jpeg");
+        petalburgWoods = new Room("in Petalburg Woods.", "petalburg woods.gif", "petalburg woods_map.jpeg");
         petalburgWoods.setRoomId("petalburgWoods");
         this.aRooms.put("petalburgWoods", petalburgWoods);
         vTeleportableRooms.add(petalburgWoods);
-        rustboro =
-                new Room(
-                        "in Rustboro City, where the Devon Corporation is located.",
-                        "rustboro city.gif",
-                        "rustboro city_map.jpeg");
+        rustboro = new Room("in Rustboro City, where the Devon Corporation is located.", "rustboro city.gif", "rustboro city_map.jpeg");
         rustboro.setRoomId("rustboro");
         this.aRooms.put("rustboro", rustboro);
         vTeleportableRooms.add(rustboro);
-        skyPillar =
-                new Room(
-                        "on the Sky Pillar, Rayquaza's home.",
-                        "sky pillar.gif",
-                        "sky pillar_map.jpeg");
+        skyPillar = new Room("on the Sky Pillar, Rayquaza's home.", "sky pillar.gif", "sky pillar_map.jpeg");
         skyPillar.setRoomId("skyPillar");
         this.aRooms.put("skyPillar", skyPillar);
 
-        cascade =
-                new TransporterRoom(
-                        "in the cascade's vortex! Who knows where you'll end up?",
-                        "cascade.gif",
-                        "cascade_map.jpeg",
-                        vTeleportableRooms);
+        cascade = new TransporterRoom("in the cascade's vortex! Who knows where you'll end up?","cascade.gif","cascade_map.jpeg",vTeleportableRooms);
         cascade.setRoomId("cascade");
         this.aRooms.put("cascade", cascade);
 
@@ -189,38 +154,18 @@ public class GameEngine {
 
         house.addItem("map", new Item("map: a map that helps you navigate.", 0));
         house.addItem("shoes", new Item("shoes: your shoes.", 100));
-        littleroot.addItem(
-                "grant",
-                new Item(
-                        "grant: a student grant you obtain thanks to your grades at school, to help"
-                                + " you on your journey.",
-                        0));
-        rustboro.addItem(
-                "wallet",
-                new Item(
-                        "wallet: someone's wallet; they must have left it here. It probably"
-                                + " contains some money.",
-                        0));
-        petalburg.addItem(
-                "delta-orb",
-                new Item("delta-orb: the Delta Orb, which lets you summon Rayquaza.", 150));
+        littleroot.addItem("grant",new Item("grant: a student grant you obtain thanks to your grades at school, to help" + " you on your journey.", 0));
+        rustboro.addItem("wallet", new Item("wallet: someone's wallet; they must have left it here. It probably contains some money.", 0));
+        petalburg.addItem("delta-orb", new Item("delta-orb: the Delta Orb, which lets you summon Rayquaza.", 150));
 
         this.aMovingTrainers = new ArrayList<MovingTrainer>();
         Trainer Rayquaza;
         MovingTrainer Javier, Zucko, Ichigo;
-        Javier =
-                new MovingTrainer(
-                        "Javier", "a young Pokémon trainer from Littleroot Town.", route101);
+        Javier = new MovingTrainer("Javier", "a young Pokémon trainer from Littleroot Town.", route101);
         this.aMovingTrainers.add(Javier);
-        Zucko =
-                new MovingTrainer(
-                        "Zucko", "an experienced Pokémon trainer from Rustboro City.", route102);
+        Zucko = new MovingTrainer("Zucko", "an experienced Pokémon trainer from Rustboro City.", route102);
         this.aMovingTrainers.add(Zucko);
-        Ichigo =
-                new MovingTrainer(
-                        "Ichigo",
-                        "a skilled Pokémon trainer who lives in Petalburg Woods.",
-                        petalburgWoods);
+        Ichigo = new MovingTrainer("Ichigo", "a skilled Pokémon trainer who lives in Petalburg Woods.", petalburgWoods);
         this.aMovingTrainers.add(Ichigo);
         Rayquaza = new Trainer("Rayquaza", "the legendary Rayquaza, who protects the skies.");
 
@@ -237,62 +182,37 @@ public class GameEngine {
         Attack dragonClaw = new Attack("Dragon Claw", 50, 100);
         Attack fireBlast = new Attack("Fire Blast", 80, 85);
         Attack flamethrower = new Attack("Flamethrower", 60, 100);
-        Attack iceBeam =
-                new Attack("Ice Beam", 70, 100); // Made 100% accurate for reliable player damage
+        Attack iceBeam = new Attack("Ice Beam", 70, 100); // Made 100% accurate for reliable player damage
         Attack earthquake = new Attack("Earthquake", 60, 100);
-        Attack outrage =
-                new Attack("Outrage", 80, 70); // High damage, but bosses will miss 30% of the time
+        Attack outrage = new Attack("Outrage", 80, 70); // High damage, but bosses will miss 30% of the time
         Attack dragonPulse = new Attack("Dragon Pulse", 45, 100);
         Attack ironHead = new Attack("Iron Head", 45, 100);
-        Attack hyperBeam =
-                new Attack("Hyper Beam", 110, 50); // Rayquaza's nuke, but it misses half the time
+        Attack hyperBeam = new Attack("Hyper Beam", 110, 50); // Rayquaza's nuke, but it misses half the time
         Attack extremeSpeed = new Attack("Extreme Speed", 40, 100);
         Attack darkPulse = new Attack("Dark Pulse", 55, 100);
         Attack waterShuriken = new Attack("Water Shuriken", 60, 100);
 
         // Javier's team
-        Pokemon Poochyena = new Pokemon("Poochyena", 40, new Attack[] {tackle, bite});
+        Pokemon Poochyena = new Pokemon("Poochyena", 40, new Attack[] {tackle, bite}); // createRooms()
         Pokemon Rattata = new Pokemon("Rattata", 40, new Attack[] {tackle, bite});
 
         // Zucko's team
-        Pokemon Blastoise =
-                new Pokemon("Blastoise", 120, new Attack[] {waterGun, tackle, bite, hydroPump});
-        Pokemon Gyarados =
-                new Pokemon("Gyarados", 130, new Attack[] {waterGun, bite, dragonClaw, hydroPump});
-        Pokemon Metagross =
-                new Pokemon("Metagross", 140, new Attack[] {ironHead, tackle, bite, earthquake});
+        Pokemon Blastoise = new Pokemon("Blastoise", 120, new Attack[] {waterGun, tackle, bite, hydroPump});
+        Pokemon Gyarados = new Pokemon("Gyarados", 130, new Attack[] {waterGun, bite, dragonClaw, hydroPump});
+        Pokemon Metagross = new Pokemon("Metagross", 140, new Attack[] {ironHead, tackle, bite, earthquake});
 
         // Ichigo's team
-        Pokemon Dragonite =
-                new Pokemon(
-                        "Dragonite", 140, new Attack[] {dragonClaw, bite, tackle, extremeSpeed});
-        Pokemon Salamence =
-                new Pokemon(
-                        "Salamence", 150, new Attack[] {dragonClaw, flamethrower, tackle, bite});
-        Pokemon Garchomp =
-                new Pokemon("Garchomp", 160, new Attack[] {dragonClaw, earthquake, bite, tackle});
-        Pokemon Hydreigon =
-                new Pokemon("Hydreigon", 170, new Attack[] {darkPulse, dragonPulse, tackle, bite});
-
+        Pokemon Dragonite = new Pokemon("Dragonite", 140, new Attack[] {dragonClaw, bite, tackle, extremeSpeed});
+        Pokemon Salamence = new Pokemon("Salamence", 150, new Attack[] {dragonClaw, flamethrower, tackle, bite});
+        Pokemon Garchomp = new Pokemon("Garchomp", 160, new Attack[] {dragonClaw, earthquake, bite, tackle});
+        Pokemon Hydreigon = new Pokemon("Hydreigon", 170, new Attack[] {darkPulse, dragonPulse, tackle, bite});
         // Rayquaza - boss fight.
-        Pokemon RayquazaPokemon =
-                new Pokemon(
-                        "Rayquaza", 500, new Attack[] {outrage, hyperBeam, extremeSpeed, tackle});
+        Pokemon RayquazaPokemon = new Pokemon("Rayquaza", 500, new Attack[] {outrage, hyperBeam, extremeSpeed, tackle});
 
         // Player team
-        Pokemon Charizard =
-                new Pokemon(
-                        "Charizard", 400, new Attack[] {flamethrower, fireBlast, dragonClaw, bite});
-        Pokemon Greninja =
-                new Pokemon(
-                        "Greninja",
-                        380,
-                        new Attack[] {waterShuriken, hydroPump, iceBeam, darkPulse});
-        Pokemon Incineroar =
-                new Pokemon(
-                        "Incineroar",
-                        420,
-                        new Attack[] {flamethrower, fireBlast, bite, earthquake});
+        Pokemon Charizard = new Pokemon("Charizard", 400, new Attack[] {flamethrower, fireBlast, dragonClaw, bite});
+        Pokemon Greninja = new Pokemon("Greninja", 380, new Attack[] {waterShuriken, hydroPump, iceBeam, darkPulse});
+        Pokemon Incineroar = new Pokemon("Incineroar", 420, new Attack[] {flamethrower, fireBlast, bite, earthquake});
 
         // Setting Javier's team
         Javier.setPokemon(1, Poochyena);
@@ -329,7 +249,7 @@ public class GameEngine {
     public void endGame() {
         try {
             Thread.sleep(1000);
-        } catch (InterruptedException ignore) {
+        } catch (InterruptedException ignore) { // endGame()
         }
         this.aGui.enable(false);
         try {
@@ -337,7 +257,7 @@ public class GameEngine {
         } catch (InterruptedException ignore) {
         }
         System.exit(0);
-    } // quit()
+    } // endGame()
 
     /**
      * Prints the welcome banner, initial location text, and the starting room image when one is
@@ -352,7 +272,7 @@ public class GameEngine {
         this.printLocationInfo();
         if (this.aPlayer.getCurrentRoom().getImageName() != null) {
             this.aGui.showImage(this.aPlayer.getCurrentRoom().getImageName());
-        }
+    }
         if (this.aPlayer.getItem("map") == null) {
             this.aGui.showMap("no map.jpeg");
         }
@@ -393,7 +313,7 @@ public class GameEngine {
      */
     public boolean isTest() {
         return this.aIsTest;
-    }
+    } // isTest()
 
     /**
      * Sets whether the engine is running scripted test commands.
@@ -402,7 +322,7 @@ public class GameEngine {
      */
     public void setTest(final boolean pIsTest) {
         this.aIsTest = pIsTest;
-    }
+    } // setTest()
 
     /**
      * Returns the current player.
@@ -411,7 +331,7 @@ public class GameEngine {
      */
     public Player getPlayer() {
         return this.aPlayer;
-    }
+    } // getPlayer()
 
     /**
      * Returns the active user interface.
@@ -420,7 +340,7 @@ public class GameEngine {
      */
     public UserInterface getGui() {
         return this.aGui;
-    }
+    } // getGui()
 
     /**
      * Returns all trainers that can move between rooms.
@@ -429,7 +349,7 @@ public class GameEngine {
      */
     public ArrayList<MovingTrainer> getMovingTrainers() {
         return this.aMovingTrainers;
-    }
+    } // getMovingTrainers()
 
     /**
      * Looks up a room by its save/load id.
@@ -439,7 +359,7 @@ public class GameEngine {
      */
     public Room getRoomById(final String pRoomId) {
         return this.aRooms.get(pRoomId);
-    }
+    } // getRoomById()
 
     /**
      * Returns all known room ids.
@@ -448,7 +368,7 @@ public class GameEngine {
      */
     public java.util.Set<String> getAllRoomIds() {
         return this.aRooms.keySet();
-    }
+    } // getAllRoomIds()
 
     /**
      * Returns the battle manager.
@@ -457,5 +377,5 @@ public class GameEngine {
      */
     public BattleManager getBattleManager() {
         return this.aBattleManager;
-    }
+    } // getBattleManager()
 } // GameEngine

@@ -26,11 +26,11 @@ public class Parser {
      * @return a populated {@link Command}, possibly marked unknown
      */
     public Command getCommand(final String pInput) {
-        final String vInputLine = pInput;
+        String vInputLine = pInput;
         String vWord1;
         String vWord2;
 
-        final StringTokenizer tokenizer = new StringTokenizer(vInputLine);
+        StringTokenizer tokenizer = new StringTokenizer(vInputLine);
 
         if (tokenizer.hasMoreTokens()) {
             vWord1 = tokenizer.nextToken();
@@ -48,7 +48,7 @@ public class Parser {
             return null;
         }
 
-        final Command vCommand = this.aCommand.get(vWord1);
+        Command vCommand = this.aCommand.get(vWord1);
         if (vCommand != null) {
             vCommand.setSecondWord(vWord2);
         }

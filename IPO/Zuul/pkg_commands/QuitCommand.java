@@ -22,9 +22,9 @@ public class QuitCommand extends Command {
         if (this.hasSecondWord()) {
             pGameEngine.getGui().println("Quit what?");
             return false;
-        }
+    }
         pGameEngine.getGui().println("Thank you for playing! Goodbye.");
         pGameEngine.endGame();
         return true;
-    }
+    } // execute()
 }

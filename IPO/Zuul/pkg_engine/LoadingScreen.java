@@ -99,13 +99,9 @@ public class LoadingScreen {
 
     /** Refreshes the visible progress bar from the asset manager counters. */
     public void setProgressBar() {
-        final int vProgress =
-                (int)
-                        (((double) this.aAssetManager.getCurrentProgress()
-                                        / this.aAssetManager.getTotalAssets())
-                                * 100);
+        int vProgress = (int) (((double) this.aAssetManager.getCurrentProgress() / this.aAssetManager.getTotalAssets()) * 100);
         this.aProgressBar.setValue(vProgress);
-    }
+    } // setProgressBar()
 
     /**
      * Shows the loading screen. This method blocks until the download finishes (success or offline
@@ -114,7 +110,7 @@ public class LoadingScreen {
     public void startAndWait() {
         this.aFrame.setVisible(true);
         this.aAssetManager.downloadAssets();
-        while (this.aAssetManager.isComplete() == false) {}
+        while (this.aAssetManager.isComplete() == false) {} // startAndWait()
 
         if (this.aAssetManager.getErrorMessage() != null) {
             this.aStatusLabel.setText(this.aAssetManager.getErrorMessage());
@@ -135,5 +131,5 @@ public class LoadingScreen {
         }
         this.aFrame.setVisible(false);
         this.aFrame.dispose();
-    }
+    } // startAndWait()
 } // LoadingScreen

@@ -5,9 +5,8 @@ import java.util.HashMap;
 /**
  * Stores a private collection of items keyed by name.
  *
- * <p>The internal collection is fully encapsulated and cannot be manipulated directly
- *
- * <p>from outside this class.
+ * <p>The internal collection is fully encapsulated and cannot be manipulated directly from outside
+ * this class.
  *
  * @author Barnabe Jouanard
  * @version 2026.04.13
@@ -19,7 +18,7 @@ public class ItemList {
     /** Creates an empty item list. */
     public ItemList() {
         this.aItems = new HashMap<String, Item>();
-    }
+    } // ItemList()
 
     /**
      * Returns the item associated with the given name, or {@code null}.
@@ -29,7 +28,7 @@ public class ItemList {
      */
     public Item getItem(final String pName) {
         return this.aItems.get(pName);
-    }
+    } // getItem()
 
     /**
      * Returns the backing item map.
@@ -38,7 +37,7 @@ public class ItemList {
      */
     public HashMap<String, Item> getAllItems() {
         return this.aItems;
-    }
+    } // getAllItems()
 
     /**
      * Adds or replaces an item under the given key.
@@ -48,7 +47,7 @@ public class ItemList {
      */
     public void addItem(final String pName, final Item pItem) {
         this.aItems.put(pName, pItem);
-    }
+    } // addItem()
 
     /**
      * Removes the item associated with the given key.
@@ -57,7 +56,7 @@ public class ItemList {
      */
     public void removeItem(final String pName) {
         this.aItems.remove(pName);
-    }
+    } // removeItem()
 
     /**
      * Checks whether this item list contains no elements.
@@ -66,7 +65,7 @@ public class ItemList {
      */
     public boolean isEmpty() {
         return this.aItems.isEmpty();
-    }
+    } // isEmpty()
 
     /**
      * Builds a multi-line string with each item's description, or a default notice when the list is
@@ -77,13 +76,13 @@ public class ItemList {
     public String getItemsDescription() {
         if (this.aItems.isEmpty()) {
             return "There are no items here!";
-        }
+    }
         String vResult = "";
         for (String vName : this.aItems.keySet()) {
             vResult += this.aItems.get(vName).getItemDescription() + "\n";
         }
         return vResult;
-    }
+    } // getItemsDescription()
 
     /**
      * Builds an inventory summary listing all item keys and the total value.
@@ -93,7 +92,7 @@ public class ItemList {
     public String getItemList() {
         if (this.aItems.isEmpty()) {
             return "You don't have any items!" + "\n";
-        }
+    }
         String vResult = "Your items: ";
         int vInventoryPrice = 0;
         for (String vItem : this.aItems.keySet()) {
@@ -102,5 +101,5 @@ public class ItemList {
         }
         vResult += "\n\nTotal value: " + vInventoryPrice;
         return vResult;
-    }
+    } // getItemList()
 } // ItemList

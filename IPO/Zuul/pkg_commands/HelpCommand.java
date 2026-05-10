@@ -23,8 +23,8 @@ public class HelpCommand extends Command {
         pGameEngine.getGui().println("You are in the wonderful world of Pokémon.");
         pGameEngine.getGui().println("You are trying to stop Rayquaza from destroying Hoenn.");
         pGameEngine.getGui().println("Your command words are:");
-        final Parser vParser = new Parser();
+        Parser vParser = new Parser();
         pGameEngine.getGui().println(vParser.getCommandString());
         return false;
-    }
+    } // execute()
 }

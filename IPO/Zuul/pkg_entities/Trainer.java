@@ -35,7 +35,7 @@ public class Trainer {
         this.aDialog = pDialog;
         this.aTeam = new HashMap<>();
         this.aIsDefeated = false;
-    }
+    } // Trainer()
 
     /**
      * Returns the trainer name.
@@ -44,7 +44,7 @@ public class Trainer {
      */
     public String getName() {
         return this.aName;
-    }
+    } // getName()
 
     /**
      * Indicates whether this trainer has already been defeated.
@@ -53,7 +53,7 @@ public class Trainer {
      */
     public boolean isDefeated() {
         return this.aIsDefeated;
-    }
+    } // isDefeated()
 
     /**
      * Sets this trainer's defeated state.
@@ -62,7 +62,7 @@ public class Trainer {
      */
     public void setDefeated(final boolean pDefeated) {
         this.aIsDefeated = pDefeated;
-    }
+    } // setDefeated()
 
     /**
      * Returns the number of Pokemon in this trainer's team.
@@ -91,7 +91,7 @@ public class Trainer {
      */
     public Pokemon getPokemon(final Integer pPosition) {
         return this.aTeam.get(pPosition);
-    }
+    } // getPokemon()
 
     /**
      * Builds a short multi-line summary combining description and team size.
@@ -99,12 +99,12 @@ public class Trainer {
      * @return two-line English text suitable for room descriptions
      */
     public String getTrainerDescription() {
-        final String vDefeatedText;
+        String vDefeatedText;
         if (this.isDefeated()) {
             vDefeatedText = " (defeated)";
         } else {
             vDefeatedText = "";
         }
         return this.aDialog + vDefeatedText + '\n' + "Team size: " + this.aTeam.size();
-    }
+    } // getTrainerDescription()
 }

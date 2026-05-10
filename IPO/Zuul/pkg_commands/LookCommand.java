@@ -21,5 +21,5 @@ public class LookCommand extends Command {
     public boolean execute(final GameEngine pGameEngine) {
         pGameEngine.getGui().println(pGameEngine.getPlayer().getCurrentRoom().getLongDescription());
         return false;
-    }
+    } // execute()
 }

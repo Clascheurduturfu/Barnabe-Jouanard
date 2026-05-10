@@ -24,29 +24,25 @@ public class TakeCommand extends Command {
         if (!this.hasSecondWord()) {
             pGameEngine.getGui().println("Take what?");
             return false;
-        }
-        final String vItemName = this.getSecondWord();
-        final Item vItem = pGameEngine.getPlayer().getCurrentRoom().getItem(vItemName);
+    }
+        String vItemName = this.getSecondWord();
+        Item vItem = pGameEngine.getPlayer().getCurrentRoom().getItem(vItemName);
 
         if (vItem == null) {
             pGameEngine.getGui().println("I can't find any " + vItemName + "!");
             return false;
         }
         if (pGameEngine.getPlayer().getMoney() >= vItem.getItemPrice()) {
-            pGameEngine
-                    .getPlayer()
-                    .setMoney(pGameEngine.getPlayer().getMoney() - vItem.getItemPrice());
+            pGameEngine.getPlayer().setMoney(pGameEngine.getPlayer().getMoney() - vItem.getItemPrice());
             pGameEngine.getPlayer().getCurrentRoom().removeItem(vItemName);
             pGameEngine.getPlayer().addItem(vItemName, vItem);
             pGameEngine.getGui().println("Took " + vItemName + "!");
             if (pGameEngine.getPlayer().getItem("map") != null) {
-                pGameEngine
-                        .getGui()
-                        .showMap(pGameEngine.getPlayer().getCurrentRoom().getMapImageName());
+                pGameEngine.getGui().showMap(pGameEngine.getPlayer().getCurrentRoom().getMapImageName());
             }
         } else {
             pGameEngine.getGui().println(vItemName + " is too expensive for you right now!");
         }
         return false;
-    }
+    } // execute()
 }

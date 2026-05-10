@@ -64,7 +64,7 @@ public class Room {
      */
     public void setRoomId(final String pId) {
         this.aRoomId = pId;
-    }
+    } // setRoomId()
 
     /**
      * Returns the stable room identifier.
@@ -73,7 +73,7 @@ public class Room {
      */
     public String getRoomId() {
         return this.aRoomId;
-    }
+    } // getRoomId()
 
     /**
      * Composes the room description, exit list, and either item lines or a default notice.
@@ -81,14 +81,7 @@ public class Room {
      * @return multi-line description suitable for printing or appending to the log
      */
     public String getLongDescription() {
-        return "You are "
-                + this.getDescription()
-                + "\n"
-                + this.getExitString()
-                + "\n\n"
-                + this.aItems.getItemsDescription()
-                + "\n"
-                + this.aTrainers.getTrainersDescription();
+        return "You are " + this.getDescription() + "\n" + this.getExitString() + "\n\n" + this.aItems.getItemsDescription() + "\n" + this.aTrainers.getTrainersDescription();
     } // getLongDescription()
 
     /**
@@ -118,7 +111,7 @@ public class Room {
      */
     public boolean isExit(final Room pRoom) {
         return this.aExits.containsValue(pRoom);
-    }
+    } // isExit()
 
     /**
      * Registers a one-way exit from this room to {@code pExit}.
@@ -137,7 +130,7 @@ public class Room {
      */
     public HashMap<String, Room> getAllExits() {
         return this.aExits;
-    }
+    } // getAllExits()
 
     /**
      * Formats all exit directions as a single line.
@@ -181,7 +174,7 @@ public class Room {
      */
     public Item getItem(final String pName) {
         return this.aItems.getItem(pName);
-    }
+    } // getItem()
 
     /**
      * Returns all items currently stored in the room.
@@ -190,7 +183,7 @@ public class Room {
      */
     public java.util.HashMap<String, Item> getItems() {
         return this.aItems.getAllItems();
-    }
+    } // getItems()
 
     /**
      * Returns the names of all trainers currently in the room.
@@ -201,9 +194,9 @@ public class Room {
         java.util.ArrayList<String> vNames = new java.util.ArrayList<>();
         for (String vName : this.aTrainers.getAllTrainers().keySet()) {
             vNames.add(vName);
-        }
+        } 
         return vNames;
-    }
+    } // getTrainerNames()
 
     /**
      * Returns all trainers currently stored in the room.
@@ -212,7 +205,7 @@ public class Room {
      */
     public java.util.HashMap<String, Trainer> getAllTrainers() {
         return this.aTrainers.getAllTrainers();
-    }
+    } // getAllTrainers()
 
     /**
      * Places (or replaces) an item in this room under the given key.
@@ -222,7 +215,7 @@ public class Room {
      */
     public void addItem(final String pName, final Item pItem) {
         this.aItems.addItem(pName, pItem);
-    }
+    } // addItem()
 
     /**
      * Removes an item from this room's item list.
@@ -231,7 +224,7 @@ public class Room {
      */
     public void removeItem(final String pName) {
         this.aItems.removeItem(pName);
-    }
+    } // removeItem()
 
     /**
      * Adds or replaces a trainer in this room.
@@ -240,7 +233,7 @@ public class Room {
      */
     public void addTrainer(final Trainer pTrainer) {
         this.aTrainers.addTrainer(pTrainer.getName(), pTrainer);
-    }
+    } // addTrainer()
 
     /**
      * Removes the trainer associated with the given key.
@@ -249,7 +242,7 @@ public class Room {
      */
     public void removeTrainer(final String pName) {
         this.aTrainers.removeTrainer(pName);
-    }
+    } // removeTrainer()
 
     /**
      * Marks this room as a winning room.
@@ -259,7 +252,7 @@ public class Room {
      */
     public void setAsWinningRoom() {
         this.aIsWinningRoom = true;
-    }
+    } // setAsWinningRoom()
 
     /**
      * Marks this room as a teleporter room, which teleports the player to a random location when
@@ -267,7 +260,7 @@ public class Room {
      */
     public void setAsTeleporterRoom() {
         this.aIsTeleporterRoom = true;
-    }
+    } // setAsTeleporterRoom()
 
     /**
      * Indicates whether this room is flagged as a winning room.
@@ -276,7 +269,7 @@ public class Room {
      */
     public boolean isWinningRoom() {
         return this.aIsWinningRoom;
-    }
+    } // isWinningRoom()
 
     /**
      * Indicates whether this room is flagged as a teleporter room.
@@ -285,5 +278,5 @@ public class Room {
      */
     public boolean isTeleporterRoom() {
         return this.aIsTeleporterRoom;
-    }
+    } // isTeleporterRoom()
 } // Room

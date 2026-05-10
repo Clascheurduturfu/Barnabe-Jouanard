@@ -28,47 +28,34 @@ public class GoCommand extends Command {
             return false;
         }
 
-        final String vDirection = this.getSecondWord();
-        final Room vNextRoom = pGameEngine.getPlayer().getCurrentRoom().getExit(vDirection);
+        String vDirection = this.getSecondWord();
+        Room vNextRoom = pGameEngine.getPlayer().getCurrentRoom().getExit(vDirection);
 
         if (vNextRoom == null && !pGameEngine.getPlayer().getCurrentRoom().isTeleporterRoom()) {
             pGameEngine.getGui().println("There is no door!");
         } else {
             if (pGameEngine.getPlayer().getCurrentRoom().isTeleporterRoom()) {
-                final TransporterRoom vTransporterRoom =
-                        (TransporterRoom) pGameEngine.getPlayer().getCurrentRoom();
+                TransporterRoom vTransporterRoom = (TransporterRoom) pGameEngine.getPlayer().getCurrentRoom();
                 pGameEngine.getPlayer().moveTo(vTransporterRoom.getRandomRoom());
             } else {
                 pGameEngine.getPlayer().moveTo(vNextRoom);
             }
-            pGameEngine
-                    .getGui()
-                    .println(pGameEngine.getPlayer().getCurrentRoom().getLongDescription());
+            pGameEngine.getGui().println(pGameEngine.getPlayer().getCurrentRoom().getLongDescription());
             if (pGameEngine.getPlayer().getCurrentRoom().getImageName() != null) {
-                pGameEngine
-                        .getGui()
-                        .showImage(pGameEngine.getPlayer().getCurrentRoom().getImageName());
+                pGameEngine.getGui().showImage(pGameEngine.getPlayer().getCurrentRoom().getImageName());
                 if (pGameEngine.getPlayer().getItem("map") != null) {
-                    pGameEngine
-                            .getGui()
-                            .showMap(pGameEngine.getPlayer().getCurrentRoom().getMapImageName());
+                    pGameEngine.getGui().showMap(pGameEngine.getPlayer().getCurrentRoom().getMapImageName());
                 }
             }
 
-            if (pGameEngine.getPlayer().hasWon()
-                    && pGameEngine.getPlayer().getCurrentRoom().isWinningRoom()) {
-                pGameEngine
-                        .getGui()
-                        .println(
-                                "\n"
-                                    + "It's here that you've stopped Rayquaza from destroying the"
-                                    + " world!");
+            if (pGameEngine.getPlayer().hasWon() && pGameEngine.getPlayer().getCurrentRoom().isWinningRoom()) {
+                pGameEngine.getGui().println("\n" + "It's here that you've stopped Rayquaza from destroying the" + " world!");
             }
 
-            for (final MovingTrainer vMovingTrainer : pGameEngine.getMovingTrainers()) {
+            for (MovingTrainer vMovingTrainer : pGameEngine.getMovingTrainers()) {
                 vMovingTrainer.tryMove();
             }
         }
         return false;
-    }
+    } // execute()
 }

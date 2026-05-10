@@ -24,7 +24,7 @@ public class MovingTrainer extends Trainer {
     public MovingTrainer(final String pName, final String pDialog, final Room pStartRoom) {
         super(pName, pDialog);
         this.aCurrentRoom = pStartRoom;
-    }
+    } // MovingTrainer()
 
     /**
      * Returns the trainer's current room.
@@ -33,7 +33,7 @@ public class MovingTrainer extends Trainer {
      */
     public Room getCurrentRoom() {
         return this.aCurrentRoom;
-    }
+    } // getCurrentRoom()
 
     /**
      * Updates the trainer's current room.
@@ -42,18 +42,18 @@ public class MovingTrainer extends Trainer {
      */
     public void setCurrentRoom(final Room pRoom) {
         this.aCurrentRoom = pRoom;
-    }
+    } // setCurrentRoom()
 
     /** Gives the trainer a small chance to move through a non-teleporter exit. */
     public void tryMove() {
-        final Random vRandom = new Random();
+        Random vRandom = new Random();
         if (vRandom.nextInt(6) != 0) {
             return;
-        }
+    }
 
-        final java.util.ArrayList<String> vSafeExits = new java.util.ArrayList<>();
-        for (final String vExitKey : this.aCurrentRoom.getAllExits().keySet()) {
-            final Room vRoom = this.aCurrentRoom.getAllExits().get(vExitKey);
+        java.util.ArrayList<String> vSafeExits = new java.util.ArrayList<>();
+        for (String vExitKey : this.aCurrentRoom.getAllExits().keySet()) {
+            Room vRoom = this.aCurrentRoom.getAllExits().get(vExitKey);
             if (!vRoom.isTeleporterRoom()) {
                 vSafeExits.add(vExitKey);
             }
@@ -63,11 +63,11 @@ public class MovingTrainer extends Trainer {
             return;
         }
 
-        final String vRandomExit = vSafeExits.get(vRandom.nextInt(vSafeExits.size()));
-        final Room vNextRoom = this.aCurrentRoom.getAllExits().get(vRandomExit);
+        String vRandomExit = vSafeExits.get(vRandom.nextInt(vSafeExits.size()));
+        Room vNextRoom = this.aCurrentRoom.getAllExits().get(vRandomExit);
 
         this.aCurrentRoom.removeTrainer(this.getName());
         vNextRoom.addTrainer(this);
         this.aCurrentRoom = vNextRoom;
-    }
+    } // tryMove()
 }

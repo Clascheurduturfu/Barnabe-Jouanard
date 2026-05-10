@@ -2,20 +2,48 @@ package pkg_engine;
 
 import pkg_entities.Pokemon;
 import pkg_entities.Trainer;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.HashMap;
+import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 
 /** Manages battle state and turn processing. */
 public class BattleManager {
+    /** Game engine used to access player and world state. */
     private GameEngine aEngine;
+
+    /** User interface used to display battle updates. */
     private UserInterface aGui;
+
+    /** Current trainer opponent. */
     private Trainer aOpponent;
+
+    /** Active player Pokemon in battle. */
     private Pokemon aPlayerPokemon;
+
+    /** Active opponent Pokemon in battle. */
     private Pokemon aOpponentPokemon;
+
+    /** Current HP of the active player Pokemon. */
     private int aPlayerCurrentHP;
+
+    /** Current HP of the active opponent Pokemon. */
     private int aOpponentCurrentHP;
+
+    /** Indicates whether a battle is currently active. */
     private boolean aBattleActive;
+
+    /** Number of player Pokemon left that can battle. */
     private int aPlayerPokemonLeft;
+
+    /** Number of opponent Pokemon left that can battle. */
     private int aOpponentPokemonLeft;
+
+    /** Team slot index of the active player Pokemon. */
     private int aPlayerPokemonIndex;
+
+    /** Team slot index of the active opponent Pokemon. */
     private int aOpponentPokemonIndex;
 
     /**
@@ -28,7 +56,7 @@ public class BattleManager {
         this.aEngine = pEngine;
         this.aGui = pGui;
         this.aBattleActive = false;
-    }
+    } // BattleManager()
 
     /**
      * Starts a battle with the given trainer.
@@ -75,41 +103,47 @@ public class BattleManager {
         this.aGui.println("\n" + pOpponent.getName() + " wants to battle!");
 
         // Wait 2s, then switch to pokemon solo images and enable buttons
-        new Thread(
-                        () -> {
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e) {
-                            }
-                            javax.swing.SwingUtilities.invokeLater(
-                                    () -> {
-                                        this.aGui.showPlayerPokemonImage(
-                                                this.aPlayerPokemon.getName() + " solo.png");
-                                        this.aGui.showOpponentPokemonImage(
-                                                this.aOpponentPokemon.getName() + " solo.png");
-                                        this.setButtonsEnabled(true);
-                                    });
-                        })
-                .start();
-    }
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+            }
+            SwingUtilities.invokeLater(() -> {
+                this.aGui.showPlayerPokemonImage(this.aPlayerPokemon.getName() + " solo.png");
+                this.aGui.showOpponentPokemonImage(this.aOpponentPokemon.getName() + " solo.png");
+                this.setButtonsEnabled(true);
+            });
+        }).start();
+    } // startBattle()
 
+    /**
+     * Refreshes both HP bars from current and maximum values.
+     */
     private void updateHP() {
         this.aGui.setPlayerHP(this.aPlayerCurrentHP, this.aPlayerPokemon.getHp());
         this.aGui.setOpponentHP(this.aOpponentCurrentHP, this.aOpponentPokemon.getHp());
-    }
+    } // updateHP()
 
-    private void clearListeners(javax.swing.JButton pButton) {
+    /**
+     * Removes all action listeners from a button before re-binding battle actions.
+     *
+     * @param pButton the button to clear
+     */
+    private void clearListeners(JButton pButton) {
         for (java.awt.event.ActionListener al : pButton.getActionListeners()) {
             pButton.removeActionListener(al);
         }
-    }
+    } // clearListeners()
 
+    /**
+     * Binds move and run actions to battle buttons for the active player Pokemon.
+     */
     private void setupAttackButtons() {
-        clearListeners(this.aGui.getAttack1Button());
-        clearListeners(this.aGui.getAttack2Button());
-        clearListeners(this.aGui.getAttack3Button());
-        clearListeners(this.aGui.getAttack4Button());
-        clearListeners(this.aGui.getRunButton());
+        this.clearListeners(this.aGui.getAttack1Button());
+        this.clearListeners(this.aGui.getAttack2Button());
+        this.clearListeners(this.aGui.getAttack3Button());
+        this.clearListeners(this.aGui.getAttack4Button());
+        this.clearListeners(this.aGui.getRunButton());
 
         this.aGui.getAttack1Button().setEnabled(true);
         this.aGui.getAttack2Button().setEnabled(true);
@@ -117,8 +151,8 @@ public class BattleManager {
         this.aGui.getAttack4Button().setEnabled(true);
         this.aGui.getRunButton().setEnabled(true);
 
-        java.util.HashMap<String, pkg_entities.Attack> vMoves = this.aPlayerPokemon.getMoves();
-        java.util.ArrayList<String> vMoveNames = new java.util.ArrayList<>(vMoves.keySet());
+        HashMap<String, pkg_entities.Attack> vMoves = this.aPlayerPokemon.getMoves();
+        ArrayList<String> vMoveNames = new ArrayList<>(vMoves.keySet());
 
         if (vMoveNames.size() > 0) {
             this.aGui.getAttack1Button().setText(vMoveNames.get(0));
@@ -144,14 +178,21 @@ public class BattleManager {
         }
 
         this.aGui.getRunButton().addActionListener(e -> this.runAway());
-    }
+    } // setupAttackButtons()
 
+    /**
+     * Resolves one full player turn, including the opponent response and KO checks.
+     *
+     * @param pMoveName selected player move name
+     */
     private void playerTurn(String pMoveName) {
-        if (!this.aBattleActive) return;
+        if (!this.aBattleActive) {
+            return;
+        }
 
         this.setButtonsEnabled(false);
 
-        java.util.HashMap<String, pkg_entities.Attack> vPlayerMoves = this.aPlayerPokemon.getMoves();
+        HashMap<String, pkg_entities.Attack> vPlayerMoves = this.aPlayerPokemon.getMoves();
         pkg_entities.Attack vAttack = vPlayerMoves.get(pMoveName);
 
         if (vAttack == null) {
@@ -173,197 +214,116 @@ public class BattleManager {
         this.updateHP();
 
         // Wait 2s for animation, then process result
-        new Thread(
-                        () -> {
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e) {
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+            }
+            SwingUtilities.invokeLater(() -> {
+                // Check if opponent fainted
+                if (this.aOpponentCurrentHP <= 0) {
+                    this.aGui.println(this.aOpponentPokemon.getName() + " fainted!");
+                    this.aOpponentPokemonLeft--;
+
+                    if (this.aOpponentPokemonLeft <= 0) {
+                        this.endBattle(true);
+                    } else {
+                        this.aOpponentPokemonIndex++;
+                        this.aOpponentPokemon = this.aOpponent.getPokemon(this.aOpponentPokemonIndex);
+                        this.aOpponentCurrentHP = this.aOpponentPokemon.getHp();
+                        this.aGui.println(this.aOpponent.getName() + " sent out " + this.aOpponentPokemon.getName() + "!");
+                        this.aGui.showOpponentPokemonImage(this.aOpponentPokemon.getName() + " solo.png");
+                        this.aGui.showPlayerPokemonImage(this.aPlayerPokemon.getName() + " solo.png");
+                        this.updateHP();
+                        this.delayThenEnable();
+                    }
+                    return;
+                }
+
+                // Opponent attacks back - pick random move
+                HashMap<String, pkg_entities.Attack> vOpponentMoves =
+                        this.aOpponentPokemon.getMoves();
+                if (vOpponentMoves.size() > 0) {
+                    ArrayList<String> vOpponentMoveNames = new ArrayList<>(vOpponentMoves.keySet());
+                    Random vRandom = new Random();
+                    String vOpponentMoveName = vOpponentMoveNames.get(vRandom.nextInt(vOpponentMoveNames.size()));
+                    int vOpponentDamage = vOpponentMoves.get(vOpponentMoveName).getDamage();
+
+                    if (vOpponentDamage == 0) {
+                        this.aGui.println(this.aOpponentPokemon.getName() + " used " + vOpponentMoveName + "! But it missed!");
+                    } else {
+                        this.aGui.println(this.aOpponentPokemon.getName() + " used " + vOpponentMoveName + "! Dealt " + vOpponentDamage + " damage!");
+                    }
+                    this.aGui.showPlayerPokemonImage(this.aPlayerPokemon.getName() + " dammage.gif");
+                    this.aPlayerCurrentHP -= vOpponentDamage;
+                    if (this.aPlayerCurrentHP < 0) {
+                        this.aPlayerCurrentHP = 0;
+                    }
+                    this.updateHP();
+
+                    // Wait 2s for player damage animation
+                    new Thread(() -> {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e2) {
+                        }
+                        SwingUtilities.invokeLater(() -> {
+                            if (this.aPlayerCurrentHP <= 0) {
+                                this.aGui.println(this.aPlayerPokemon.getName() + " fainted!");
+                                this.aPlayerPokemonLeft--;
+
+                                if (this.aPlayerPokemonLeft <= 0) {
+                                    this.endBattle(false);
+                                } else {
+                                    this.aPlayerPokemonIndex++;
+                                    this.aPlayerPokemon = this.aEngine.getPlayer().getPokemon(this.aPlayerPokemonIndex);
+                                    this.aPlayerCurrentHP = this.aPlayerPokemon.getHp();
+                                    this.aGui.println("Go, " + this.aPlayerPokemon.getName() + "!");
+                                    this.aGui.showPlayerPokemonImage(this.aPlayerPokemon.getName() + " solo.png");
+                                    this.aGui.showOpponentPokemonImage(this.aOpponentPokemon.getName() + " solo.png");
+                                    this.updateHP();
+                                    this.setupAttackButtons();
+                                    this.delayThenEnable();
+                                }
+                            } else {
+                                // Both alive - back to solo images, enable buttons
+                                this.aGui.showPlayerPokemonImage(this.aPlayerPokemon.getName() + " solo.png");
+                                this.aGui.showOpponentPokemonImage(this.aOpponentPokemon.getName() + " solo.png");
+                                this.setButtonsEnabled(true);
                             }
-                            javax.swing.SwingUtilities.invokeLater(
-                                    () -> {
-                                        // Check if opponent fainted
-                                        if (this.aOpponentCurrentHP <= 0) {
-                                            this.aGui.println(
-                                                    this.aOpponentPokemon.getName() + " fainted!");
-                                            this.aOpponentPokemonLeft--;
+                        });
+                    }).start();
+                } else {
+                    // Opponent has no moves
+                    this.aGui.showOpponentPokemonImage(this.aOpponentPokemon.getName() + " solo.png");
+                    this.setButtonsEnabled(true);
+                }
+            });
+        }).start();
+    } // playerTurn()
 
-                                            if (this.aOpponentPokemonLeft <= 0) {
-                                                this.endBattle(true);
-                                            } else {
-                                                this.aOpponentPokemonIndex++;
-                                                this.aOpponentPokemon =
-                                                        this.aOpponent.getPokemon(
-                                                                this.aOpponentPokemonIndex);
-                                                this.aOpponentCurrentHP =
-                                                        this.aOpponentPokemon.getHp();
-                                                this.aGui.println(
-                                                        this.aOpponent.getName()
-                                                                + " sent out "
-                                                                + this.aOpponentPokemon.getName()
-                                                                + "!");
-                                                this.aGui.showOpponentPokemonImage(
-                                                        this.aOpponentPokemon.getName()
-                                                                + " solo.png");
-                                                this.aGui.showPlayerPokemonImage(
-                                                        this.aPlayerPokemon.getName()
-                                                                + " solo.png");
-                                                this.updateHP();
-                                                this.delayThenEnable();
-                                            }
-                                            return;
-                                        }
-
-                                        // Opponent attacks back - pick random move
-                                        java.util.HashMap<String, pkg_entities.Attack> vOpponentMoves =
-                                                this.aOpponentPokemon.getMoves();
-                                        if (vOpponentMoves.size() > 0) {
-                                            java.util.ArrayList<String> vOpponentMoveNames = new java.util.ArrayList<>(vOpponentMoves.keySet());
-                                            java.util.Random vRandom = new java.util.Random();
-                                            String vOpponentMoveName =
-                                                    vOpponentMoveNames.get(vRandom.nextInt(vOpponentMoveNames.size()));
-                                            int vOpponentDamage =
-                                                    vOpponentMoves.get(vOpponentMoveName).getDamage();
-
-                                            if (vOpponentDamage == 0) {
-                                                this.aGui.println(this.aOpponentPokemon.getName() + " used " + vOpponentMoveName + "! But it missed!");
-                                            } else {
-                                                this.aGui.println(this.aOpponentPokemon.getName() + " used " + vOpponentMoveName + "! Dealt " + vOpponentDamage + " damage!");
-                                            }
-                                            this.aGui.showPlayerPokemonImage(
-                                                    this.aPlayerPokemon.getName() + " dammage.gif");
-                                            this.aPlayerCurrentHP -= vOpponentDamage;
-                                            if (this.aPlayerCurrentHP < 0)
-                                                this.aPlayerCurrentHP = 0;
-                                            this.updateHP();
-
-                                            // Wait 2s for player damage animation
-                                            new Thread(
-                                                            () -> {
-                                                                try {
-                                                                    Thread.sleep(2000);
-                                                                } catch (InterruptedException e2) {
-                                                                }
-                                                                javax.swing.SwingUtilities
-                                                                        .invokeLater(
-                                                                                () -> {
-                                                                                    if (this
-                                                                                                    .aPlayerCurrentHP
-                                                                                            <= 0) {
-                                                                                        this.aGui
-                                                                                                .println(
-                                                                                                        this
-                                                                                                                        .aPlayerPokemon
-                                                                                                                        .getName()
-                                                                                                                + " fainted!");
-                                                                                        this
-                                                                                                .aPlayerPokemonLeft--;
-
-                                                                                        if (this
-                                                                                                        .aPlayerPokemonLeft
-                                                                                                <= 0) {
-                                                                                            this
-                                                                                                    .endBattle(
-                                                                                                            false);
-                                                                                        } else {
-                                                                                            this
-                                                                                                    .aPlayerPokemonIndex++;
-                                                                                            this
-                                                                                                            .aPlayerPokemon =
-                                                                                                    this
-                                                                                                            .aEngine
-                                                                                                            .getPlayer()
-                                                                                                            .getPokemon(
-                                                                                                                    this
-                                                                                                                            .aPlayerPokemonIndex);
-                                                                                            this
-                                                                                                            .aPlayerCurrentHP =
-                                                                                                    this
-                                                                                                            .aPlayerPokemon
-                                                                                                            .getHp();
-                                                                                            this
-                                                                                                    .aGui
-                                                                                                    .println(
-                                                                                                            "Go, "
-                                                                                                                    + this
-                                                                                                                            .aPlayerPokemon
-                                                                                                                            .getName()
-                                                                                                                    + "!");
-                                                                                            this
-                                                                                                    .aGui
-                                                                                                    .showPlayerPokemonImage(
-                                                                                                            this
-                                                                                                                            .aPlayerPokemon
-                                                                                                                            .getName()
-                                                                                                                    + " solo.png");
-                                                                                            this
-                                                                                                    .aGui
-                                                                                                    .showOpponentPokemonImage(
-                                                                                                            this
-                                                                                                                            .aOpponentPokemon
-                                                                                                                            .getName()
-                                                                                                                    + " solo.png");
-                                                                                            this
-                                                                                                    .updateHP();
-                                                                                            this
-                                                                                                    .setupAttackButtons();
-                                                                                            this
-                                                                                                    .delayThenEnable();
-                                                                                        }
-                                                                                    } else {
-                                                                                        // Both
-                                                                                        // alive -
-                                                                                        // back to
-                                                                                        // solo
-                                                                                        // images,
-                                                                                        // enable
-                                                                                        // buttons
-                                                                                        this.aGui
-                                                                                                .showPlayerPokemonImage(
-                                                                                                        this
-                                                                                                                        .aPlayerPokemon
-                                                                                                                        .getName()
-                                                                                                                + " solo.png");
-                                                                                        this.aGui
-                                                                                                .showOpponentPokemonImage(
-                                                                                                        this
-                                                                                                                        .aOpponentPokemon
-                                                                                                                        .getName()
-                                                                                                                + " solo.png");
-                                                                                        this
-                                                                                                .setButtonsEnabled(
-                                                                                                        true);
-                                                                                    }
-                                                                                });
-                                                            })
-                                                    .start();
-                                        } else {
-                                            // Opponent has no moves
-                                            this.aGui.showOpponentPokemonImage(
-                                                    this.aOpponentPokemon.getName() + " solo.png");
-                                            this.setButtonsEnabled(true);
-                                        }
-                                    });
-                        })
-                .start();
-    }
-
+    /**
+     * Waits briefly, then re-enables battle buttons if battle is still active.
+     */
     private void delayThenEnable() {
-        new Thread(
-                        () -> {
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e) {
-                            }
-                            javax.swing.SwingUtilities.invokeLater(
-                                    () -> {
-                                        if (this.aBattleActive) {
-                                            this.setButtonsEnabled(true);
-                                        }
-                                    });
-                        })
-                .start();
-    }
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+            }
+            SwingUtilities.invokeLater(() -> {
+                if (this.aBattleActive) {
+                    this.setButtonsEnabled(true);
+                }
+            });
+        }).start();
+    } // delayThenEnable()
 
+    /**
+     * Enables or disables battle action buttons based on move count and state.
+     *
+     * @param pEnabled {@code true} to enable allowed actions
+     */
     private void setButtonsEnabled(boolean pEnabled) {
         int vMoveCount = this.aPlayerPokemon.getMoves().size();
         this.aGui.getAttack1Button().setEnabled(pEnabled);
@@ -371,8 +331,13 @@ public class BattleManager {
         this.aGui.getAttack3Button().setEnabled(pEnabled && vMoveCount > 2);
         this.aGui.getAttack4Button().setEnabled(pEnabled && vMoveCount > 3);
         this.aGui.getRunButton().setEnabled(pEnabled);
-    }
+    } // setButtonsEnabled()
 
+    /**
+     * Finalizes a battle, shows outcome text, and returns to exploration mode.
+     *
+     * @param pPlayerWon {@code true} if the player won
+     */
     private void endBattle(boolean pPlayerWon) {
         this.aBattleActive = false;
         this.setButtonsEnabled(false);
@@ -393,25 +358,21 @@ public class BattleManager {
         this.aGui.showOpponentPokemonImage(this.aOpponent.getName() + "_battle.png");
 
         // Wait then return to exploration
-        new Thread(
-                        () -> {
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e) {
-                            }
-                            javax.swing.SwingUtilities.invokeLater(
-                                    () -> {
-                                        this.aGui.endBattle();
-                                        this.aGui.println(
-                                                this.aEngine
-                                                        .getPlayer()
-                                                        .getCurrentRoom()
-                                                        .getLongDescription());
-                                    });
-                        })
-                .start();
-    }
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+            }
+            SwingUtilities.invokeLater(() -> {
+                this.aGui.endBattle();
+                this.aGui.println(this.aEngine.getPlayer().getCurrentRoom().getLongDescription());
+            });
+        }).start();
+    } // endBattle()
 
+    /**
+     * Ends the current battle as a run-away action and returns to exploration.
+     */
     private void runAway() {
         this.aGui.println("\nYou ran away!");
         this.aBattleActive = false;
@@ -421,22 +382,15 @@ public class BattleManager {
         this.aGui.showPlayerPokemonImage("trainer_battle.png");
         this.aGui.showOpponentPokemonImage(this.aOpponent.getName() + "_battle.png");
 
-        new Thread(
-                        () -> {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                            }
-                            javax.swing.SwingUtilities.invokeLater(
-                                    () -> {
-                                        this.aGui.endBattle();
-                                        this.aGui.println(
-                                                this.aEngine
-                                                        .getPlayer()
-                                                        .getCurrentRoom()
-                                                        .getLongDescription());
-                                    });
-                        })
-                .start();
-    }
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+            SwingUtilities.invokeLater(() -> {
+                this.aGui.endBattle();
+                this.aGui.println(this.aEngine.getPlayer().getCurrentRoom().getLongDescription());
+            });
+        }).start();
+    } // runAway()
 }

@@ -1,9 +1,10 @@
 package pkg_commands;
 
 import pkg_engine.GameEngine;
-
 import pkg_entities.Room;
 import pkg_entities.Trainer;
+
+import java.util.HashMap;
 
 /**
  * Starts a trainer battle, or lists available trainers when no trainer name is provided.
@@ -18,7 +19,7 @@ public class BattleCommand extends Command {
     /** Creates a battle command ready for the player's turn. */
     public BattleCommand() {
         this.aIsTurn = true;
-    }
+    } // BattleCommand()
 
     /**
      * Executes the battle command.
@@ -28,25 +29,14 @@ public class BattleCommand extends Command {
      */
     public boolean execute(final GameEngine pGameEngine) {
         if (!this.hasSecondWord()) {
-            pGameEngine.getGui().println("Trainers in this room:");
-            final java.util.ArrayList<String> vTrainerNames =
-                    pGameEngine.getPlayer().getCurrentRoom().getTrainerNames();
-
-            if (vTrainerNames.isEmpty()) {
-                pGameEngine.getGui().println("No trainers here!");
-            } else {
-                for (final String vName : vTrainerNames) {
-                    pGameEngine.getGui().println("- " + vName);
-                }
-                pGameEngine.getGui().println("\nUse: battle <trainer_name>");
-            }
+            pGameEngine.getGui().println("\nUse: battle <trainer_name>");
             return false;
         }
 
-        final String vTrainerName = this.getSecondWord();
-        final Room vCurrentRoom = pGameEngine.getPlayer().getCurrentRoom();
-        final java.util.HashMap<String, Trainer> vTrainers = vCurrentRoom.getAllTrainers();
-        final Trainer vTrainer = vTrainers.get(vTrainerName);
+        String vTrainerName = this.getSecondWord();
+        Room vCurrentRoom = pGameEngine.getPlayer().getCurrentRoom();
+        HashMap<String, Trainer> vTrainers = vCurrentRoom.getAllTrainers();
+        Trainer vTrainer = vTrainers.get(vTrainerName);
 
         if (vTrainer == null) {
             pGameEngine.getGui().println("There is no trainer by that name here!");
@@ -58,17 +48,14 @@ public class BattleCommand extends Command {
             return false;
         }
 
-        if (vTrainerName.equals("Rayquaza")
-                && pGameEngine.getPlayer().getItem("delta-orb") == null) {
-            pGameEngine
-                    .getGui()
-                    .println("You need the Delta Orb to battle Rayquaza! Find it and come back!");
+        if (vTrainerName.equals("Rayquaza") && pGameEngine.getPlayer().getItem("delta-orb") == null) {
+            pGameEngine.getGui().println("You need the Delta Orb to battle Rayquaza! Find it and come back!");
             return false;
         }
 
         pGameEngine.getBattleManager().startBattle(vTrainer);
         return false;
-    }
+    } // execute()
 
     /**
      * Indicates whether the command is in a player turn.
@@ -77,5 +64,5 @@ public class BattleCommand extends Command {
      */
     public boolean isTurn() {
         return this.aIsTurn;
-    }
+    } // isTurn()
 }

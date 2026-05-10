@@ -23,7 +23,7 @@ public class Item {
     public Item(final String pDescription, final int pPrice) {
         this.aDescription = pDescription;
         this.aPrice = pPrice;
-    }
+    } // Item()
 
     /**
      * Returns the numeric price associated with this item.
@@ -41,5 +41,5 @@ public class Item {
      */
     public String getItemDescription() {
         return "There is " + this.aDescription + '\n' + "Item price: " + this.aPrice;
-    }
+    } // getItemDescription()
 } // Item

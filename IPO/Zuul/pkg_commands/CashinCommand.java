@@ -26,24 +26,20 @@ public class CashinCommand extends Command {
         if (!this.hasSecondWord()) {
             pGameEngine.getGui().println("You need something to cash in!");
             return false;
-        }
-        final String vItemName = this.getSecondWord();
-        final HashMap<String, Integer> vCashableItem = new HashMap<String, Integer>();
+    }
+        String vItemName = this.getSecondWord();
+        HashMap<String, Integer> vCashableItem = new HashMap<String, Integer>();
         vCashableItem.put("grant", 75);
         vCashableItem.put("wallet", 25);
 
         if (vCashableItem.containsKey(vItemName)) {
-            final Item vItem = pGameEngine.getPlayer().getItem(vItemName);
+            Item vItem = pGameEngine.getPlayer().getItem(vItemName);
             if (vItem != null) {
-                final int vReward = vCashableItem.get(vItemName);
+                int vReward = vCashableItem.get(vItemName);
                 pGameEngine.getPlayer().setMoney(pGameEngine.getPlayer().getMoney() + vReward);
                 pGameEngine.getPlayer().removeItem(vItemName);
-                pGameEngine
-                        .getGui()
-                        .println("You have cashed in your " + vItemName + " and are now richer!");
-                pGameEngine
-                        .getGui()
-                        .println("Your current money is: " + pGameEngine.getPlayer().getMoney());
+                pGameEngine.getGui().println("You have cashed in your " + vItemName + " and are now richer!");
+                pGameEngine.getGui().println("Your current money is: " + pGameEngine.getPlayer().getMoney());
             } else {
                 pGameEngine.getGui().println("You don't have a " + vItemName + " to cash in.");
             }
@@ -51,5 +47,5 @@ public class CashinCommand extends Command {
             pGameEngine.getGui().println("You can't cash that in.");
         }
         return false;
-    }
+    } // execute()
 }

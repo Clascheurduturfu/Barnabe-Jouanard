@@ -25,5 +25,5 @@ public class InventoryCommand extends Command {
         }
         pGameEngine.getGui().println(pGameEngine.getPlayer().getItemInventory());
         return false;
-    }
+    } // execute()
 }

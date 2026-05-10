@@ -32,10 +32,10 @@ public class Pokemon {
         this.aName = pName;
         this.aHp = pHp;
         this.aMoves = new HashMap<>();
-        for (final Attack vMove : pMoves) {
+        for (Attack vMove : pMoves) {
             this.aMoves.put(vMove.getName(), vMove);
         }
-    }
+    } // Pokemon()
 
     /**
      * Returns this Pokemon's maximum hit points.
@@ -44,7 +44,7 @@ public class Pokemon {
      */
     public int getHp() {
         return this.aHp;
-    }
+    } // getHp()
 
     /**
      * Returns this Pokemon's name.
@@ -53,7 +53,7 @@ public class Pokemon {
      */
     public String getName() {
         return this.aName;
-    }
+    } // getName()
 
     /**
      * Reduces this Pokemon's stored hit points.
@@ -62,7 +62,7 @@ public class Pokemon {
      */
     public void reduceHp(final int pDamage) {
         this.aHp -= pDamage;
-    }
+    } // reduceHp()
 
     /**
      * Returns the move table used by the battle UI.
@@ -71,5 +71,5 @@ public class Pokemon {
      */
     public HashMap<String, Attack> getMoves() {
         return this.aMoves;
-    }
+    } // getMoves()
 }

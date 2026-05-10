@@ -27,11 +27,7 @@ public class TransporterRoom extends Room {
      * @param pMapImage map image filename
      * @param pTargetRooms destinations available to the teleporter
      */
-    public TransporterRoom(
-            final String pDescription,
-            final String pImage,
-            final String pMapImage,
-            final ArrayList<Room> pTargetRooms) {
+    public TransporterRoom(final String pDescription,final String pImage,final String pMapImage,final ArrayList<Room> pTargetRooms) {
         super(pDescription, pImage, pMapImage);
         this.aTargetRooms = pTargetRooms.toArray(new Room[0]);
         this.aForcedRoom = null;
@@ -46,9 +42,9 @@ public class TransporterRoom extends Room {
         if (this.aForcedRoom != null) {
             return this.aForcedRoom;
         }
-        final Random vRandom = new Random();
+        Random vRandom = new Random();
         return this.aTargetRooms[vRandom.nextInt(this.aTargetRooms.length)];
-    }
+    } // getRandomRoom()
 
     /**
      * Forces the teleporter to send the player to a specific room id.
@@ -83,11 +79,11 @@ public class TransporterRoom extends Room {
                 break;
             default:
                 this.aForcedRoom = null;
-        }
     }
+    } // setForcedRoom()
 
     /** Clears the forced destination so the teleporter becomes random again. */
     public void resetForcedRoom() {
         this.aForcedRoom = null;
-    }
+    } // resetForcedRoom()
 }

@@ -31,7 +31,7 @@ import javax.swing.JTextField;
  * @author Michael Kolling
  * @version 1.0 (Jan 2003) DB edited (2023)
  */
-public final class UserInterface implements ActionListener {
+public class UserInterface implements ActionListener {
     /** Top-level window hosting all components. */
     private JFrame aMyFrame;
 
@@ -80,6 +80,7 @@ public final class UserInterface implements ActionListener {
     /** Parser used to turn user input into commands. */
     private Parser aParser;
 
+    /** Game engine receiving parsed commands from this UI. */
     private GameEngine aEngine;
 
     /** Main exploration UI panel */
@@ -164,10 +165,7 @@ public final class UserInterface implements ActionListener {
             System.out.println("Image not found: " + vImagePath);
         } else {
             ImageIcon vIcon = new ImageIcon(vImageURL);
-            this.aMap.setIcon(
-                    new ImageIcon(
-                            vIcon.getImage()
-                                    .getScaledInstance(460, 345, java.awt.Image.SCALE_SMOOTH)));
+            this.aMap.setIcon(new ImageIcon(vIcon.getImage().getScaledInstance(460, 345, java.awt.Image.SCALE_SMOOTH)));
         }
     } // showMap(.)
 
@@ -333,7 +331,7 @@ public final class UserInterface implements ActionListener {
         vAttackPanel.add(this.aAttack2Button);
         vAttackPanel.add(this.aAttack3Button);
         vAttackPanel.add(this.aAttack4Button);
-        vAttackPanel.add(new JLabel()); // Empty space
+        vAttackPanel.add(new JLabel());
         vAttackPanel.add(this.aRunButton);
 
         this.aBattlePanel.add(vHPPanel, BorderLayout.NORTH);
@@ -375,10 +373,7 @@ public final class UserInterface implements ActionListener {
         } else {
             if (pImageName.endsWith(".png")) {
                 ImageIcon vIcon = new ImageIcon(vImageURL);
-                this.aPlayerPokemonImage.setIcon(
-                        new ImageIcon(
-                                vIcon.getImage()
-                                        .getScaledInstance(960, 904, java.awt.Image.SCALE_SMOOTH)));
+                this.aPlayerPokemonImage.setIcon(new ImageIcon(vIcon.getImage().getScaledInstance(960, 904, java.awt.Image.SCALE_SMOOTH)));
             } else {
                 ImageIcon vIcon = new ImageIcon(vImageURL);
                 vIcon.getImage().flush();
@@ -401,10 +396,7 @@ public final class UserInterface implements ActionListener {
         } else {
             if (pImageName.endsWith(".png")) {
                 ImageIcon vIcon = new ImageIcon(vImageURL);
-                this.aOpponentPokemonImage.setIcon(
-                        new ImageIcon(
-                                vIcon.getImage()
-                                        .getScaledInstance(960, 904, java.awt.Image.SCALE_SMOOTH)));
+                this.aOpponentPokemonImage.setIcon(new ImageIcon(vIcon.getImage().getScaledInstance(960, 904, java.awt.Image.SCALE_SMOOTH)));
             } else {
                 ImageIcon vIcon = new ImageIcon(vImageURL);
                 vIcon.getImage().flush();
@@ -444,7 +436,7 @@ public final class UserInterface implements ActionListener {
      */
     public JButton getAttack1Button() {
         return this.aAttack1Button;
-    }
+    } // getAttack1Button()
 
     /**
      * Gets attack button 2 for adding listeners.
@@ -453,7 +445,7 @@ public final class UserInterface implements ActionListener {
      */
     public JButton getAttack2Button() {
         return this.aAttack2Button;
-    }
+    } // getAttack2Button()
 
     /**
      * Gets attack button 3 for adding listeners.
@@ -462,7 +454,7 @@ public final class UserInterface implements ActionListener {
      */
     public JButton getAttack3Button() {
         return this.aAttack3Button;
-    }
+    } // getAttack3Button()
 
     /**
      * Gets attack button 4 for adding listeners.
@@ -471,7 +463,7 @@ public final class UserInterface implements ActionListener {
      */
     public JButton getAttack4Button() {
         return this.aAttack4Button;
-    }
+    } // getAttack4Button()
 
     /**
      * Gets run button for adding listeners.
@@ -480,7 +472,7 @@ public final class UserInterface implements ActionListener {
      */
     public JButton getRunButton() {
         return this.aRunButton;
-    }
+    } // getRunButton()
 
     /**
      * Dispatches button clicks as canned commands, or reads the text field on Enter.
@@ -492,7 +484,7 @@ public final class UserInterface implements ActionListener {
         if (this.aButtonGoNorth.equals(pE.getSource())) {
             this.println("\n\n> go north\n");
             this.aParser.getCommand("go north").execute(this.aEngine);
-        } else if (this.aButtonGoSouth.equals(pE.getSource())) {
+        } else if (this.aButtonGoSouth.equals(pE.getSource())) { // actionPerformed()
             this.println("\n\n> go south\n");
             this.aParser.getCommand("go south").execute(this.aEngine);
         } else if (this.aButtonGoEast.equals(pE.getSource())) {
@@ -517,9 +509,9 @@ public final class UserInterface implements ActionListener {
             this.println("\n\n> help\n");
             this.aParser.getCommand("help").execute(this.aEngine);
         } else {
-            final String vInput = this.aEntryField.getText();
+            String vInput = this.aEntryField.getText();
             this.println("\n\n> " + vInput + "\n");
-            final Command vCommand = this.aParser.getCommand(vInput);
+            Command vCommand = this.aParser.getCommand(vInput);
             if (vCommand == null) {
                 this.println("I don't know what you mean...");
             } else {
@@ -545,7 +537,7 @@ public final class UserInterface implements ActionListener {
      */
     public void setProgressString(final String pText) {
         this.aProgressBar.setString(pText);
-    } // setProgress()
+    } // setProgressString()
 
     /**
      * Returns the current value of the progress bar.

@@ -24,9 +24,9 @@ public class DropCommand extends Command {
         if (!this.hasSecondWord()) {
             pGameEngine.getGui().println("Drop what?");
             return false;
-        }
-        final String vItemName = this.getSecondWord();
-        final Item vItem = pGameEngine.getPlayer().getItem(vItemName);
+    }
+        String vItemName = this.getSecondWord();
+        Item vItem = pGameEngine.getPlayer().getItem(vItemName);
         if (vItem == null) {
             pGameEngine.getGui().println("I can't find any " + vItemName + "!");
             return false;
@@ -39,5 +39,5 @@ public class DropCommand extends Command {
             pGameEngine.getGui().showMap("no map.jpeg");
         }
         return false;
-    }
+    } // execute()
 }

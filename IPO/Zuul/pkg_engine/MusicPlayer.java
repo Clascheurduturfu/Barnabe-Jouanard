@@ -6,9 +6,16 @@ import java.io.FileInputStream;
 
 /** Plays an MP3 file in a loop on a background thread. */
 public class MusicPlayer {
+    /** MP3 file path to play on loop. */
     private String aFilePath;
+
+    /** Active JLayer player instance for the current playback cycle. */
     private Player aPlayer;
+
+    /** Background thread responsible for continuous playback. */
     private Thread aThread;
+
+    /** Indicates whether playback loop should keep running. */
     private boolean aIsPlaying;
 
     /**
@@ -19,7 +26,7 @@ public class MusicPlayer {
     public MusicPlayer(final String pFilePath) {
         this.aFilePath = pFilePath;
         this.aIsPlaying = false;
-    }
+    } // MusicPlayer()
 
     /** Starts playing the MP3 in a loop on a background thread. */
     public void playLoop() {
@@ -33,7 +40,7 @@ public class MusicPlayer {
                                     this.aPlayer = new Player(vFIS);
                                     this.aPlayer.play();
                                     this.aPlayer.close();
-                                } catch (Exception e) {
+                                } catch (Exception e) { // playLoop()
                                     System.out.println("Error playing music: " + e.getMessage());
                                     this.aIsPlaying = false;
                                 }
@@ -41,13 +48,13 @@ public class MusicPlayer {
                         });
         this.aThread.setDaemon(true);
         this.aThread.start();
-    }
+    } // playLoop()
 
     /** Stops the music. */
     public void stop() {
         this.aIsPlaying = false;
         if (this.aPlayer != null) {
             this.aPlayer.close();
-        }
     }
+    } // stop()
 }

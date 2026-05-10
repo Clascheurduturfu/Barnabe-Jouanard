@@ -23,10 +23,10 @@ public class NameCommand extends Command {
             pGameEngine.getGui().println("You need a name!");
             return false;
         }
-        final String vName = this.getSecondWord();
+        String vName = this.getSecondWord();
         pGameEngine.getPlayer().setName(vName);
         pGameEngine.getGui().println("Your new name is " + pGameEngine.getPlayer().getName() + '!');
         pGameEngine.printWelcome();
         return false;
-    }
+    } // execute()
 }

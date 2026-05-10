@@ -7,8 +7,7 @@ import pkg_engine.UserInterface;
  * Application entry point for the Zuul-style Pokémon adventure game.
  *
  * <p>This class wires the {@link GameEngine} to the {@link UserInterface} so that player input is
- * displayed and processed through a single {@code main}-less bootstrap (typical BlueJ style:
- * instantiate {@code Game} to start).
+ * displayed and processed through a single {@code main} instantiate {@code Game} to start.
  *
  * @author Barnabe Jouanard
  * @version 2026.02.17

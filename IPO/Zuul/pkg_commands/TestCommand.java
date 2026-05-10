@@ -29,22 +29,21 @@ public class TestCommand extends Command {
 
         pGameEngine.setTest(true);
 
-        final String vFileName = this.getSecondWord() + ".txt";
-        final InputStream vInputStream =
-                this.getClass().getClassLoader().getResourceAsStream(vFileName);
+        String vFileName = this.getSecondWord() + ".txt";
+        InputStream vInputStream = this.getClass().getClassLoader().getResourceAsStream(vFileName);
 
         if (vInputStream == null) {
             pGameEngine.getGui().println("File not found: " + vFileName);
             return false;
         }
 
-        final Scanner vScanner = new Scanner(vInputStream);
-        final Parser vParser = new Parser();
+        Scanner vScanner = new Scanner(vInputStream);
+        Parser vParser = new Parser();
 
         while (vScanner.hasNextLine()) {
-            final String vLine = vScanner.nextLine();
+            String vLine = vScanner.nextLine();
             pGameEngine.getGui().println("\n\n> " + vLine + "\n");
-            final Command vCommand = vParser.getCommand(vLine);
+            Command vCommand = vParser.getCommand(vLine);
             if (vCommand != null) {
                 vCommand.execute(pGameEngine);
             }
@@ -53,5 +52,5 @@ public class TestCommand extends Command {
         vScanner.close();
         pGameEngine.setTest(false);
         return false;
-    }
+    } // execute()
 }

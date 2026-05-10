@@ -32,7 +32,7 @@ public class CommandWords {
         this.aCommands.put("inventory", new InventoryCommand());
         this.aCommands.put("save", new SaveCommand());
         this.aCommands.put("load", new LoadCommand());
-    }
+    } // CommandWords()
 
     /**
      * Given a command word, finds and returns the matching command object.
@@ -42,7 +42,7 @@ public class CommandWords {
      */
     public Command get(final String pWord) {
         return this.aCommands.get(pWord);
-    }
+    } // get()
 
     /**
      * Tests membership of {@code pString} in the internal command table (case-sensitive).
@@ -61,9 +61,9 @@ public class CommandWords {
      */
     public String getCommandList() {
         String vCommandList = "";
-        for (final String vCommand : this.aCommands.keySet()) {
+        for (String vCommand : this.aCommands.keySet()) {
             vCommandList += vCommand + " ";
-        }
+    }
         return vCommandList;
     } // getCommandList()
 } // CommandWords

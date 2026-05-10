@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import java.util.ArrayList;
+
 /**
  * Implements the {@code load} command, restoring game state from a save file.
  *
@@ -31,14 +33,13 @@ public class LoadCommand extends Command {
             return false;
         }
 
-        final String vFileName = this.getSecondWord() + ".sav";
+        String vFileName = this.getSecondWord() + ".sav";
 
         try (BufferedReader vReader = new BufferedReader(new FileReader(vFileName))) {
             String vLine;
 
             // Clear player inventory first
-            for (String vItemName :
-                    new java.util.ArrayList<>(pGameEngine.getPlayer().getItems().keySet())) {
+            for (String vItemName :new ArrayList<>(pGameEngine.getPlayer().getItems().keySet())) {
                 pGameEngine.getPlayer().removeItem(vItemName);
             }
 
@@ -65,13 +66,7 @@ public class LoadCommand extends Command {
                             if (!vPair.isEmpty()) {
                                 String[] vParts = vPair.split("-");
                                 if (vParts.length == 2) {
-                                    pGameEngine
-                                            .getPlayer()
-                                            .addItem(
-                                                    vParts[0],
-                                                    new Item(
-                                                            vParts[0],
-                                                            Integer.parseInt(vParts[1])));
+                                    pGameEngine.getPlayer().addItem(vParts[0],new Item(vParts[0],Integer.parseInt(vParts[1])));
                                 }
                             }
                         }
@@ -105,9 +100,7 @@ public class LoadCommand extends Command {
 
                                 Room vOldRoom = vTrainer.getCurrentRoom();
                                 Room vNewRoom = pGameEngine.getRoomById(vRoomId);
-                                if (vOldRoom != null
-                                        && vNewRoom != null
-                                        && !vOldRoom.equals(vNewRoom)) {
+                                if (vOldRoom != null && vNewRoom != null && !vOldRoom.equals(vNewRoom)) {
                                     vOldRoom.removeTrainer(vName);
                                     vNewRoom.addTrainer(vTrainer);
                                     vTrainer.setCurrentRoom(vNewRoom);
@@ -127,8 +120,7 @@ public class LoadCommand extends Command {
                         Room vRoom = pGameEngine.getRoomById(vRoomId);
                         if (vRoom != null) {
                             // Clear existing items
-                            for (String vItemName :
-                                    new java.util.ArrayList<>(vRoom.getItems().keySet())) {
+                            for (String vItemName : new ArrayList<>(vRoom.getItems().keySet())) {
                                 vRoom.removeItem(vItemName);
                             }
 
@@ -138,11 +130,7 @@ public class LoadCommand extends Command {
                                     if (!vItemPair.isEmpty()) {
                                         String[] vItemParts = vItemPair.split("=");
                                         if (vItemParts.length == 2) {
-                                            vRoom.addItem(
-                                                    vItemParts[0],
-                                                    new Item(
-                                                            vItemParts[0],
-                                                            Integer.parseInt(vItemParts[1])));
+                                            vRoom.addItem(vItemParts[0],new Item(vItemParts[0],Integer.parseInt(vItemParts[1])));
                                         }
                                     }
                                 }
@@ -153,17 +141,11 @@ public class LoadCommand extends Command {
             }
 
             pGameEngine.getGui().println("Game loaded from " + vFileName);
-            pGameEngine
-                    .getGui()
-                    .println(pGameEngine.getPlayer().getCurrentRoom().getLongDescription());
+            pGameEngine.getGui().println(pGameEngine.getPlayer().getCurrentRoom().getLongDescription());
             if (pGameEngine.getPlayer().getCurrentRoom().getImageName() != null) {
-                pGameEngine
-                        .getGui()
-                        .showImage(pGameEngine.getPlayer().getCurrentRoom().getImageName());
+                pGameEngine.getGui().showImage(pGameEngine.getPlayer().getCurrentRoom().getImageName());
                 if (pGameEngine.getPlayer().getItem("map") != null) {
-                    pGameEngine
-                            .getGui()
-                            .showMap(pGameEngine.getPlayer().getCurrentRoom().getMapImageName());
+                    pGameEngine.getGui().showMap(pGameEngine.getPlayer().getCurrentRoom().getMapImageName());
                 }
             }
 
@@ -176,5 +158,5 @@ public class LoadCommand extends Command {
             pGameEngine.getGui().println("Save file corrupted!");
             return false;
         }
-    }
+    } // execute()
 }

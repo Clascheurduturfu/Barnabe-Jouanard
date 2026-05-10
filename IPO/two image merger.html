@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imaginary Technique: Hollow Purple</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            margin: 0;
+        }
+        h1 {
+            color: #a855f7;
+            text-shadow: 0 0 10px #a855f7;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        p {
+            color: #aaaaaa;
+            margin-bottom: 2rem;
+        }
+        .upload-container {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 800px;
+            justify-content: space-between;
+        }
+        .upload-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 12px;
+            width: 45%;
+            border: 2px dashed #444;
+            transition: 0.3s;
+        }
+        .upload-box.blue { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+        .upload-box.red { border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
+        
+        input[type="file"] {
+            margin-top: 10px;
+            color: #fff;
+        }
+        
+        .smash-btn {
+            background: linear-gradient(90deg, #3b82f6 0%, #a855f7 50%, #ef4444 100%);
+            border: none;
+            padding: 15px 40px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 2rem;
+        }
+        
+        .smash-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
+        }
+
+        .smash-btn:disabled {
+            background: #333;
+            color: #666;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #resultCanvas {
+            max-width: 100%;
+            height: auto; /* Keeps it responsive on screen without squashing original res */
+            background: #000;
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.4);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Imaginary Technique</h1>
+    <p>Upload the Blue (Left) and the Red (Right) to synthesize Hollow Purple.</p>
+
+    <div class="upload-container">
+        <!-- Cursed Technique Lapse: Blue -->
+        <div class="upload-box blue">
+            <h3>🔵 Lapse: Blue (Left)</h3>
+            <input type="file" id="imageLeft" accept="image/*">
+        </div>
+
+        <!-- Cursed Technique Reversal: Red -->
+        <div class="upload-box red">
+            <h3>🔴 Reversal: Red (Right)</h3>
+            <input type="file" id="imageRight" accept="image/*">
+        </div>
+    </div>
+
+    <button id="smashBtn" class="smash-btn" disabled>SMASH TOGETHER (HOLLOW PURPLE)</button>
+
+    <canvas id="resultCanvas"></canvas>
+
+    <script>
+        const inputLeft = document.getElementById('imageLeft');
+        const inputRight = document.getElementById('imageRight');
+        const smashBtn = document.getElementById('smashBtn');
+        const canvas = document.getElementById('resultCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let imgLeft = new Image();
+        let imgRight = new Image();
+        let leftLoaded = false;
+        let rightLoaded = false;
+
+        function checkReady() {
+            if (leftLoaded && rightLoaded) {
+                smashBtn.disabled = false;
+                smashBtn.innerText = "SMASH TOGETHER (HOLLOW PURPLE)";
+            }
+        }
+
+        inputLeft.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    imgLeft.onload = () => { leftLoaded = true; checkReady(); }
+                    imgLeft.src = event.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        inputRight.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    imgRight.onload = () => { rightLoaded = true; checkReady(); }
+                    imgRight.src = event.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        smashBtn.addEventListener('click', function() {
+            canvas.style.display = 'block';
+            
+            // Set canvas size strictly to the RIGHT image's resolution
+            const CANVAS_WIDTH = imgRight.width;
+            const CANVAS_HEIGHT = imgRight.height;
+            canvas.width = CANVAS_WIDTH;
+            canvas.height = CANVAS_HEIGHT;
+
+            ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+            // Draw Left Image (Left Half of Canvas)
+            // It takes the left half of the left image and perfectly scales it to fit the left half of the new canvas height
+            ctx.drawImage(
+                imgLeft, 
+                0, 0, imgLeft.width / 2, imgLeft.height, 
+                0, 0, CANVAS_WIDTH / 2, CANVAS_HEIGHT    
+            );
+
+            // Draw Right Image (Right Half of Canvas)
+            // It takes the right half of the right image and maps it exactly 1:1 on the right half
+            ctx.drawImage(
+                imgRight, 
+                imgRight.width / 2, 0, imgRight.width / 2, imgRight.height, 
+                CANVAS_WIDTH / 2, 0, CANVAS_WIDTH / 2, CANVAS_HEIGHT        
+            );
+            
+            canvas.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

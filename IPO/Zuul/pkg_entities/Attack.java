@@ -32,7 +32,7 @@ public class Attack {
         this.aName = pName;
         this.aDamage = pDamage;
         this.aPrecision = pPrecision;
-    }
+    } // Attack()
 
     /**
      * Calculates the damage for one use of the attack.
@@ -40,9 +40,9 @@ public class Attack {
      * @return the base damage when the attack hits, or {@code 0} when it misses
      */
     public int getDamage() {
-        final Random vRandom = new Random();
-        final int vRoll = vRandom.nextInt(101);
-        final int vFactor;
+        Random vRandom = new Random();
+        int vRoll = vRandom.nextInt(101);
+        int vFactor;
 
         if (vRoll > this.aPrecision) {
             vFactor = 0;
@@ -50,7 +50,7 @@ public class Attack {
             vFactor = 1;
         }
         return this.aDamage * vFactor;
-    }
+    } // getDamage()
 
     /**
      * Returns the attack display name.
@@ -59,5 +59,5 @@ public class Attack {
      */
     public String getName() {
         return this.aName;
-    }
+    } // getName()
 }
